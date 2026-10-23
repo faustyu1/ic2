@@ -30,7 +30,7 @@ import net.minecraft.world.BlockView;
  * <p>1.12.2 had a single block whose tile entity carried type and size, and drew it with a baked
  * model built from the synced connection and cover bytes. Here type and size are the block, and
  * the two bytes of {@link TileEntityPipe} are mirrored into twelve block state booleans, so the
- * model is a multipart (see {@code tools/gen_pipe_models.py}) and the collision box follows the
+ * model is a multipart (see blockstates/*_pipe_*.json) and the collision box follows the
  * same booleans, as getAabbs did.
  */
 public class BlockPipe extends BlockTileEntity {

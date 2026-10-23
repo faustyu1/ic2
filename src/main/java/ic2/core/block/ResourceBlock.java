@@ -6,7 +6,7 @@ import net.minecraft.sound.BlockSoundGroup;
 
 /**
  * Storage/metal blocks parity with original {@code ic2.core.block.type.ResourceBlock}.
- * Original (decompiled/src/ic2/core/block/type/ResourceBlock.java:7): enum ResourceBlock
+ * Original (1.12.2 ic2/core/block/type/ResourceBlock.java): enum ResourceBlock
  * with variants bronze_block(5.0F,10.0F,true), copper_block(4.0F,10.0F,true),
  * lead_block(4.0F,10.0F,true), steel_block(8.0F,10.0F,true), tin_block(4.0F,10.0F,true),
  * uranium_block(6.0F,10.0F,true), silver_block(4.0F,10.0F,true) — all metal sound.

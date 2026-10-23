@@ -20,16 +20,6 @@ loom {
     // opens the biome climate the crops read their humidity bonus from (see ic2.accesswidener)
     accessWidenerPath = file("src/main/resources/ic2.accesswidener")
 
-    runs {
-        gametest {
-            server()
-            name "Game Test"
-            vmArg "-Dfabric-api.gametest"
-            vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit-gametest.xml"
-            runDir "build/gametest"
-        }
-    }
-
     mixin {
         // remap the mixin annotations at remapJar time instead of generating a refmap with the
         // annotation processor, so ic2.mixins.json needs no refmap entry
@@ -65,7 +55,6 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}"
     modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
-    testImplementation 'junit:junit:4.13.2'
 
 }
 
