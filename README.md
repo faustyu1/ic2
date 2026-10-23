@@ -63,10 +63,14 @@ MODRINTH_TOKEN=... scripts/publish-modrinth.sh
 CURSEFORGE_TOKEN=... scripts/publish-curseforge.sh
 ```
 
+The Modrinth project page (summary, description, links, icon) lives in `scripts/modrinth/` and is
+pushed with `python3 scripts/modrinth/setup_project.py`.
+
 `--dry-run` builds and checks the upload without sending it. Release notes can be passed in the
 `CHANGELOG` environment variable. Tokens are read from the environment only; never commit them.
 
 ## License
 
-The code written for this port is shared for the community. The original IndustrialCraft 2 code and
-assets are the property of their authors (see above) and are **not** relicensed by this project.
+The code written for this port is released under the
+[GNU Lesser General Public License v3.0](LICENSE). The original IndustrialCraft 2 code and assets
+remain the property of their authors (see above) and are **not** relicensed by this project.

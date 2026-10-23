@@ -26,7 +26,8 @@
     "sources": "https://github.com/faustyu1/ic2",
     "issues": "https://github.com/faustyu1/ic2/issues"
   },
-  "license": "IC2-License",
+  "license": "LGPL-3.0-only",
+  "icon": "assets/ic2/icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
