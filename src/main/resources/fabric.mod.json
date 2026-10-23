@@ -6,27 +6,27 @@
   "description": "Unofficial community port of IndustrialCraft 2 to Fabric. Not affiliated with the original IC2 team.",
   "authors": [
     {
-      "name": "faustyu",
+      "name": "faustyu (port)",
       "contact": {
         "homepage": "https://github.com/faustyu1"
       }
     },
-    "hvano",
-    "Alblaka",
-    "Player",
-    "RichardG",
-    "Thunderdark",
-    "GregoriusT",
-    "alexthesax",
-    "Drashian",
-    "Elementalist",
-    "Feanturi",
-    "Lurch1985",
-    "SirusKing",
-    "tahu44",
-    "Aroma1997",
-    "estebes",
-    "Chocohead"
+    "hvano (port)",
+    "Alblaka (IC2)",
+    "Player (IC2)",
+    "RichardG (IC2)",
+    "Thunderdark (IC2)",
+    "GregoriusT (IC2)",
+    "alexthesax (IC2)",
+    "Drashian (IC2)",
+    "Elementalist (IC2)",
+    "Feanturi (IC2)",
+    "Lurch1985 (IC2)",
+    "SirusKing (IC2)",
+    "tahu44 (IC2)",
+    "Aroma1997 (IC2)",
+    "estebes (IC2)",
+    "Chocohead (IC2)"
   ],
   "contact": {
     "homepage": "https://modrinth.com/mod/ic2-community-edition",
