@@ -3,6 +3,8 @@
 **IC2 Community Edition** is an unofficial, community-made port of IndustrialCraft 2
 (`2.8.222-ex112`, Minecraft 1.12.2 / Forge) to **Minecraft 1.21.1 / Fabric**.
 
+Ported by [faustyu](https://github.com/faustyu1) and hvano.
+
 > "Community Edition" marks this as a fan project, not an official IC2 release. It is not affiliated
 > with, endorsed by, or supported by the IndustrialCraft 2 team, Mojang Studios, or Microsoft. Please
 > do not report issues with this port to the original authors.
