@@ -77,4 +77,5 @@ public class ItemArmorJetpackElectric extends ItemArmorElectric implements IJetp
     public int getEnergyPerDamage() {
         return 0;
     }
+
 }

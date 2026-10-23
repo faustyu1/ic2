@@ -1,26 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    The 1.12.2 reactor GUI was written by hand (GuiNuclearReactor / ContainerNuclearReactor) rather
-    than described by a guidef file; this transcribes that layout so the reactor uses the same
-    machine screen as everything else. The coordinates are the ones from the original code, minus
-    the one pixel that separates a slot background from the item in it.
+    Laid out as IC2 Classic's reactor window: the grid is only as wide as the chambers built around
+    the reactor make it - three columns of its own and one per chamber - and sits in the middle, so
+    the full nine by six only shows on a reactor with all six chambers. The heat bar runs under it
+    across the width of the inventory, the output beside the inventory label.
 
     A reactor walled into a full 5x5x5 hull cools with fluid instead of making EU; the coolant
-    slots and the two tank gauges belong to that mode and are hidden while it makes EU, which is
-    what the original did by swapping the whole background texture.
+    slots and the two tank gauges belong to that mode and are hidden while it makes EU.
 -->
-<gui width="212" height="243">
-    <image x="0" y="0" src="ic2:textures/gui/GUINuclearReactor" width="212" height="243" basesize="256"/>
-    <slotgrid name="reactor" x="25" y="24" rows="6" background="false"
-              maxcols="9" lockedsrc="ic2:textures/gui/GUINuclearReactor" lockedu="213" lockedv="1"/>
-    <gauge name="heat" x="7" y="136" style="heatnuclearreactor"/>
-    <only if="fluidCooled">
-        <slot name="coolantinputSlot" x="7" y="24"/>
-        <slot name="hotcoolinputSlot" x="187" y="24"/>
-        <slot name="coolantoutputSlot" x="7" y="114"/>
-        <slot name="hotcoolantoutputSlot" x="187" y="114"/>
-        <fluidtank x="10" y="54" name="inputTank" style="borderless"/>
-        <fluidtank x="190" y="54" name="outputTank" style="borderless"/>
+<gui width="176" height="238">
+    <text y="6" align="center">%name%</text>
+    <slotgrid name="reactor" x="7" y="17" rows="6" maxcols="9" align="center"/>
+    <bar name="heat" x="7" y="128" width="162" height="13"/>
+    <text x="7" y="131" width="162" center="x" color="0x404040">{ic2.NuclearReactor.gui.heat}</text>
+    <text x="8" y="145" color="0x404040">{container.inventory}</text>
+    <only if="electric">
+        <text x="169" y="145" align="right" color="0x404040">{ic2.NuclearReactor.gui.info.EUoutput|%amount:output%}</text>
     </only>
-    <playerInventory x="25" y="160"/>
+    <!-- a fluid reactor has no chambers, so its three columns leave room for the coolant on either side -->
+    <only if="fluidCooled">
+        <slot name="coolantinputSlot" x="7" y="17"/>
+        <slot name="coolantoutputSlot" x="7" y="107"/>
+        <fluidtank x="10" y="47" name="inputTank" style="borderless"/>
+        <slot name="hotcoolinputSlot" x="151" y="17"/>
+        <slot name="hotcoolantoutputSlot" x="151" y="107"/>
+        <fluidtank x="154" y="47" name="outputTank" style="borderless"/>
+    </only>
+    <playerInventory x="7" y="155"/>
 </gui>

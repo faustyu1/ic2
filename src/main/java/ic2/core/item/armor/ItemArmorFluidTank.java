@@ -26,7 +26,10 @@ public abstract class ItemArmorFluidTank extends ItemArmorUtility implements IIt
     protected final FluidName allowFluid;
 
     protected ItemArmorFluidTank(String itemName, RegistryEntry<ArmorMaterial> material, FluidName allowFluid, int capacity) {
-        super(itemName, material, Type.CHESTPLATE);
+        // the packs give no armour points, so the "When on ..." heading would stand there empty
+        super(itemName, material, Type.CHESTPLATE, new Settings().maxCount(1).component(
+                net.minecraft.component.DataComponentTypes.ATTRIBUTE_MODIFIERS,
+                net.minecraft.component.type.AttributeModifiersComponent.DEFAULT.withShowInTooltip(false)));
         this.capacity = capacity;
         this.allowFluid = allowFluid;
     }

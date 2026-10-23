@@ -70,4 +70,5 @@ public class ItemArmorJetpack extends ItemArmorFluidTank implements IJetpack {
     public float getWorldHeightDivisor(ItemStack stack) {
         return 1.0F;
     }
+
 }

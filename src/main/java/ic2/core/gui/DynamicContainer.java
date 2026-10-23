@@ -5,6 +5,7 @@ import ic2.core.block.comp.Fluids;
 import ic2.core.block.invslot.InvSlot;
 import ic2.core.gui.dynamic.GuiDefinition;
 import ic2.core.gui.dynamic.GuiElementNode;
+import ic2.core.gui.dynamic.SlotArmor;
 import ic2.core.gui.dynamic.SlotCraftResult;
 import ic2.core.gui.dynamic.SlotGridLayout;
 import ic2.core.gui.dynamic.SlotHologram;
@@ -83,7 +84,7 @@ public class DynamicContainer extends ScreenHandler {
         this.definition = tile == null ? null : GuiParser.parse(tile.getGuiName(playerInventory.player));
 
         if (definition != null) {
-            addMachineSlots(definition);
+            addMachineSlots(definition, playerInventory);
         }
         this.machineSlots = slots.size();
 
@@ -111,6 +112,7 @@ public class DynamicContainer extends ScreenHandler {
         for (GuiElementNode element : definition.getElements()) {
             switch (element.name) {
                 case "energygauge", "energyGauge" -> valueNames.add("energy");
+                case "bar" -> valueNames.add(element.get("name", ""));
                 case "gauge" -> {
                     valueNames.add(element.get("name", ""));
                     // active="true": the machine says when the gauge's background is lit
@@ -357,10 +359,17 @@ public class DynamicContainer extends ScreenHandler {
         }
     }
 
-    private void addMachineSlots(GuiDefinition definition) {
+    private void addMachineSlots(GuiDefinition definition, PlayerInventory playerInventory) {
         for (GuiElementNode element : definition.getElements()) {
             switch (element.name) {
                 case "slot" -> addNamedSlot(element);
+                case "armorslot" -> {
+                    net.minecraft.entity.EquipmentSlot armor = SlotArmor.byName(element.get("slot", ""));
+                    if (armor != null) {
+                        SlotStyle style = SlotStyle.of(element);
+                        addSlot(new SlotArmor(playerInventory, armor, element.getX() + style.insetX(), element.getY() + style.insetY()));
+                    }
+                }
                 case "slothologram" -> {
                     if (tile.getHologramSlots(element.get("name", "")) == null) {
                         addNamedSlot(element);
@@ -384,7 +393,7 @@ public class DynamicContainer extends ScreenHandler {
         }
         SlotStyle style = SlotStyle.of(element);
         SlotIC2 slot = new SlotIC2(tile, indexOf(invSlot, index),
-                element.getX() + style.insetX(), element.getY() + style.insetY());
+                element.getX() + style.insetX(), element.getY() + style.insetY()).withIconFor(invSlot);
         addSlot(element.getBool("readonly", false) ? slot.readOnly() : slot);
     }
 
@@ -398,13 +407,13 @@ public class DynamicContainer extends ScreenHandler {
         }
 
         SlotGridLayout layout = SlotGridLayout.of(element, invSlot.size());
-        int x = element.getX() + layout.style().insetX();
+        int x = element.getX() + layout.style().insetX() + layout.alignShiftX(element);
         int y = element.getY() + layout.style().insetY();
 
         for (int cell = 0; cell < layout.count(invSlot.size()); cell++) {
             addSlot(new SlotIC2(tile, indexOf(invSlot, layout.slotIndex(cell)),
                     x + layout.columnOf(cell) * layout.stepX(),
-                    y + layout.rowOf(cell) * layout.stepY()));
+                    y + layout.rowOf(cell) * layout.stepY()).withIconFor(invSlot));
         }
     }
 

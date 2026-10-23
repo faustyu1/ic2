@@ -8,8 +8,6 @@ import ic2.core.block.BlockIC2Fluid;
 import ic2.core.block.BlockMoltenMetal;
 import ic2.core.block.BlockOre;
 import ic2.core.block.BlockRubWood;
-import ic2.core.block.BlockScaffold;
-import ic2.core.block.BlockSheet;
 import ic2.core.block.ResourceBlock;
 import ic2.core.block.Ic2Leaves;
 import ic2.core.block.Ic2Sapling;
@@ -28,7 +26,7 @@ import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 
 /**
- * Registry for classic non-Te IC2 blocks (ores, rubber wood, foam, scaffold, sheet).
+ * Registry for classic non-Te IC2 blocks (ores, rubber wood, foam).
  * Mirrors original ic2.core.block.BlockMultiID registrations but as plain Fabric Blocks.
  */
 public final class IC2ClassicBlocks {
@@ -40,10 +38,8 @@ public final class IC2ClassicBlocks {
     public static Block FOAM;
     /** The construction foam walls, in the order of {@link Ic2Color}. */
     public static final java.util.List<Block> WALLS = new java.util.ArrayList<>();
-    public static Block SCAFFOLD;
     /** A placed stick of dynamite; it has no item of its own, the dynamite item places it. */
     public static Block DYNAMITE;
-    public static Block SHEET;
 
     // Extra parity blocks from ResourceBlock not strictly required but cheap to add
     public static Block TIN_BLOCK;
@@ -65,7 +61,6 @@ public final class IC2ClassicBlocks {
     public static Block REINFORCED_GLASS;
     public static Block IRON_FENCE;
     public static Block FENCE_GATE;
-    public static Block IC2_DOOR;
     public static Block REINFORCED_DOOR;
     public static Block REFRACTORY_BRICKS;
     public static ic2.core.block.machine.BlockMiningPipe MINING_PIPE;
@@ -107,20 +102,6 @@ public final class IC2ClassicBlocks {
 
         DYNAMITE = Registry.register(Registries.BLOCK, Identifier.of("ic2", "dynamite"), new ic2.core.block.BlockDynamite());
 
-        SCAFFOLD = register("scaffold",
-                new BlockScaffold(FabricBlockSettings.create()
-                        .mapColor(MapColor.BROWN)
-                        .sounds(BlockSoundGroup.WOOD)
-                        .strength(0.5F)
-                        .nonOpaque()));
-
-        SHEET = register("sheet",
-                new BlockSheet(FabricBlockSettings.create()
-                        .mapColor(MapColor.GRAY)
-                        .sounds(BlockSoundGroup.METAL)
-                        .strength(0.5F, 6.0F)
-                        .nonOpaque()));
-
         // Optional metal/storage blocks (parity with ResourceBlock metal variants)
         // Existing 5 use legacy registerMetal for bw-compat; new/updated use ResourceBlock (Settings.copy(Blocks.IRON_BLOCK))
         TIN_BLOCK = registerMetal("tin_block", MapColor.LIGHT_GRAY, 3.0F, 6.0F);
@@ -148,8 +129,6 @@ public final class IC2ClassicBlocks {
         IRON_FENCE = register("iron_fence", new ic2.core.block.BlockIC2Fence());
         FENCE_GATE = register("iron_fence_gate", new ic2.core.block.BlockIC2FenceGate());
 
-        IC2_DOOR = register("iron_door", new BlockIC2Door(BlockSetType.IRON,
-                AbstractBlock.Settings.copy(Blocks.IRON_DOOR).mapColor(MapColor.STONE_GRAY).requiresTool()));
         REINFORCED_DOOR = register("reinforced_door", new BlockIC2Door(BlockSetType.IRON,
                 AbstractBlock.Settings.copy(Blocks.IRON_DOOR).mapColor(MapColor.STONE_GRAY).strength(50.0F, 150.0F).requiresTool()));
         // the coke kiln and the blast furnace are built out of these

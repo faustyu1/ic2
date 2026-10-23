@@ -43,7 +43,8 @@ import net.minecraft.world.World;
  * pass. Everything - energy, heat, how hot the hull may get - comes out of what the components do
  * during those two passes, which is what makes a 1.12.2 reactor design behave the same here.
  */
-public class TileEntityNuclearReactorElectric extends TileEntityInventory implements IReactor, IEnergySource {
+public class TileEntityNuclearReactorElectric extends TileEntityInventory implements IReactor, IEnergySource,
+        ic2.api.energy.tile.IMetaDelegate {
     /** Rows of the grid; the columns depend on how many chambers are built around the reactor. */
     private static final int ROWS = 6;
     private static final int BASE_COLS = 3;
@@ -241,6 +242,7 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
     @Override
     public void onLoad() {
         if (!fluidCooled) {
+            refreshChambers();
             super.onLoad();
         }
     }
@@ -252,8 +254,59 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
     }
 
     private void disableFluidMode() {
+        fluidCooled = false;
         onLoad();
         closeTanks();
+    }
+
+    // ---------------------------------------------------------------- the chambers on the energy net
+
+    /** The reactor and the chambers built against it, which cables connect to as to the reactor. */
+    private final java.util.List<ic2.api.energy.tile.IEnergyTile> subTiles = new java.util.ArrayList<>();
+
+    @Override
+    public java.util.List<ic2.api.energy.tile.IEnergyTile> getSubTiles() {
+        if (subTiles.isEmpty()) {
+            subTiles.add(this);
+        }
+        return java.util.List.copyOf(subTiles);
+    }
+
+    /**
+     * Gathers the chambers next to the reactor; when they changed while the reactor is on the
+     * energy net, it leaves and joins again so the net sees the new shape, as 1.12.2 did.
+     */
+    private void refreshChambers() {
+        if (world == null || world.isClient) {
+            return;
+        }
+        java.util.List<ic2.api.energy.tile.IEnergyTile> found = new java.util.ArrayList<>();
+        found.add(this);
+        for (Direction dir : Direction.values()) {
+            if (world.getBlockEntity(pos.offset(dir)) instanceof TileEntityReactorChamberElectric chamber && !chamber.isRemoved()) {
+                found.add(chamber);
+            }
+        }
+        if (found.equals(subTiles)) {
+            return;
+        }
+        boolean wasAdded = isAddedToEnet();
+        if (wasAdded) {
+            onUnloaded();
+        }
+        subTiles.clear();
+        subTiles.addAll(found);
+        if (wasAdded) {
+            super.onLoad();
+        }
+    }
+
+    @Override
+    public void onNeighborUpdate() {
+        super.onNeighborUpdate();
+        if (isAddedToEnet()) {
+            refreshChambers();
+        }
     }
 
     private void openTanks() {
@@ -597,6 +650,12 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
             case "output" -> output;
             default -> super.getGuiValue(name);
         };
+    }
+
+    /** The EU a tick the screen shows under the heat bar. */
+    @Override
+    public double getGuiAmount(String name) {
+        return "output".equals(name) ? getOfferedEnergy() : super.getGuiAmount(name);
     }
 
     /** Lets the guidef hide the coolant part of the screen while the reactor makes EU. */

@@ -46,6 +46,18 @@ public record SlotGridLayout(int rows, int cols, boolean vertical, int offset, i
         return new SlotGridLayout(Math.max(1, rows), Math.max(1, cols), vertical, offset, spacing, style);
     }
 
+    /**
+     * How far the grid moves right to sit in the middle of the room its {@code maxcols} leave,
+     * for {@code align="center"} - the reactor's grid, as wide as its chambers allow.
+     */
+    public int alignShiftX(ic2.core.gui.dynamic.GuiElementNode element) {
+        int maxCols = element.getInt("maxcols", 0);
+        if (!"center".equals(element.get("align", "")) || maxCols <= cols) {
+            return 0;
+        }
+        return (maxCols - cols) * stepX() / 2;
+    }
+
     /** Number of slots the grid shows of a group of the given size. */
     public int count(int slotCount) {
         return Math.max(0, Math.min(rows * cols, slotCount - offset));

@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 /**
  * A chestplate with a jetpack attached is drawn as the electric jetpack, as the 1.12.2
- * {@code LayerJetpackOverride} did.
+ * {@code LayerJetpackOverride} did; a jetpack in the back slot is drawn on an empty chest.
  */
 @Mixin(ArmorFeatureRenderer.class)
 public abstract class ArmorFeatureRendererJetpackMixin {
@@ -20,6 +20,13 @@ public abstract class ArmorFeatureRendererJetpackMixin {
             target = "Lnet/minecraft/entity/LivingEntity;getEquippedStack(Lnet/minecraft/entity/EquipmentSlot;)Lnet/minecraft/item/ItemStack;"))
     private ItemStack ic2$jetpackOverride(LivingEntity entity, EquipmentSlot slot) {
         ItemStack stack = entity.getEquippedStack(slot);
-        return slot == EquipmentSlot.CHEST && JetpackHandler.hasJetpackAttached(stack) ? JetpackHandler.jetpack() : stack;
+        if (slot != EquipmentSlot.CHEST) {
+            return stack;
+        }
+        if (JetpackHandler.hasJetpackAttached(stack)) {
+            return JetpackHandler.jetpack();
+        }
+        // a pack on the back shows where a chestplate would, unless a chestplate is worn
+        return stack.isEmpty() ? ic2.core.item.armor.jetpack.BackSlot.get(entity) : stack;
     }
 }

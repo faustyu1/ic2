@@ -165,9 +165,14 @@ public class ElectricItemManager implements IElectricItemManager {
         if (target == null || target.isEmpty() || entity == null) return;
         if (!(target.getItem() instanceof IElectricItem)) return;
 
+        java.util.List<ItemStack> sources = new java.util.ArrayList<>();
         for (EquipmentSlot slot : EquipmentSlot.values()) {
-            if (!slot.isArmorSlot()) continue;
-            ItemStack source = entity.getEquippedStack(slot);
+            if (slot.isArmorSlot()) sources.add(entity.getEquippedStack(slot));
+        }
+        // a battery pack worn on the back feeds the tools as one in the chest slot does
+        sources.add(ic2.core.item.armor.jetpack.BackSlot.get(entity));
+
+        for (ItemStack source : sources) {
             if (source == null || source.isEmpty()) continue;
             if (source == target) continue;
 
@@ -192,13 +197,8 @@ public class ElectricItemManager implements IElectricItemManager {
         if (!(stack.getItem() instanceof IElectricItem)) return null;
         double charge = getCharge(stack);
         double max = getMaxCharge(stack);
-        return toSiString(charge, 3) + "/" + toSiString(max, 3) + " EU";
-    }
-
-    private static String toSiString(double value, int digits) {
-        if (value >= 1_000_000) return String.format("%." + digits + "fM", value / 1_000_000);
-        if (value >= 1_000) return String.format("%." + digits + "fk", value / 1_000);
-        return String.format("%." + digits + "f", value);
+        // whole EU with thousands separators, as IC2 Classic showed it: 43,228 / 10,000,000 EU
+        return String.format(java.util.Locale.ROOT, "%,d / %,d EU", (long) charge, (long) max);
     }
 
     @Override

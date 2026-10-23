@@ -66,7 +66,21 @@ public class ItemWrench extends ItemIC2 {
         }
 
         World world = context.getWorld();
-        WrenchResult result = wrenchBlock(world, context.getBlockPos(), context.getSide(), player,
+        BlockPos pos = context.getBlockPos();
+        if (world.getBlockEntity(pos) instanceof ic2.api.transport.IPipe pipe) {
+            // a pipe connects or parts the side picked by where the click landed - the middle of
+            // a face means that face, its edge strips the side they lie towards
+            net.minecraft.util.math.Vec3d hit = context.getHitPos();
+            Direction side = ic2.core.util.RotationUtil.rotateByHit(context.getSide(),
+                    (float) (hit.x - pos.getX()), (float) (hit.y - pos.getY()), (float) (hit.z - pos.getZ()));
+            flipPipeConnection(world, pos, pipe, side);
+            if (!world.isClient) {
+                world.playSound(null, player.getBlockPos(), ic2.core.init.IC2Sounds.TOOLS_WRENCH, SoundCategory.PLAYERS, 1.0F, 1.0F);
+            }
+            return ActionResult.SUCCESS;
+        }
+
+        WrenchResult result = wrenchBlock(world, pos, context.getSide(), player,
                 canTakeDamage(stack, 10));
 
         if (result == WrenchResult.NOTHING) {
@@ -80,6 +94,15 @@ public class ItemWrench extends ItemIC2 {
         }
 
         return world.isClient ? ActionResult.PASS : ActionResult.SUCCESS;
+    }
+
+    /** Flips the pipe's side, and the side of the pipe across it to match, so the two stay joined or apart. */
+    public static void flipPipeConnection(World world, BlockPos pos, ic2.api.transport.IPipe pipe, Direction side) {
+        pipe.flipConnection(side);
+        if (world.getBlockEntity(pos.offset(side)) instanceof ic2.api.transport.IPipe other
+                && pipe.isConnected(side) != other.isConnected(side.getOpposite())) {
+            other.flipConnection(side.getOpposite());
+        }
     }
 
     /**

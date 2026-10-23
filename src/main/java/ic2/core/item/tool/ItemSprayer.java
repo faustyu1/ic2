@@ -13,7 +13,6 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Queue;
 import java.util.Set;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
@@ -40,13 +39,11 @@ import net.minecraft.world.World;
  * <p>It holds 8000 mB of construction foam and takes more from a CF pack worn on the chest - the
  * pack first. Used on a block it sprays soft foam over up to ten free blocks next to the face it
  * hit (one in single mode, the mode key and right click switch), spreading away from the player;
- * a scaffold it is used on is filled in instead, the scaffold dropping, and a cable it is used on
- * is buried in foam together with the cables joined to it that are not foamed yet. Every foam
- * block costs 100 mB. The canner or a tank fills it.
+ * a cable it is used on is buried in foam together with the cables joined to it that are not
+ * foamed yet. Every foam block costs 100 mB. The canner or a tank fills it.
  *
- * <p>Not ported: the reinforced foam of
- * the iron scaffold (the port has one scaffold block and one foam block), and sucking up placed
- * construction foam fluid, which the port has no block of.
+ * <p>Not ported: filling in scaffolds (the port has none), and sucking up placed construction
+ * foam fluid, which the port has no block of.
  */
 public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
     public static final int CAPACITY = 8000;
@@ -54,7 +51,6 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
 
     private enum Target {
         Any,
-        Scaffold,
         Cable
     }
 
@@ -148,6 +144,10 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
         ItemStack stack = context.getStack();
         int available = (int) LiquidUtil.toMb(getAmount(stack));
         ItemStack pack = player.getEquippedStack(EquipmentSlot.CHEST);
+        if (!(pack.getItem() instanceof ItemArmorCFPack)) {
+            // a CF pack on the back feeds the sprayer as well
+            pack = ic2.core.item.armor.jetpack.BackSlot.get(player);
+        }
         ItemArmorCFPack cfPack = pack.getItem() instanceof ItemArmorCFPack p && !p.isEmpty(pack) ? p : null;
         if (cfPack != null) {
             available += (int) LiquidUtil.toMb(cfPack.getAmount(pack));
@@ -161,9 +161,7 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
 
         BlockPos pos = context.getBlockPos();
         Target target;
-        if (canPlaceFoam(world, pos, Target.Scaffold)) {
-            target = Target.Scaffold;
-        } else if (canPlaceFoam(world, pos, Target.Cable)) {
+        if (canPlaceFoam(world, pos, Target.Cable)) {
             target = Target.Cable;
         } else {
             pos = pos.offset(context.getSide());
@@ -220,9 +218,6 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
                 if (!cable.foam()) {
                     failedPlacements++;
                 }
-            } else if (state.isOf(IC2ClassicBlocks.SCAFFOLD)) {
-                Block.dropStacks(state, world, targetPos);
-                world.setBlockState(targetPos, foam);
             } else if (!world.setBlockState(targetPos, foam)) {
                 failedPlacements++;
             }
@@ -234,7 +229,6 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
     private static boolean canPlaceFoam(World world, BlockPos pos, Target target) {
         return switch (target) {
             case Any -> world.getBlockState(pos).isReplaceable();
-            case Scaffold -> world.getBlockState(pos).isOf(IC2ClassicBlocks.SCAFFOLD);
             case Cable -> world.getBlockEntity(pos) instanceof ic2.core.block.wiring.TileEntityCable cable && !cable.isFoamed();
         };
     }

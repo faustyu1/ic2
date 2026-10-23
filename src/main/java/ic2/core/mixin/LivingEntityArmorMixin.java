@@ -16,8 +16,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * Gives IC2 armour the two hooks Forge gave it in 1.12.2 and Fabric has no equivalent for:
  * {@code ISpecialArmor} absorption and {@code LivingFallEvent}.
  *
- * <p>The absorption runs after vanilla armour has taken its share, so a piece that absorbs with
- * energy (the nano and quantum suits) carries zero armour points and is not counted twice.
+ * <p>The absorption runs after vanilla armour has taken its share: the nano and quantum suits
+ * reduce damage with their armour points first and then absorb what is left with energy.
  */
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityArmorMixin {

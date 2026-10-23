@@ -24,7 +24,8 @@ public class ItemArmorStaticBoots extends ItemArmorUtility {
     public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
         if (world.isClient) return;
 
-        ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
+        // the chestplate, or the battery pack on the back when no chestplate is worn
+        ItemStack chest = ic2.core.item.armor.jetpack.BackSlot.getChestOrBack(player);
         if (chest.isEmpty()) return;
 
         NbtCompound data = stack.getOrDefault(DataComponentTypes.CUSTOM_DATA, NbtComponent.DEFAULT).copyNbt();

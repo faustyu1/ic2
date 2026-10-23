@@ -42,7 +42,8 @@ public class ItemScanner extends ItemElectric implements IBoxable {
     private final int scanRange;
 
     public ItemScanner() {
-        this("scanner", 1, 100000.0, 128.0, 50.0, 6);
+        // "od_scanner", not "scanner": the UU scanner machine block already owns ic2:scanner.
+        this("od_scanner", 1, 100000.0, 128.0, 50.0, 6);
     }
 
     protected ItemScanner(String name, int tier, double maxCharge, double transferLimit,

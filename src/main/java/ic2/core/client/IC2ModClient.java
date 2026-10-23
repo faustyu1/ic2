@@ -48,8 +48,14 @@ public final class IC2ModClient implements ClientModInitializer {
         registerFluidRendering();
         registerBlockColors();
         registerPipeColors();
+        registerFluidCellColors();
+        hideTrinketsJetpackTooltip();
         registerModels();
         registerEntityRenderers();
+        net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(ic2.core.init.IC2Blocks.WIND_KINETIC_BE,
+                ic2.core.client.render.KineticRotorRenderer::new);
+        net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(ic2.core.init.IC2Blocks.WATER_KINETIC_BE,
+                ic2.core.client.render.KineticRotorRenderer::new);
         ic2.core.client.audio.MachineSoundHandler.register();
         ic2.core.item.tool.ItemObscurator.clientScanner = ic2.core.client.model.ObscuredFaces::scan;
     }
@@ -117,9 +123,7 @@ public final class IC2ModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.REINFORCED_GLASS, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.DYNAMITE, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.IRON_FENCE, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.IC2_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.REINFORCED_DOOR, RenderLayer.getCutout());
-        BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.SCAFFOLD, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ic2.core.init.IC2Blocks.CROP_BLOCK, RenderLayer.getCutout());
     }
 
@@ -148,16 +152,51 @@ public final class IC2ModClient implements ClientModInitializer {
     private static void registerPipeColors() {
         for (net.minecraft.block.Block block : ic2.core.init.IC2Blocks.PIPE_VARIANTS) {
             ic2.core.block.transport.items.PipeType type = ((ic2.core.block.transport.BlockPipe) block).getPipeType();
-            int color = (type.red & 0xFF) << 16 | (type.green & 0xFF) << 8 | type.blue & 0xFF;
+            // items draw the tint's alpha since 1.21, so it has to be opaque
+            int color = 0xFF000000 | (type.red & 0xFF) << 16 | (type.green & 0xFF) << 8 | type.blue & 0xFF;
             ColorProviderRegistry.BLOCK.register((state, view, pos, tintIndex) -> color, block);
             ColorProviderRegistry.ITEM.register((stack, tintIndex) -> color, block);
         }
         for (Item item : Registries.ITEM) {
             if (item instanceof ic2.core.item.logistics.ItemPumpCover cover) {
-                int color = cover.getType().color;
-                ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? color : 0xFFFFFF, item);
+                int color = 0xFF000000 | cover.getType().color;
+                ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? color : 0xFFFFFFFF, item);
             }
         }
+    }
+
+    /**
+     * The fluid cells without a texture of their own show the fluid through the cell's window:
+     * the window layer is tinted with the fluid's colour, as the 1.12.2 cell model drew the fluid
+     * behind it.
+     */
+    private static void registerFluidCellColors() {
+        java.util.Map<String, Integer> colors = java.util.Map.of(
+                "water", 0xFF3F76E4,
+                "lava", 0xFFE8641C,
+                "ic2hot_water", 0xFF6FA8E8,
+                "ic2weed_ex", 0xFF4E7A1E);
+        colors.forEach((fluid, color) -> {
+            Item cell = ic2.core.init.IC2ItemVariants.get("fluid_cell", fluid);
+            if (cell != null) {
+                ColorProviderRegistry.ITEM.register((stack, tintIndex) -> tintIndex == 1 ? color : 0xFFFFFFFF, cell);
+            }
+        });
+    }
+
+    /**
+     * Trinkets lists the slots an item fits ("Используется как рюкзак") and an empty "When
+     * equipped" heading; the packs that go on the back say so with a line of their own instead.
+     */
+    private static void hideTrinketsJetpackTooltip() {
+        net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
+            if (stack.isIn(ic2.core.item.armor.jetpack.BackSlot.ITEMS)
+                    && "ic2".equals(net.minecraft.registry.Registries.ITEM.getId(stack.getItem()).getNamespace())) {
+                lines.removeIf(line -> line.getContent() instanceof net.minecraft.text.TranslatableTextContent content
+                        && content.getKey().startsWith("trinkets.tooltip."));
+                lines.add(net.minecraft.text.Text.translatable("ic2.tooltip.back_slot").formatted(net.minecraft.util.Formatting.BLUE));
+            }
+        });
     }
 
     private static void registerBlockColors() {

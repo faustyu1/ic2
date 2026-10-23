@@ -36,6 +36,13 @@ repositories {
     maven { url "https://maven.architectury.dev/" }
     // Mod Menu
     maven { url "https://maven.terraformersmc.com/releases/" }
+    // Cardinal Components, which Trinkets' API is built on
+    maven { url "https://maven.ladysnake.org/releases" }
+    // Trinkets, published on Modrinth's maven
+    exclusiveContent {
+        forRepository { maven { url "https://api.modrinth.com/maven" } }
+        filter { includeGroup "maven.modrinth" }
+    }
 }
 
 dependencies {
@@ -57,6 +64,12 @@ dependencies {
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
     modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}"
     modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+
+    // the back slot the jetpacks go in; a required dependency
+    modImplementation "maven.modrinth:trinkets:${project.trinkets_version}"
+    // Trinkets carries these inside its jar for players; the dev run and the compiler need them here
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:6.1.0"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:6.1.0"
 
     // Mod Menu and Cloth Config are optional too: with both, Mod Menu's config button opens the
     // settings screen; without them the settings are edited in config/IC2.ini
@@ -113,7 +126,7 @@ publishMods {
         projectId = project.modrinth_project_id
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersions.add(project.minecraft_version)
-        requires("fabric-api")
+        requires("fabric-api", "trinkets")
         optional("rei")
     }
     curseforge {
@@ -123,7 +136,7 @@ publishMods {
         javaVersions.add(JavaVersion.VERSION_21)
         client = true
         server = true
-        requires("fabric-api")
+        requires("fabric-api", "trinkets")
         optional("roughly-enough-items")
     }
 }

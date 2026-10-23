@@ -9,9 +9,7 @@ public enum MiscResourceType implements IIdProvider {
    matter(3),
    resin(4),
    slag(5),
-   iodine(6),
-   water_sheet(7),
-   lava_sheet(8);
+   iodine(6);
 
    private final int id;
 

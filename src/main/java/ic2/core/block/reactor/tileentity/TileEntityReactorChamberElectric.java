@@ -6,8 +6,12 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.util.math.BlockPos;
 
-/** Stub - links to main reactor core, no logic. */
-public class TileEntityReactorChamberElectric extends TileEntityBlock implements IReactorChamber {
+/**
+ * A chamber built against a reactor: it widens the reactor's grid and, as one of the reactor's
+ * sub tiles on the energy net, gives off its EU to cables connected to it.
+ */
+public class TileEntityReactorChamberElectric extends TileEntityBlock implements IReactorChamber,
+        ic2.api.energy.tile.IEnergyEmitter {
     public TileEntityReactorChamberElectric(BlockEntityType<?> t, BlockPos p, BlockState s){ super(t,p,s); }
     public TileEntityReactorChamberElectric(BlockPos p, BlockState s){ this(null,p,s); }
     public TileEntityReactorChamberElectric(){ super(null, BlockPos.ORIGIN, null); }
@@ -20,4 +24,27 @@ public class TileEntityReactorChamberElectric extends TileEntityBlock implements
         return null;
     }
     @Override public boolean isWall(){ return false; }
+
+    /** Cables connect on every side; the energy itself comes from the reactor. */
+    @Override public boolean emitsEnergyTo(ic2.api.energy.tile.IEnergyAcceptor receiver, net.minecraft.util.math.Direction side){ return true; }
+
+    /** The reactor puts the chamber on the energy net with itself. */
+    @Override protected boolean joinsEnergyNetItself(){ return false; }
+
+    /** A chamber placed or broken changes the reactor's shape on the energy net. */
+    @Override public void onLoad(){
+        super.onLoad();
+        notifyReactor();
+    }
+
+    @Override public void onBlockRemoved(){
+        super.onBlockRemoved();
+        notifyReactor();
+    }
+
+    private void notifyReactor(){
+        if(world!=null && !world.isClient && getReactorInstance() instanceof TileEntityBlock reactor){
+            reactor.onNeighborUpdate();
+        }
+    }
 }

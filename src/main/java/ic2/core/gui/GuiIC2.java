@@ -20,6 +20,7 @@ import net.minecraft.client.texture.Sprite;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.slot.Slot;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
@@ -126,6 +127,8 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
         }
 
         super.render(context, mouseX, mouseY, delta);
+        // HandledScreen leaves the hovered item's tooltip to the screen
+        drawMouseoverTooltip(context, mouseX, mouseY);
         drawElementTooltip(context, mouseX, mouseY);
     }
 
@@ -149,10 +152,14 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             }
 
             switch (element.name) {
-                case "slot", "slothologram", "craftresult" -> drawSlotBackground(context, left, top, element);
+                case "slot", "armorslot", "slothologram", "craftresult" -> drawSlotBackground(context, left, top, element);
                 case "slotgrid" -> drawSlotGrid(context, left, top, element);
                 case "playerInventory" -> drawPlayerInventory(context, left, top, element);
-                case "image" -> drawImage(context, left, top, element);
+                case "image" -> {
+                    if (element != backgroundImage) {
+                        drawImage(context, left, top, element);
+                    }
+                }
                 case "gauge" -> {
                     String name = element.get("name", "");
                     double ratio = handler.getGuiValue(name);
@@ -168,6 +175,7 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
                         handler.getGuiValue("energy"));
                 case "fluidslot" -> drawFluidSlot(context, left, top, element);
                 case "fluidtank" -> drawFluidTank(context, left, top, element);
+                case "bar" -> drawBar(context, left, top, element, handler.getGuiValue(element.get("name", "")));
                 default -> { /* text is drawn in the foreground, buttons are widgets */ }
             }
         }
@@ -271,7 +279,7 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
     /** Window-relative x, y, width and height of an element, or null when it has no area. */
     private int[] boundsOf(GuiElementNode element) {
         switch (element.name) {
-            case "slot", "slothologram" -> {
+            case "slot", "armorslot", "slothologram" -> {
                 SlotStyle style = SlotStyle.of(element);
                 return new int[] {element.getX(), element.getY(), style.width(), style.height()};
             }
@@ -280,7 +288,7 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
                 if (layout.rows() == 0 || layout.cols() == 0) {
                     return null;
                 }
-                return new int[] {element.getX(), element.getY(),
+                return new int[] {element.getX() + layout.alignShiftX(element), element.getY(),
                         layout.cols() * layout.stepX(), layout.rows() * layout.stepY()};
             }
             case "image", "button", "text" -> {
@@ -329,10 +337,14 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             context.drawTexture(GuiTextures.of(element.get("src", "")), left, top, 0, 0, width, height,
                     element.getInt("basesize", DEFAULT_TEXTURE_SIZE),
                     element.getInt("basesize", DEFAULT_TEXTURE_SIZE));
+            backgroundImage = element;
             return true;
         }
         return false;
     }
+
+    /** The image drawn as the window's background, which the element pass leaves alone. */
+    private GuiElementNode backgroundImage;
 
     /**
      * The default IC2 window: a nine-slice of 32x32 tiles from the common atlas, drawn 16 pixels
@@ -506,10 +518,11 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
 
         // a grid whose backgrounds are already part of the machine's own image says so
         if (style.hasBackground() && element.getBool("background", true)) {
+            int x = element.getX() + layout.alignShiftX(element);
             for (int row = 0; row < layout.rows(); row++) {
                 for (int col = 0; col < layout.cols(); col++) {
                     drawCommon(context,
-                            left + element.getX() + col * layout.stepX(),
+                            left + x + col * layout.stepX(),
                             top + element.getY() + row * layout.stepY(),
                             style.u(), style.v(), style.width(), style.height());
                 }
@@ -529,7 +542,8 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
     private void drawLockedCells(DrawContext context, int left, int top,
                                  GuiElementNode element, SlotGridLayout layout) {
         int maxCols = element.getInt("maxcols", 0);
-        if (maxCols <= layout.cols()) {
+        if (maxCols <= layout.cols() || "center".equals(element.get("align", ""))) {
+            // a centred grid shrinks to its slots instead of covering the missing ones
             return;
         }
 
@@ -547,6 +561,43 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
                         top + element.getY() + layout.style().insetY() + row * layout.stepY(),
                         u, v, 16, 16, DEFAULT_TEXTURE_SIZE, DEFAULT_TEXTURE_SIZE);
             }
+        }
+    }
+
+    /**
+     * A sunken bar the width of the window, filled from the left - IC2 Classic's reactor heat bar.
+     * The fill runs from green to red as it grows; a {@code <text>} over it gives the label.
+     */
+    private void drawBar(DrawContext context, int left, int top, GuiElementNode element, double ratio) {
+        int x = left + element.getX();
+        int y = top + element.getY();
+        int width = element.getWidth(100);
+        // grid="<name>": as wide as that slot grid is now, under it - the reactor's grows with its chambers
+        if (element.has("grid")) {
+            for (GuiElementNode grid : definition.getElements("slotgrid")) {
+                if (grid.get("name", "").equals(element.get("grid", ""))) {
+                    SlotGridLayout layout = SlotGridLayout.of(grid, handler.getGroupSize(grid));
+                    x = left + grid.getX() + layout.alignShiftX(grid);
+                    width = layout.cols() * layout.stepX();
+                    break;
+                }
+            }
+        }
+        int height = element.getHeight(14);
+
+        // the same bevel as a slot: dark top and left, white bottom and right
+        context.fill(x, y, x + width, y + height, 0xFF8B8B8B);
+        context.fill(x, y, x + width - 1, y + 1, 0xFF373737);
+        context.fill(x, y, x + 1, y + height - 1, 0xFF373737);
+        context.fill(x + 1, y + height - 1, x + width, y + height, 0xFFFFFFFF);
+        context.fill(x + width - 1, y + 1, x + width, y + height, 0xFFFFFFFF);
+
+        double clamped = Math.max(0.0, Math.min(1.0, ratio));
+        int fill = (int) Math.round((width - 2) * clamped);
+        if (fill > 0) {
+            int red = (int) Math.round(0x30 + (0xE0 - 0x30) * clamped);
+            int green = (int) Math.round(0xC0 + (0x30 - 0xC0) * clamped);
+            context.fill(x + 1, y + 1, x + 1 + fill, y + height - 1, 0xFF000000 | red << 16 | green << 8 | 0x30);
         }
     }
 
@@ -576,15 +627,44 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
         }
     }
 
+    /**
+     * Draws an image. As the 1.12.2 Image did, a missing width or height is the texture's own,
+     * and the texture coordinates are in pixels of the texture unless {@code basesize} says
+     * otherwise - the small overlay textures (the solar panel's sun) are not 256 wide.
+     */
     private void drawImage(DrawContext context, int left, int top, GuiElementNode element) {
-        int width = element.getInt("width", 16);
-        int height = element.getInt("height", 16);
-        int base = element.getInt("basesize", DEFAULT_TEXTURE_SIZE);
+        Identifier texture = GuiTextures.of(element.get("src", ""));
+        int[] size = textureSize(texture);
+        int width = element.getInt("width", size[0]);
+        int height = element.getInt("height", size[1]);
+        int baseWidth = element.getInt("basewidth", element.getInt("basesize", size[0]));
+        int baseHeight = element.getInt("baseheight", element.getInt("basesize", size[1]));
 
-        context.drawTexture(GuiTextures.of(element.get("src", "")),
+        context.drawTexture(texture,
                 left + element.getX(), top + element.getY(),
                 element.getInt("u", 0), element.getInt("v", 0),
-                width, height, base, base);
+                width, height, baseWidth, baseHeight);
+    }
+
+    private static final java.util.Map<Identifier, int[]> TEXTURE_SIZES = new java.util.HashMap<>();
+
+    /** The width and height of a texture, read from its PNG header; 256 when it cannot be read. */
+    private static int[] textureSize(Identifier texture) {
+        return TEXTURE_SIZES.computeIfAbsent(texture, id -> {
+            var resource = net.minecraft.client.MinecraftClient.getInstance().getResourceManager().getResource(id);
+            if (resource.isPresent()) {
+                try (java.io.InputStream in = resource.get().getInputStream()) {
+                    byte[] header = in.readNBytes(24);
+                    if (header.length == 24) {
+                        java.nio.ByteBuffer buffer = java.nio.ByteBuffer.wrap(header);
+                        return new int[] {buffer.getInt(16), buffer.getInt(20)};
+                    }
+                } catch (java.io.IOException ignored) {
+                    // fall through to the default
+                }
+            }
+            return new int[] {DEFAULT_TEXTURE_SIZE, DEFAULT_TEXTURE_SIZE};
+        });
     }
 
     /**
@@ -604,7 +684,8 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             // centred in the box the element spans, as the original Text element did
             textX += (element.getWidth(0) - textRenderer.getWidth(text)) / 2;
         } else if ("center".equals(element.get("align", "left"))) {
-            textX = (backgroundWidth - textRenderer.getWidth(text)) / 2;
+            drawCentredTitle(context, text, textY, textColor(element));
+            return;
         } else if ("right".equals(element.get("align", "left"))) {
             textX -= textRenderer.getWidth(text);
         }
@@ -612,16 +693,51 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             textY += (element.getHeight(0) - textRenderer.fontHeight) / 2 + 1;
         }
 
-        int color = 0x404040;
+        context.drawText(textRenderer, text, textX, textY, textColor(element), false);
+    }
+
+    private static int textColor(GuiElementNode element) {
         String colorAttr = element.get("color", "");
         if (!colorAttr.isEmpty()) {
             try {
-                color = Integer.decode(colorAttr);
+                return Integer.decode(colorAttr);
             } catch (NumberFormatException ignored) {
                 // keep the default colour
             }
         }
-        context.drawText(textRenderer, text, textX, textY, color, false);
+        return 0x404040;
+    }
+
+    /**
+     * A line centred across the window, kept clear of the slots beside it on its row - the upgrade
+     * column in the top right corner, say - and drawn smaller when a long name does not fit between them.
+     */
+    private void drawCentredTitle(DrawContext context, Text text, int y, int color) {
+        int left = 6;
+        int right = backgroundWidth - 6;
+        for (Slot slot : handler.slots) {
+            if (!slot.isEnabled() || slot.y + 17 <= y || slot.y - 1 >= y + textRenderer.fontHeight) {
+                continue;
+            }
+            if (slot.x + 8 < backgroundWidth / 2) {
+                left = Math.max(left, slot.x + 19);
+            } else {
+                right = Math.min(right, slot.x - 3);
+            }
+        }
+
+        int width = textRenderer.getWidth(text);
+        int span = right - left;
+        if (width <= span) {
+            context.drawText(textRenderer, text, left + (span - width) / 2, y, color, false);
+            return;
+        }
+        float scale = (float) span / width;
+        context.getMatrices().push();
+        context.getMatrices().translate(left, y + textRenderer.fontHeight * (1 - scale) / 2, 0);
+        context.getMatrices().scale(scale, scale, 1);
+        context.drawText(textRenderer, text, 0, 0, color, false);
+        context.getMatrices().pop();
     }
 
     /** {@code %amount:name%} and {@code %capacity:name%}: the synced numbers behind a gui value. */
@@ -665,11 +781,13 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             return translation(parts[0]);
         }
         if (raw.contains("{")) {
-            // text around translations, e.g. "{ic2.FluidHeatGenerator.gui.info.Emit} 32"
-            java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("\\{([^}|]+)}").matcher(raw);
+            // text around translations, e.g. "{ic2.FluidHeatGenerator.gui.info.Emit} 32" or "{key|arg} %"
+            java.util.regex.Matcher matcher = java.util.regex.Pattern.compile("\\{([^}]+)}").matcher(raw);
             StringBuilder out = new StringBuilder();
             while (matcher.find()) {
-                matcher.appendReplacement(out, java.util.regex.Matcher.quoteReplacement(translation(matcher.group(1)).getString()));
+                String[] parts = matcher.group(1).split("\\|");
+                Text translated = translation(parts[0], (Object[]) java.util.Arrays.copyOfRange(parts, 1, parts.length));
+                matcher.appendReplacement(out, java.util.regex.Matcher.quoteReplacement(translated.getString()));
             }
             matcher.appendTail(out);
             return Text.literal(out.toString());

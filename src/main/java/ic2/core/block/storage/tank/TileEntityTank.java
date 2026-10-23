@@ -52,14 +52,16 @@ public class TileEntityTank extends TileEntityInventory {
 
     @Override
     public void addInformation(ItemStack stack, java.util.List<net.minecraft.text.Text> tooltip) {
-        tooltip.add(net.minecraft.text.Text.literal("Capacity: " + LiquidUtil.toMb(contents.getCapacity()) + " mB"));
+        tooltip.add(net.minecraft.text.Text.translatable("item.tooltip.Capacity")
+                .append(" " + LiquidUtil.toMb(contents.getCapacity()) + " mB"));
         net.minecraft.nbt.NbtCompound nbt = dropData(stack);
-        String fluid = nbt.getString("fluid");
-        if (fluid.isEmpty()) {
-            tooltip.add(net.minecraft.text.Text.literal("Empty"));
+        net.minecraft.fluid.Fluid fluid = LiquidUtil.getFluid(nbt.getString("fluid"));
+        if (fluid == null) {
+            tooltip.add(net.minecraft.text.Text.translatable("generic.text.empty"));
         } else {
-            tooltip.add(net.minecraft.text.Text.literal(fluid));
-            tooltip.add(net.minecraft.text.Text.literal("Amount: " + LiquidUtil.toMb(nbt.getLong("amount")) + " mB"));
+            tooltip.add(ic2.core.util.FluidContainers.displayName(fluid));
+            tooltip.add(net.minecraft.text.Text.translatable("item.tooltip.Amount")
+                    .append(" " + LiquidUtil.toMb(nbt.getLong("amount")) + " mB"));
         }
     }
 

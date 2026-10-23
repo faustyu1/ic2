@@ -1,7 +1,5 @@
 package ic2.core.init;
 
-import ic2.core.block.BlockScaffold;
-import ic2.core.block.BlockSheet;
 import ic2.core.block.state.IIdProvider;
 import ic2.core.block.transport.items.PipeSize;
 import ic2.core.block.transport.items.PipeType;
@@ -39,7 +37,6 @@ import java.util.Map;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.registry.Registries;
@@ -127,8 +124,6 @@ public final class IC2ItemVariants {
 
         // placeable variants: they all place the single ported block until the block states that
         // used to carry the metadata are ported as well
-        blockGroup("sheet", BlockSheet.SheetType.values(), IC2ClassicBlocks.SHEET);
-        blockGroup("scaffold", BlockScaffold.ScaffoldType.values(), IC2ClassicBlocks.SCAFFOLD);
 
         // the mining pipe is addressed as mining_pipe#pipe by the config, but is a single item
         Item miningPipe = registerBare("mining_pipe", new ItemIC2("mining_pipe"));
@@ -164,16 +159,6 @@ public final class IC2ItemVariants {
                 Item item = Registries.ITEM.get(Identifier.of("ic2", type.getName(size)));
                 BY_KEY.put("pipe#type:" + type.getName() + ",size:" + size.getName(), item);
             }
-        }
-    }
-
-    /** Registers a group whose members place a block, e.g. the sheet and scaffold variants. */
-    private static <T extends Enum<T> & IIdProvider> void blockGroup(String group, T[] values, Block block) {
-        for (T value : values) {
-            String name = group + "_" + value.getName();
-            Item item = Registry.register(Registries.ITEM, Identifier.of("ic2", name),
-                    new BlockItem(block, new Item.Settings()));
-            BY_KEY.put(group + "#" + value.getName(), item);
         }
     }
 

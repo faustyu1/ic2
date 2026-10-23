@@ -6,9 +6,18 @@ import ic2.core.block.TileEntityInventory;
 import ic2.core.block.invslot.InvSlot;
 import ic2.core.block.invslot.InvSlotConsumableKineticRotor;
 import ic2.core.ref.TeBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
+import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 
@@ -23,6 +32,12 @@ public abstract class TileEntityRotorKineticGenerator extends TileEntityInventor
     public final InvSlotConsumableKineticRotor rotorSlot;
     protected int updateTicker;
     protected float rotationSpeed;
+    /** What the clients were last told, so they hear again only when the rotor or its speed changes. */
+    private Item syncedRotor = Items.AIR;
+    private float syncedSpeed;
+    /** The angle the rotor is drawn at, turned on by the renderer every frame. */
+    private float clientAngle;
+    private double clientAngleTime = Double.NaN;
 
     protected TileEntityRotorKineticGenerator(BlockEntityType<?> type, BlockPos pos, BlockState state, TeBlock teBlock,
                                               IKineticRotor.GearboxType gearbox) {
@@ -67,6 +82,67 @@ public abstract class TileEntityRotorKineticGenerator extends TileEntityInventor
 
     public float getRotationSpeed() {
         return rotationSpeed;
+    }
+
+    /** The picture the renderer wraps around the rotor blades, or null without a rotor. */
+    public Identifier getRotorRenderTexture() {
+        IKineticRotor rotor = rotor();
+        return rotor == null ? null : rotor.getRotorRenderTexture(rotorSlot.get());
+    }
+
+    /**
+     * The rotor's angle in degrees at {@code time} (world ticks with the partial tick), turned on by
+     * the synced speed since the last frame - a full turn a second at the top speed of 2.
+     */
+    public float getRotorAngle(double time) {
+        if (!Double.isNaN(clientAngleTime)) {
+            clientAngle = (float) ((clientAngle + (time - clientAngleTime) * rotationSpeed * 9.0) % 360.0);
+        }
+        clientAngleTime = time;
+        return clientAngle;
+    }
+
+    // ---------------------------------------------------------------- what the clients draw
+
+    @Override
+    public void markDirty() {
+        super.markDirty();
+        syncRotor();
+    }
+
+    /** Sends the rotor and its speed to the clients when either changed. */
+    protected void syncRotor() {
+        if (world == null || world.isClient || rotorSlot == null) {
+            return;
+        }
+        Item rotor = rotorSlot.get().getItem();
+        if (rotor != syncedRotor || Math.abs(rotationSpeed - syncedSpeed) > 0.01F) {
+            syncedRotor = rotor;
+            syncedSpeed = rotationSpeed;
+            world.updateListeners(pos, getCachedState(), getCachedState(), Block.NOTIFY_LISTENERS);
+        }
+    }
+
+    @Override
+    public void writeNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.writeNbt(nbt, registries);
+        nbt.putFloat("rotationSpeed", rotationSpeed);
+    }
+
+    @Override
+    public void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registries) {
+        super.readNbt(nbt, registries);
+        rotationSpeed = nbt.getFloat("rotationSpeed");
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        return createNbt(registries);
+    }
+
+    @Override
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this);
     }
 
     /**

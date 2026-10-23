@@ -41,13 +41,23 @@ public abstract class ItemArmorElectric extends ItemArmorIC2
 
     protected ItemArmorElectric(String itemName, RegistryEntry<ArmorMaterial> material, Type type,
                                 double maxCharge, double transferLimit, int tier, Rarity rarity) {
-        // the suit protects by spending EU and has no armour points, so the vanilla "When on ..."
-        // heading would stand there empty; the charge line takes its place
-        super(itemName, material, type, new Settings().maxCount(1).maxDamage(27).rarity(rarity)
-                .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT.withShowInTooltip(false)));
+        super(itemName, material, type, settings(material, type, rarity));
         this.maxCharge = maxCharge;
         this.transferLimit = transferLimit;
         this.tier = tier;
+    }
+
+    /**
+     * A piece without armour points (the packs, the electric jetpack) protects by spending EU
+     * only, so the vanilla "When on ..." heading would stand there empty and is hidden; the nano
+     * and quantum suits show theirs.
+     */
+    private static Settings settings(RegistryEntry<ArmorMaterial> material, Type type, Rarity rarity) {
+        Settings settings = new Settings().maxCount(1).maxDamage(27).rarity(rarity);
+        if (material.value().getProtection(type) <= 0) {
+            settings.component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT.withShowInTooltip(false));
+        }
+        return settings;
     }
 
     // ---- ISpecialArmor ----

@@ -125,10 +125,14 @@ public abstract class TileEntityPipe extends TileEntityBlock implements IPipe, I
         }
     }
 
-    /** The covers come off with the pipe, as getAuxDrops added them in 1.12.2. */
+    /**
+     * The pipe itself and its covers, as getAuxDrops added them in 1.12.2. The 1.12.2 pipes were
+     * a separate item, so TeBlock.fluid_pipe has none; each pipe block has its own item now.
+     */
     @Override
     public List<ItemStack> getSelfDrops(boolean wrench) {
-        List<ItemStack> ret = new ArrayList<>(super.getSelfDrops(wrench));
+        List<ItemStack> ret = new ArrayList<>();
+        ret.add(getPickStack());
         for (Direction side : Direction.values()) {
             if (coversComponent.hasCover(side)) {
                 ret.add(coversComponent.removeCover(side));

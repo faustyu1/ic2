@@ -294,6 +294,12 @@ public abstract class TileEntityInventory extends TileEntityBlock
         return 64;
     }
 
+    /** How many items the slot at a flat index holds, as its group allows - one for a reactor slot. */
+    public int getMaxCountAt(int index) {
+        Position position = resolve(index);
+        return position == null ? getMaxCountPerStack() : Math.min(getMaxCountPerStack(), position.slot().getStackSizeLimit());
+    }
+
     @Override
     public boolean canPlayerUse(PlayerEntity player) {
         return permitsAccess(player)

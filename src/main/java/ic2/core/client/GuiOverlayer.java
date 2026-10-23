@@ -50,13 +50,13 @@ public final class GuiOverlayer {
             if (stack.getItem() instanceof IElectricItem && ElectricItem.manager != null && !lines.isEmpty()) {
                 String charge = ElectricItem.manager.getToolTip(stack);
                 if (charge != null) {
-                    lines.add(1, Text.literal(charge).formatted(Formatting.GRAY));
+                    lines.add(1, Text.literal(charge).formatted(Formatting.AQUA));
                 }
             }
             if (JetpackHandler.hasJetpackAttached(stack)) {
                 lines.add(Text.translatable("jetpackAttached").formatted(Formatting.YELLOW));
                 if (!(stack.getItem() instanceof IElectricItem)) {
-                    lines.add(Text.literal(ElectricItem.manager.getToolTip(stack)).formatted(Formatting.GRAY));
+                    lines.add(Text.literal(ElectricItem.manager.getToolTip(stack)).formatted(Formatting.AQUA));
                 }
             }
         });
@@ -83,6 +83,10 @@ public final class GuiOverlayer {
         ItemStack boots = player.getEquippedStack(EquipmentSlot.FEET);
         ItemStack legs = player.getEquippedStack(EquipmentSlot.LEGS);
         ItemStack chestplate = player.getEquippedStack(EquipmentSlot.CHEST);
+        if (chestplate.isEmpty()) {
+            // a pack on the back takes the chest row
+            chestplate = ic2.core.item.armor.jetpack.BackSlot.get(player);
+        }
 
         context.drawTexture(BACKGROUND, 0, 0, 0, 0, 71, 69);
         context.drawItem(helm, 5, 4);

@@ -52,6 +52,7 @@ public class TileEntityWindKineticGenerator extends TileEntityRotorKineticGenera
 
         if (!active) {
             rotationSpeed = 0.0F;
+            syncRotor();
             return;
         }
 
@@ -64,6 +65,7 @@ public class TileEntityWindKineticGenerator extends TileEntityRotorKineticGenera
         if (obstructedCrossSection < 0) {
             windStrength = 0.0;
             rotationSpeed = 0.0F;
+            syncRotor();
             return;
         }
 
@@ -73,6 +75,7 @@ public class TileEntityWindKineticGenerator extends TileEntityRotorKineticGenera
             rotorSlot.damage(windStrength <= getMaxWindStrength() ? 1 : 4, false);
             markDirty();
         }
+        syncRotor();
     }
 
     private static int square(int x) {

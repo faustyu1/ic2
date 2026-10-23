@@ -23,7 +23,8 @@ Minecraft 1.21.1 / Fabric. Expect bugs and missing features, and back up your wo
 - UU-matter chain: matter and mass fabricators, scanner, pattern storage, replicator
 - Miner, advanced miner and mining pipe
 - Electric tools, mining laser, wrenches and crowbar
-- Armor with jetpacks, nano and quantum suits, armor HUD and radiation
+- Armor with jetpacks, nano and quantum suits, armor HUD and radiation; jetpacks, battery packs
+  and the CF pack also fit the [Trinkets](https://modrinth.com/mod/trinkets) back slot
 - Crops: crop sticks, cross-breeding, Crop-Matron and crop harvester
 - Logistics and personal blocks: item buffers, sorting machine, weighted item distributor, batch
   crafter, industrial workbench, trade-o-mat, energy-o-mat
@@ -35,6 +36,9 @@ Minecraft 1.21.1 / Fabric. Expect bugs and missing features, and back up your wo
 - `config/IC2.ini` support
 
 ### Changed
+
+- Requires [Trinkets](https://modrinth.com/mod/trinkets)
+- One wrench instead of three; no empty cell, sheets, scaffolds or iron door
 
 - Uses Minecraft's copper instead of IC2's own; raw metal can be crushed
 - Metals from other mods come out of IC2 machines through common tags

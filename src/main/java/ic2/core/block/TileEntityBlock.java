@@ -108,6 +108,14 @@ public abstract class TileEntityBlock extends BlockEntity implements INetworkDat
         }
     }
 
+    /**
+     * Whether the block joins the energy net on its own when it loads; a part of a bigger
+     * structure (a reactor chamber) joins as one of the sub tiles of its core instead.
+     */
+    protected boolean joinsEnergyNetItself() {
+        return true;
+    }
+
     public boolean isAddedToEnet() {
         return addedToEnet;
     }
@@ -426,7 +434,7 @@ public abstract class TileEntityBlock extends BlockEntity implements INetworkDat
 
     public void onLoad() {
         loaded = true;
-        if (!addedToEnet && this instanceof IEnergyTile) {
+        if (!addedToEnet && this instanceof IEnergyTile && joinsEnergyNetItself()) {
             if (world != null && !world.isClient) {
                 try {
                     addTileHelper((net.minecraft.block.entity.BlockEntity & IEnergyTile) (Object) this);

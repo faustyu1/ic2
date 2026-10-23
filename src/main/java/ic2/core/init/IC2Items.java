@@ -16,7 +16,6 @@ import ic2.core.item.reactor.ItemReactorReflector;
 import ic2.core.item.reactor.ItemReactorUranium;
 import ic2.core.item.tool.BronzeToolMaterial;
 import ic2.core.item.ItemBattery;
-import ic2.core.item.ItemCell;
 import ic2.core.item.ItemBooze;
 import ic2.core.item.ItemCoke;
 import ic2.core.item.ItemCropSeed;
@@ -55,7 +54,6 @@ import ic2.core.item.armor.ItemArmorStaticBoots;
 import ic2.core.item.armor.ItemArmorUtility;
 import ic2.core.item.tool.ItemChainsaw;
 import ic2.core.item.tool.ItemElectricWrench;
-import ic2.core.item.tool.ItemWrenchAdvanced;
 import net.minecraft.item.ArmorItem;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.HoeItem;
@@ -73,12 +71,10 @@ public final class IC2Items {
     public static Item COPPER_INGOT;
     public static Item TIN_INGOT;
     public static Item BRONZE_INGOT;
-    public static Item EMPTY_CELL;
     public static Item REFINED_IRON;
     public static Item DRILL;
     public static Item CHAINSAW;
     public static Item ELECTRIC_WRENCH;
-    public static Item ADVANCED_WRENCH;
     public static Item ADV_BATTERY;
     public static Item NANO_HELMET;
     public static Item QUANTUM_HELMET;
@@ -143,11 +139,9 @@ public final class IC2Items {
     public static void registerAll(){
         WRENCH = reg("wrench", new ItemWrench());
         RE_BATTERY = reg("re_battery", new ItemBattery());
-        EMPTY_CELL = reg("cell", new ItemCell("cell"));
         DRILL = reg("drill", ItemDrill.drill());
         CHAINSAW = reg("chainsaw", new ItemChainsaw());
         ELECTRIC_WRENCH = reg("electric_wrench", new ItemElectricWrench());
-        ADVANCED_WRENCH = reg("wrench_advanced", new ItemWrenchAdvanced());
         ADV_BATTERY = reg("adv_battery", new ItemAdvancedBattery());
         CUTTER = reg("cutter", new ItemCutter());
         MINING_LASER = reg("mining_laser", new ItemMiningLaser());
@@ -274,7 +268,6 @@ public final class IC2Items {
 
         reg("forge_hammer", new ItemGradualInt("forge_hammer", 80));
         reg("foam_sprayer", new ic2.core.item.tool.ItemSprayer());
-        reg("wrench_new", new ic2.core.item.tool.ItemToolWrenchNew());
         reg("crowbar", new ic2.core.item.tool.ItemToolCrowbar());
         reg("tool_box", new ItemHandHeldContainer(HandHeldKind.TOOLBOX));
         reg("containment_box", new ItemHandHeldContainer(HandHeldKind.CONTAINMENT_BOX));
@@ -301,7 +294,8 @@ public final class IC2Items {
         reg("nano_saber", new ItemNanoSaber());
         reg("obscurator", new ic2.core.item.tool.ItemObscurator());
         reg("advanced_scanner", ItemScanner.advanced());
-        reg("scanner", new ItemScanner());
+        // The UU scanner block's item already has the id ic2:scanner; the handheld is the OD scanner.
+        reg("od_scanner", new ItemScanner());
         reg("crystal_memory", new ic2.core.item.ItemCrystalMemory());
         reg("wind_meter", new ItemWindmeter());
         reg("cropnalyzer", new ItemCropnalyzer());

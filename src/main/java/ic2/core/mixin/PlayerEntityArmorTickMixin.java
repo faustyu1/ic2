@@ -30,6 +30,16 @@ public abstract class PlayerEntityArmorTickMixin {
             armor.onArmorTick(self.getWorld(), self, stack);
         }
 
+        // a pack on the back (the Trinkets slot) works as if worn in the chest slot; a jetpack
+        // there only flies when the chest slot has none
+        ItemStack back = ic2.core.item.armor.jetpack.BackSlot.get(self);
+        if (back.getItem() instanceof ic2.core.item.armor.jetpack.IJetpack) {
+            back = ic2.core.item.armor.jetpack.BackSlot.getFlyingBackJetpack(self);
+        }
+        if (back.getItem() instanceof IArmorTickItem armor) {
+            armor.onArmorTick(self.getWorld(), self, back);
+        }
+
         // a jetpack crafted onto a chestplate flies whatever the chestplate is
         ic2.core.item.armor.jetpack.JetpackHandler.tick(self);
     }

@@ -178,7 +178,14 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
     @Override public double getConductionLoss() { return cableType.loss; }
     @Override public double getConductorBreakdownEnergy() { return cableType.capacity + 1; }
     @Override public double getInsulationBreakdownEnergy() { return cableType.capacity + 1; }
-    @Override public double getInsulationEnergyAbsorption() { return 0; }
+    /**
+     * What the insulation keeps in: nothing on a bare cable, everything on a fully insulated one
+     * and on the glass fibre, detector and splitter cables, a tier per layer in between.
+     */
+    @Override public double getInsulationEnergyAbsorption() {
+        if (cableType.maxInsulation == 0 || insulation >= cableType.maxInsulation) return Double.MAX_VALUE;
+        return insulation == 0 ? 0 : ic2.api.energy.EnergyNet.instance.getPowerFromTier(insulation);
+    }
     @Override public boolean acceptsEnergyFrom(ic2.api.energy.tile.IEnergyEmitter emitter, Direction side) { return canInteractWith(emitter, side); }
     @Override public boolean emitsEnergyTo(ic2.api.energy.tile.IEnergyAcceptor receiver, Direction side) { return canInteractWith(receiver, side); }
     @Override public void removeInsulation() { if (insulation > 0) { insulation--; markDirty(); } }
@@ -282,11 +289,45 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
         return true;
     }
 
+    private static final int SHOCK_INTERVAL = 10;
+
+    /**
+     * A live cable whose insulation cannot keep in what flows through it shocks whoever stands next
+     * to it, a heart for every 64 EU it lets out. The 1.12.2 leg energy net did this per packet; the
+     * grid net the port uses has no packets, so the cable checks its own flow instead. Foam and a
+     * complete hazmat suit keep it off.
+     */
+    private void shockNearbyEntities() {
+        if (getFoam() != CableFoam.none) {
+            return;
+        }
+        double absorption = getInsulationEnergyAbsorption();
+        if (absorption == Double.MAX_VALUE) {
+            return;
+        }
+        double flow = ic2.api.energy.EnergyNet.instance.getNodeStats(this).getEnergyIn();
+        int damage = (int) Math.ceil((flow - absorption) / 64.0);
+        if (damage <= 0) {
+            return;
+        }
+        net.minecraft.util.math.Box area = new net.minecraft.util.math.Box(pos).expand(1.0);
+        for (net.minecraft.entity.LivingEntity entity : world.getEntitiesByClass(net.minecraft.entity.LivingEntity.class, area,
+                e -> e.isAlive() && !ic2.api.item.IHazmatLike.hasCompleteHazmat(e))) {
+            entity.damage(ic2.core.IC2DamageSource.getElectricity(world), damage);
+        }
+    }
+
     /** Soft foam sets with the odds loose foam has, checked every tick as 1.12.2 did. */
     @Override
     public void tick() {
         super.tick();
-        if (world == null || world.isClient || getFoam() != CableFoam.soft) {
+        if (world == null || world.isClient) {
+            return;
+        }
+        if ((world.getTime() + pos.asLong()) % SHOCK_INTERVAL == 0) {
+            shockNearbyEntities();
+        }
+        if (getFoam() != CableFoam.soft) {
             return;
         }
         if (world.random.nextFloat() < BlockFoam.getHardenChance(world, pos, getCachedState())) {

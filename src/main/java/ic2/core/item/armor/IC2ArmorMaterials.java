@@ -67,8 +67,10 @@ public final class IC2ArmorMaterials {
 
         HAZMAT = register("hazmat", protection(0, 0, 0, 0), 0, 0.0f, 0.0f, Ingredient::empty);
         RUBBER = register("rubber", protection(0, 0, 0, 0), 0, 0.0f, 0.0f, Ingredient::empty);
-        NANO = register("nano", protection(0, 0, 0, 0), 0, 0.0f, 0.0f, Ingredient::empty);
-        QUANTUM = register("quantum", protection(0, 0, 0, 0), 0, 0.0f, 0.0f, Ingredient::empty);
+        // the suits wear vanilla armour points on top of their EU absorption: the nano suit those
+        // of netherite, the quantum suit more again
+        NANO = register("nano", protection(3, 6, 8, 3), 0, 3.0f, 0.1f, Ingredient::empty);
+        QUANTUM = register("quantum", protection(4, 8, 10, 4), 0, 4.0f, 0.15f, Ingredient::empty);
         BATPACK = register("batpack", protection(0, 0, 0, 0), 0, 0.0f, 0.0f, Ingredient::empty);
         ADVANCED_BATPACK = register("advbatpack", protection(0, 0, 0, 0), 0, 0.0f, 0.0f, Ingredient::empty);
         ENERGYPACK = register("energypack", protection(0, 0, 0, 0), 0, 0.0f, 0.0f, Ingredient::empty);
