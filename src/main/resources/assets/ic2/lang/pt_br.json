@@ -1,5 +1,5 @@
 {
-  "itemGroup.ic2": "IndustrialCraft 2",
+  "itemGroup.ic2": "IndustrialCraft 2 Community Edition",
   "block.ic2.batbox": "Caixa de Baterias (CB)",
   "block.ic2.cesu": "Unidade de Armazenamento de Energia (UAE)",
   "block.ic2.mfe": "Transmissor de Energia Multi-funcional (TEMF)",
@@ -1040,7 +1040,7 @@
   "container.personalTrader.stock": "Estoque:",
   "container.personalTraderEnergy.paidFor": "Pago Por: %1$s EU",
   "container.personalTraderEnergy.energyBuffer": "Buffer:",
-  "itemGroup.IC2": "IndustrialCraft 2",
+  "itemGroup.IC2": "IndustrialCraft 2 Community Edition",
   "potion.radiation": "Radiação",
   "death.attack.electricity": "%1$s foi eletrocutado",
   "death.attack.nuke": "%1$s explodiu!",

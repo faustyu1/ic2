@@ -1,5 +1,5 @@
 {
-  "itemGroup.ic2": "IndustrialCraft 2",
+  "itemGroup.ic2": "IndustrialCraft 2 Community Edition",
   "block.ic2.batbox": "Энергохранилище",
   "block.ic2.cesu": "МЭСН",
   "block.ic2.mfe": "МФЭ",
@@ -1095,7 +1095,7 @@
   "container.personalTrader.stock": "В наличии:",
   "container.personalTraderEnergy.paidFor": "Заплачено за: %1$s EU",
   "container.personalTraderEnergy.energyBuffer": "Буфер:",
-  "itemGroup.IC2": "IndustrialCraft 2",
+  "itemGroup.IC2": "IndustrialCraft 2 Community Edition",
   "potion.radiation": "Радиация",
   "death.attack.electricity": "%1$s был убит током",
   "death.attack.nuke": "%1$s был убит ядерной бомбой",

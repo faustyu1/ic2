@@ -5,7 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Fabric entrypoint for the common (server + client) side of IndustrialCraft 2.
+ * Fabric entrypoint for the common (server + client) side of IndustrialCraft 2 Community Edition.
  *
  * The original Forge {@code @Mod} logic from {@code ic2.core.IC2} will be
  * migrated into this class as the port progresses (registration, config,
@@ -17,7 +17,7 @@ public final class IC2Mod implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        LOGGER.info("[IndustrialCraft 2] Initializing common side");
+        LOGGER.info("[IC2 Community Edition] Initializing common side");
         IC2Potion.init();
         // the EU manager every electric item goes through; it was never installed, so anything
         // that asked ElectricItem.manager for a charge got a null and crashed
@@ -76,7 +76,7 @@ public final class IC2Mod implements ModInitializer {
         ic2.core.item.tool.ItemToolPainter.registerEvents();
         // bedrock stops an IC2 blast instead of letting it through, as in 1.12.2
         ic2.api.tile.ExplosionWhitelist.addWhitelistedBlock(net.minecraft.block.Blocks.BEDROCK);
-        LOGGER.info("[IndustrialCraft 2] Registered {} blocks", ic2.core.init.IC2Blocks.class.getSimpleName());
+        LOGGER.info("[IC2 Community Edition] Registered {} blocks", ic2.core.init.IC2Blocks.class.getSimpleName());
         // GUI stub registered: ic2.core.gui.GuiIC2 (HandledScreen), DynamicContainer (ScreenHandler), GuiParser (guidef stub)
         // ScreenHandlerType intentionally not registered (null/dummy) for stub phase — no networking/handling yet.
     }

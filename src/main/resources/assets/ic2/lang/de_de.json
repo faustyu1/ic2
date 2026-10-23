@@ -1,5 +1,5 @@
 {
-  "itemGroup.ic2": "IndustrialCraft 2",
+  "itemGroup.ic2": "IndustrialCraft 2 Community Edition",
   "block.ic2.batbox": "BatBox",
   "block.ic2.cesu": "CESU",
   "block.ic2.mfe": "MFE",
@@ -1063,7 +1063,7 @@
   "container.personalTrader.stock": "Lager:",
   "container.personalTraderEnergy.paidFor": "Bezahlt: %1$s EU",
   "container.personalTraderEnergy.energyBuffer": "Speicher:",
-  "itemGroup.IC2": "IndustrialCraft 2",
+  "itemGroup.IC2": "IndustrialCraft 2 Community Edition",
   "potion.radiation": "Verstrahlung",
   "death.attack.electricity": "%1$s wurde gegrillt",
   "death.attack.nuke": "%1$s wurde atomisiert",

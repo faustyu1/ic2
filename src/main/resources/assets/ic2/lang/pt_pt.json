@@ -1,5 +1,5 @@
 {
-  "itemGroup.ic2": "IndustrialCraft 2",
+  "itemGroup.ic2": "IndustrialCraft 2 Community Edition",
   "block.ic2.batbox": "BatBox",
   "block.ic2.cesu": "CESU",
   "block.ic2.mfe": "MFE",
@@ -628,7 +628,7 @@
   "container.Scanner.info5": "Resultado do exame",
   "container.Scanner.info6": "!! Erro !!",
   "container.Scanner.info7": "erro de transferência sem armazenamento",
-  "itemGroup.IC2": "IndustrialCraft 2",
+  "itemGroup.IC2": "IndustrialCraft 2 Community Edition",
   "potion.radiation": "Radiação",
   "death.attack.electricity": "%1$s foi eletrocutado",
   "death.attack.nuke": "%1$s foi nuked",

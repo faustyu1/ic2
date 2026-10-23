@@ -1,5 +1,5 @@
 {
-  "itemGroup.ic2": "IndustrialCraft 2",
+  "itemGroup.ic2": "IndustrialCraft 2 Community Edition",
   "block.ic2.batbox": "低圧蓄電器(BatBox)",
   "block.ic2.cesu": "中圧蓄電器(CESU)",
   "block.ic2.mfe": "高圧蓄電器(MFE)",
@@ -1022,7 +1022,7 @@
   "container.personalTrader.stock": "在庫品:",
   "container.personalTraderEnergy.paidFor": "支払い:%1$sEU",
   "container.personalTraderEnergy.energyBuffer": "エネルギーバッファ:",
-  "itemGroup.IC2": "IndustrialCraft 2",
+  "itemGroup.IC2": "IndustrialCraft 2 Community Edition",
   "potion.radiation": "放射線障害",
   "death.attack.electricity": "%1$s は感電死した",
   "death.attack.nuke": "%1$s は核爆発で死亡した",

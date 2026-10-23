@@ -1,5 +1,5 @@
 {
-  "itemGroup.ic2": "IndustrialCraft 2",
+  "itemGroup.ic2": "IndustrialCraft 2 Community Edition",
   "block.ic2.batbox": "Akumulator",
   "block.ic2.cesu": "CESU",
   "block.ic2.mfe": "MFE",
@@ -1004,7 +1004,7 @@
   "container.personalTrader.stock": "Akcje:",
   "container.personalTraderEnergy.paidFor": "Zapłacono za: %1$s EU",
   "container.personalTraderEnergy.energyBuffer": "Bufor:",
-  "itemGroup.IC2": "IndustrialCraft 2",
+  "itemGroup.IC2": "IndustrialCraft 2 Community Edition",
   "potion.radiation": "Radiacja",
   "death.attack.electricity": "%1$s został porażony prądem",
   "death.attack.nuke": "%1$s został zabity bombą atomową",

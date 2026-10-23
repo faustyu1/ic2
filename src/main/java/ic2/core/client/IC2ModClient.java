@@ -30,7 +30,7 @@ public final class IC2ModClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         Logger logger = LoggerFactory.getLogger("ic2");
-        logger.info("[IndustrialCraft 2] Initializing client side");
+        logger.info("[IC2 Community Edition] Initializing client side");
 
         // one screen for every machine: the layout comes from the guidef file, not from the class
         HandledScreens.register(IC2ScreenHandlers.DYNAMIC, GuiIC2::new);

@@ -1,5 +1,5 @@
 {
-  "itemGroup.ic2": "IndustrialCraft 2",
+  "itemGroup.ic2": "IndustrialCraft 2 Community Edition",
   "block.ic2.batbox": "BatBox",
   "block.ic2.cesu": "CESU",
   "block.ic2.mfe": "MFE",
@@ -886,7 +886,7 @@
   "container.personalTrader.stock": "Stok:",
   "container.personalTraderEnergy.paidFor": "Elektrik İçin ödenen: %1$s EU",
   "container.personalTraderEnergy.energyBuffer": "Tampon:",
-  "itemGroup.IC2": "IndustrialCraft 2",
+  "itemGroup.IC2": "IndustrialCraft 2 Community Edition",
   "potion.radiation": "Radyasyon",
   "death.attack.electricity": "%1$s adlı kişi elektriğe kapıldı.",
   "death.attack.nuke": "%1$s adlı kişi atom bombası yedi.",

@@ -86,7 +86,7 @@ java {
 publishMods {
     file = remapJar.archiveFile
     additionalFiles.from(remapSourcesJar.archiveFile)
-    displayName = "IndustrialCraft 2 ${project.version} (Fabric ${project.minecraft_version})"
+    displayName = "IC2 Community Edition ${project.version} (Fabric ${project.minecraft_version})"
     version = project.version
     changelog = providers.environmentVariable("CHANGELOG").orElse("See https://github.com/faustyu1/ic2 for changes.")
     type = ALPHA
