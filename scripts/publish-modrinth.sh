@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
-# Upload a release build to Modrinth.
+# Builds the mod and uploads it to Modrinth.
 #
-# Placeholder: not implemented yet.
-# Expected inputs once implemented:
-#   MODRINTH_TOKEN       - personal access token (never commit it)
-#   MODRINTH_PROJECT_ID  - Modrinth project id or slug
-#   path to the jar in build/libs/
+# Needs MODRINTH_TOKEN in the environment (never commit it) and modrinth_project_id set in
+# gradle.properties. Optional: CHANGELOG (release notes text). Pass --dry-run to build and check the
+# upload without sending it.
 set -euo pipefail
+cd "$(dirname "$0")/.."
 
-echo "publish-modrinth: not implemented yet" >&2
-exit 1
+args=()
+if [[ "${1:-}" == "--dry-run" ]]; then
+    args+=(-PdryRun)
+elif [[ -z "${MODRINTH_TOKEN:-}" ]]; then
+    echo "publish-modrinth: MODRINTH_TOKEN is not set" >&2
+    exit 1
+fi
+
+./gradlew build publishModrinth ${args[@]+"${args[@]}"}

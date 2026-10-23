@@ -22,7 +22,9 @@
     "Chocohead"
   ],
   "contact": {
-    "homepage": "https://www.industrial-craft.net"
+    "homepage": "https://www.industrial-craft.net",
+    "sources": "https://github.com/faustyu1/ic2",
+    "issues": "https://github.com/faustyu1/ic2/issues"
   },
   "license": "IC2-License",
   "environment": "*",

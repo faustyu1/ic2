@@ -1,6 +1,7 @@
 plugins {
     id 'fabric-loom' version '1.9-SNAPSHOT'
     id 'maven-publish'
+    id 'me.modmuss50.mod-publish-plugin' version '2.2.1'
 }
 
 version = project.mod_version
@@ -78,4 +79,35 @@ java {
     withSourcesJar()
     sourceCompatibility = JavaVersion.VERSION_21
     targetCompatibility = JavaVersion.VERSION_21
+}
+
+// Release uploads (./gradlew publishModrinth / publishCurseforge / publishMods). Tokens come from the
+// environment and are never committed; -PdryRun builds and checks everything without uploading.
+publishMods {
+    file = remapJar.archiveFile
+    additionalFiles.from(remapSourcesJar.archiveFile)
+    displayName = "IndustrialCraft 2 ${project.version} (Fabric ${project.minecraft_version})"
+    version = project.version
+    changelog = providers.environmentVariable("CHANGELOG").orElse("See https://github.com/faustyu1/ic2 for changes.")
+    type = ALPHA
+    modLoaders.add("fabric")
+    dryRun = providers.gradleProperty("dryRun").isPresent()
+
+    modrinth {
+        projectId = project.modrinth_project_id
+        accessToken = providers.environmentVariable("MODRINTH_TOKEN")
+        minecraftVersions.add(project.minecraft_version)
+        requires("fabric-api")
+        optional("rei")
+    }
+    curseforge {
+        projectId = project.curseforge_project_id
+        accessToken = providers.environmentVariable("CURSEFORGE_TOKEN")
+        minecraftVersions.add(project.minecraft_version)
+        javaVersions.add(JavaVersion.VERSION_21)
+        client = true
+        server = true
+        requires("fabric-api")
+        optional("roughly-enough-items")
+    }
 }

@@ -54,8 +54,16 @@ Run a development client:
 
 ## Publishing
 
-`scripts/publish-modrinth.sh` and `scripts/publish-curseforge.sh` are placeholders for release
-uploads to Modrinth and CurseForge. They are not implemented yet.
+Releases are uploaded with the [mod-publish-plugin](https://github.com/modmuss50/mod-publish-plugin).
+Set `modrinth_project_id` / `curseforge_project_id` in `gradle.properties`, then:
+
+```sh
+MODRINTH_TOKEN=... scripts/publish-modrinth.sh
+CURSEFORGE_TOKEN=... scripts/publish-curseforge.sh
+```
+
+`--dry-run` builds and checks the upload without sending it. Release notes can be passed in the
+`CHANGELOG` environment variable. Tokens are read from the environment only; never commit them.
 
 ## License
 
