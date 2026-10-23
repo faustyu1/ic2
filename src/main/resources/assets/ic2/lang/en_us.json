@@ -1722,5 +1722,6 @@
   "block.ic2.steel_pipe_tiny": "Tiny Steel Pipe",
   "block.ic2.steel_pipe_small": "Small Steel Pipe",
   "block.ic2.steel_pipe_medium": "Medium Steel Pipe",
-  "block.ic2.steel_pipe_large": "Large Steel Pipe"
+  "block.ic2.steel_pipe_large": "Large Steel Pipe",
+  "modmenu.ic2.source_mod": "Source Mod"
 }

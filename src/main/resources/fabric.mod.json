@@ -59,5 +59,12 @@
   ],
   "suggests": {
     "roughlyenoughitems": "*"
+  },
+  "custom": {
+    "modmenu": {
+      "links": {
+        "modmenu.ic2.source_mod": "https://modrinth.com/mod/industrial-craft"
+      }
+    }
   }
 }

@@ -1818,5 +1818,6 @@
   "entity.ic2.itnt": "Промышленный динамит",
   "entity.ic2.nuke": "Ядерная бомба",
   "block.ic2.dynamite": "Динамит",
-  "item.ic2.crystal_memory": "Кристалл памяти"
+  "item.ic2.crystal_memory": "Кристалл памяти",
+  "modmenu.ic2.source_mod": "Оригинальный мод"
 }
