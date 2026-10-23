@@ -1,7 +1,7 @@
 # IndustrialCraft 2 Community Edition
 
 **IC2 Community Edition** is an unofficial, community-made port of
-[IndustrialCraft 2](https://www.curseforge.com/minecraft/mc-mods/industrial-craft) (`2.8.222-ex112`,
+[IndustrialCraft 2](https://modrinth.com/mod/industrial-craft) (`2.8.222-ex112`,
 Minecraft 1.12.2 / Forge) to **Minecraft 1.21.1 / Fabric**.
 
 The goal is to keep classic IC2 playable on modern Minecraft: the same EU energy net, machines,
