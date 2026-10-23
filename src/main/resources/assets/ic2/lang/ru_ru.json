@@ -1819,5 +1819,6 @@
   "entity.ic2.nuke": "Ядерная бомба",
   "block.ic2.dynamite": "Динамит",
   "item.ic2.crystal_memory": "Кристалл памяти",
-  "modmenu.ic2.source_mod": "Оригинальный мод"
+  "modmenu.ic2.source_mod": "Оригинальный мод",
+  "ic2.config.title": "Настройки IC2 Community Edition"
 }

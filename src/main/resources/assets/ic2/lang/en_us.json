@@ -1723,5 +1723,6 @@
   "block.ic2.steel_pipe_small": "Small Steel Pipe",
   "block.ic2.steel_pipe_medium": "Medium Steel Pipe",
   "block.ic2.steel_pipe_large": "Large Steel Pipe",
-  "modmenu.ic2.source_mod": "Source Mod"
+  "modmenu.ic2.source_mod": "Source Mod",
+  "ic2.config.title": "IC2 Community Edition Settings"
 }

@@ -1,10 +1,13 @@
 package ic2.core.init;
 
 import ic2.core.util.Config;
+import ic2.core.util.IniEditor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,10 +45,63 @@ public class MainConfig {
         return instance;
     }
 
+    /** The settings the shipped file has, with their comments, for the settings screen. */
+    public static List<IniEditor.Entry> entries() throws IOException {
+        try (InputStream is = MainConfig.class.getResourceAsStream(PATH)) {
+            if (is == null) {
+                throw new IOException("Resource not found: " + PATH);
+            }
+            return IniEditor.readEntries(is);
+        }
+    }
+
+    /**
+     * What the files hold now, read afresh: unlike {@link #get} this sees edits made to the user
+     * file since the game started.
+     */
+    public static Config read() throws IOException {
+        Config config = new Config("general");
+        try (InputStream is = MainConfig.class.getResourceAsStream(PATH)) {
+            if (is == null) {
+                throw new IOException("Resource not found: " + PATH);
+            }
+            config.load(is);
+        }
+        Path file = userFile();
+        if (Files.exists(file)) {
+            try (InputStream is = Files.newInputStream(file)) {
+                config.merge(is);
+            }
+        }
+        return config;
+    }
+
+    /**
+     * Writes values, by path, into the user file. The game reads them on its next start: the
+     * settings loaded now stay as they are.
+     */
+    public static void save(Map<String, String> values) throws IOException {
+        Path file = userFile();
+        if (!Files.exists(file)) {
+            Files.createDirectories(file.getParent());
+            try (InputStream is = MainConfig.class.getResourceAsStream(PATH)) {
+                if (is != null) {
+                    Files.copy(is, file);
+                }
+            }
+        }
+        IniEditor.write(file, values);
+        LOG.info("[IC2] Saved {} settings to {}", values.size(), file);
+    }
+
+    private static Path userFile() {
+        return net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir().resolve(USER_FILE);
+    }
+
     private static void loadUserFile(Config config) {
         Path file;
         try {
-            file = net.fabricmc.loader.api.FabricLoader.getInstance().getConfigDir().resolve(USER_FILE);
+            file = userFile();
         } catch (Throwable t) {
             // unit tests run without a Fabric loader context, and so without a config folder
             return;

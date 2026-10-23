@@ -71,7 +71,7 @@ public class Config {
         }
     }
 
-    private static String normalizeSection(String header) {
+    static String normalizeSection(String header) {
         StringBuilder ret = new StringBuilder();
         for (String part : header.split("/")) {
             part = part.trim();

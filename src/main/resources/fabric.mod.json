@@ -45,6 +45,9 @@
     ],
     "rei_client": [
       "ic2.integration.rei.Ic2ReiPlugin"
+    ],
+    "modmenu": [
+      "ic2.integration.modmenu.Ic2ModMenu"
     ]
   },
   "depends": {
@@ -58,7 +61,9 @@
     "ic2.mixins.json"
   ],
   "suggests": {
-    "roughlyenoughitems": "*"
+    "roughlyenoughitems": "*",
+    "modmenu": "*",
+    "cloth-config": "*"
   },
   "custom": {
     "modmenu": {
