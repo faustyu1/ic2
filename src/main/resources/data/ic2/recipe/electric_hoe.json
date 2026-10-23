@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "II",
+    " I",
+    " B"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "B": {
+      "item": "ic2:crafting_small_power_unit"
+    }
+  },
+  "result": {
+    "id": "ic2:electric_hoe"
+  }
+}

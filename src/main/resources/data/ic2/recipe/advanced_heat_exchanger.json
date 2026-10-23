@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GcG",
+    "SCS",
+    "GcG"
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:heat_exchanger"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "G": {
+      "tag": "c:plates/lapis"
+    },
+    "c": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_heat_exchanger"
+  }
+}

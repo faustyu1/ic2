@@ -1,0 +1,61 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      {
+        "item": "ic2:painter"
+      },
+      {
+        "item": "ic2:painter_black"
+      },
+      {
+        "item": "ic2:painter_blue"
+      },
+      {
+        "item": "ic2:painter_brown"
+      },
+      {
+        "item": "ic2:painter_cyan"
+      },
+      {
+        "item": "ic2:painter_gray"
+      },
+      {
+        "item": "ic2:painter_green"
+      },
+      {
+        "item": "ic2:painter_light_blue"
+      },
+      {
+        "item": "ic2:painter_light_gray"
+      },
+      {
+        "item": "ic2:painter_lime"
+      },
+      {
+        "item": "ic2:painter_magenta"
+      },
+      {
+        "item": "ic2:painter_orange"
+      },
+      {
+        "item": "ic2:painter_pink"
+      },
+      {
+        "item": "ic2:painter_purple"
+      },
+      {
+        "item": "ic2:painter_red"
+      },
+      {
+        "item": "ic2:painter_white"
+      },
+      {
+        "item": "ic2:painter_yellow"
+      }
+    ]
+  ],
+  "result": {
+    "id": "ic2:painter"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "GVG",
+    " G "
+  ],
+  "key": {
+    "V": {
+      "item": "ic2:reactor_heat_vent"
+    },
+    "G": {
+      "tag": "c:plates/gold"
+    }
+  },
+  "result": {
+    "id": "ic2:overclocked_heat_vent"
+  }
+}

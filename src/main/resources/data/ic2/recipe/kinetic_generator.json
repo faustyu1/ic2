@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "MES",
+    "III"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:generator"
+    },
+    "S": {
+      "item": "ic2:crafting_iron_shaft"
+    },
+    "E": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "I": {
+      "item": "ic2:casing_iron"
+    }
+  },
+  "result": {
+    "id": "ic2:kinetic_generator"
+  }
+}

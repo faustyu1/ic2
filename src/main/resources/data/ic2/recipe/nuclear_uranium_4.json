@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "UUU",
+    "CCC",
+    "UUU"
+  ],
+  "key": {
+    "U": {
+      "tag": "c:ingots/uranium"
+    },
+    "C": {
+      "tag": "c:nuggets/uranium_235"
+    }
+  },
+  "result": {
+    "id": "ic2:nuclear_uranium"
+  }
+}

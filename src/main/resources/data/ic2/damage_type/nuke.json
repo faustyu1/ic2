@@ -1,0 +1,6 @@
+{
+  "message_id": "nuke",
+  "exhaustion": 0.1,
+  "scaling": "always",
+  "effects": "hurt"
+}

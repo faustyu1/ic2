@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TXT",
+    " E ",
+    "T T"
+  ],
+  "key": {
+    "E": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    },
+    "X": {
+      "item": "ic2:treetap"
+    }
+  },
+  "result": {
+    "id": "ic2:upgrade_fluid_pulling"
+  }
+}

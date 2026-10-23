@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiFluidHeatGenerator/ContainerFluidHeatGenerator); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIFluidHeatGenerator"/>
+	<text y="6" align="center">%name%</text>
+
+	<slot name="fluidSlot" x="27" y="21" style="plain"/>
+	<slot name="output" x="27" y="54" style="plain"/>
+	<fluidtank x="70" y="20" name="fluidTank"/>
+	<text x="96" y="33" color="0x57C4DA">{ic2.FluidHeatGenerator.gui.info.Emit}%amount:heat%</text>
+	<text x="96" y="52" color="0x57C4DA">{ic2.FluidHeatGenerator.gui.info.MaxEmit}%capacity:heat%</text>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

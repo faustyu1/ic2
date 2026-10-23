@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/barrel_bottomtop",
+    "down": "ic2:block/barrel_bottomtop",
+    "north": "ic2:block/barrel_sides",
+    "south": "ic2:block/barrel_sides",
+    "west": "ic2:block/barrel_sides",
+    "east": "ic2:block/barrel_sides",
+    "particle": "ic2:block/barrel_sides"
+  }
+}

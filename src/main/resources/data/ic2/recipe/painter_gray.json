@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:painter"
+    },
+    {
+      "tag": "c:dyes/gray"
+    }
+  ],
+  "result": {
+    "id": "ic2:painter_gray"
+  }
+}

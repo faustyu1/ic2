@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    "SMS",
+    "SCS"
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:stone"
+    },
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:compressor"
+  }
+}

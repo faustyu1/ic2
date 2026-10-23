@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "TWT",
+    " T "
+  ],
+  "key": {
+    "W": {
+      "item": "ic2:fluid_cell_ic2coolant"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    }
+  },
+  "result": {
+    "id": "ic2:heat_storage"
+  }
+}

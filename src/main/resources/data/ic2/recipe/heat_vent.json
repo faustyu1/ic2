@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#I#",
+    "IMI",
+    "#I#"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "#": {
+      "item": "minecraft:iron_bars"
+    }
+  },
+  "result": {
+    "id": "ic2:heat_vent"
+  }
+}

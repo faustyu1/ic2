@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:machine"
+    },
+    {
+      "item": "minecraft:lever"
+    }
+  ],
+  "result": {
+    "id": "ic2:manual_kinetic_generator"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SAS",
+    "SCS",
+    "SAS"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:sand"
+    },
+    "C": {
+      "item": "minecraft:clay_ball"
+    },
+    "S": {
+      "tag": "c:dusts/stone"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_cf_powder"
+  }
+}

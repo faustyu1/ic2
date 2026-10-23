@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TMT",
+    "TCT"
+  ],
+  "key": {
+    "T": {
+      "item": "ic2:treetap"
+    },
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:extractor"
+  }
+}

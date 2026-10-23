@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R R",
+    "R R",
+    "RWR"
+  ],
+  "key": {
+    "R": {
+      "tag": "ic2:rubber"
+    },
+    "W": {
+      "item": "minecraft:white_wool"
+    }
+  },
+  "result": {
+    "id": "ic2:rubber_boots"
+  }
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiWaterKineticGenerator); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIWaterKineticGenerator"/>
+	<text y="6" align="center">%name%</text>
+
+	<slot name="rotorslot" x="80" y="26" style="plain"/>
+
+	<only if="validBiome" inverted="true">
+		<text x="38" y="52" color="0x20EB3E">{ic2.WaterKineticGenerator.gui.wrongbiome1}</text>
+		<text x="45" y="69" color="0x20EB3E">{ic2.WaterKineticGenerator.gui.wrongbiome2}</text>
+	</only>
+	<only if="validBiome">
+		<only if="hasRotor" inverted="true">
+			<text x="27" y="52" color="0x20EB3E">{ic2.WaterKineticGenerator.gui.rotormiss}</text>
+		</only>
+		<only if="hasRotor">
+			<only if="rotorSpace" inverted="true">
+				<text x="20" y="52" color="0x20EB3E">{ic2.WaterKineticGenerator.gui.rotorspace}</text>
+			</only>
+			<only if="rotorSpace">
+				<text x="55" y="52" color="0x20EB3E">{ic2.WaterKineticGenerator.gui.output|%amount:output%}</text>
+				<text x="46" y="70" color="0x20EB3E">{ic2.WaterKineticGenerator.gui.rotorhealth|%amount:rotorHealth%}</text>
+			</only>
+		</only>
+	</only>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

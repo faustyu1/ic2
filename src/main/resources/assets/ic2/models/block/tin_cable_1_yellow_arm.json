@@ -1,0 +1,68 @@
+{
+  "textures": {
+    "cable": "ic2:block/wiring/cable/tin_cable_1_yellow",
+    "particle": "ic2:block/wiring/cable/tin_cable_1_yellow"
+  },
+  "elements": [
+    {
+      "from": [
+        5.0,
+        5.0,
+        0
+      ],
+      "to": [
+        11.0,
+        11.0,
+        5.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#cable",
+          "uv": [
+            5.0,
+            0,
+            11.0,
+            5.0
+          ]
+        },
+        "up": {
+          "texture": "#cable",
+          "uv": [
+            5.0,
+            0,
+            11.0,
+            5.0
+          ]
+        },
+        "north": {
+          "texture": "#cable",
+          "uv": [
+            5.0,
+            5.0,
+            11.0,
+            11.0
+          ],
+          "cullface": "north"
+        },
+        "west": {
+          "texture": "#cable",
+          "uv": [
+            0,
+            5.0,
+            5.0,
+            11.0
+          ]
+        },
+        "east": {
+          "texture": "#cable",
+          "uv": [
+            0,
+            5.0,
+            5.0,
+            11.0
+          ]
+        }
+      }
+    }
+  ]
+}

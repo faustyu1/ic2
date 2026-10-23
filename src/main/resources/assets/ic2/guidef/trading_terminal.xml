@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- GuiTradingTerminal/ContainerTradingTerminal; 1.12.2 kept the range slot off screen, reachable by shift-click -->
+<gui width="176" height="227">
+	<image x="0" y="0" width="176" height="227" src="textures/gui/GUI_Trading_Terminal"/>
+	<text y="8" align="center">%name%</text>
+	<slot name="range" x="-100" y="-100" style="plain"/>
+	<text x="8" y="24">Range: %amount:range%</text>
+	<text x="8" y="36">Trade-O-Mats: %amount:traders%</text>
+	<playerInventory x="6" y="144" background="false"/>
+</gui>

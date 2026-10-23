@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#T#",
+    "TVT",
+    "#T#"
+  ],
+  "key": {
+    "V": {
+      "item": "ic2:heat_vent"
+    },
+    "#": {
+      "item": "minecraft:iron_bars"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    }
+  },
+  "result": {
+    "id": "ic2:component_heat_vent"
+  }
+}

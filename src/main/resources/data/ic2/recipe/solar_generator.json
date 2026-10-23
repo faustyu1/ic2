@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CgC",
+    "gCg",
+    "cGc"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:generator"
+    },
+    "C": {
+      "tag": "c:dusts/coal"
+    },
+    "g": {
+      "item": "minecraft:glass"
+    },
+    "c": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:solar_generator"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/cube_bottom_top",
+  "textures": {
+    "particle": "ic2:block/machine/fluid/tank_side",
+    "side": "ic2:block/machine/fluid/tank_side",
+    "top": "ic2:block/machine/fluid/tank_top",
+    "bottom": "ic2:block/machine/fluid/tank_bottom"
+  }
+}

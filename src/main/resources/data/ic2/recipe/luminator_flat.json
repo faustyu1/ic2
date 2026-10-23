@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "GTG",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "T": {
+      "item": "ic2:tin_cable_0"
+    },
+    "C": {
+      "item": "ic2:copper_cable_1"
+    }
+  },
+  "result": {
+    "id": "ic2:luminator_flat",
+    "count": 8
+  }
+}

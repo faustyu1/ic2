@@ -1,0 +1,7 @@
+{
+  "parent": "ic2:item/default",
+  "textures": {
+    "layer0": "ic2:item/cover/pump_background",
+    "layer1": "ic2:item/cover/pump_foreground"
+  }
+}

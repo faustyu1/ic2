@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "RIR",
+    "CCC"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "ic2:copper_cable_1"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_circuit"
+  }
+}

@@ -1,0 +1,32 @@
+package ic2.api.item;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+
+public class ItemWrapper {
+    private static final Multimap<Item, IBoxable> boxableItems = ArrayListMultimap.create();
+    private static final Multimap<Item, IMetalArmor> metalArmorItems = ArrayListMultimap.create();
+
+    public static void registerBoxable(Item item, IBoxable boxable) { boxableItems.put(item, boxable); }
+
+    public static boolean canBeStoredInToolbox(ItemStack stack) {
+        Item item = stack.getItem();
+        for (IBoxable boxable : boxableItems.get(item)) {
+            if (boxable.canBeStoredInToolbox(stack)) return true;
+        }
+        return item instanceof IBoxable && ((IBoxable) item).canBeStoredInToolbox(stack);
+    }
+
+    public static void registerMetalArmor(Item item, IMetalArmor armor) { metalArmorItems.put(item, armor); }
+
+    public static boolean isMetalArmor(ItemStack stack, PlayerEntity player) {
+        Item item = stack.getItem();
+        for (IMetalArmor armor : metalArmorItems.get(item)) {
+            if (armor.isMetalArmor(stack, player)) return true;
+        }
+        return item instanceof IMetalArmor && ((IMetalArmor) item).isMetalArmor(stack, player);
+    }
+}

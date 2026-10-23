@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EBE",
+    "BOB",
+    "EBE"
+  ],
+  "key": {
+    "E": {
+      "item": "ic2:heat_exchanger"
+    },
+    "B": {
+      "item": "ic2:advanced_re_battery"
+    },
+    "O": {
+      "item": "ic2:charging_re_battery"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_charging_re_battery"
+  }
+}

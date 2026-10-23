@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- the owner's window, GuiTradeOMatOpen/ContainerTradeOMatOpen; the positions are 1.12.2's -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUITradeOMatOpen"/>
+	<text y="6" align="center">%name%</text>
+	<!-- operators switch unlimited stock on and off -->
+	<button x="152" y="4" width="20" height="20" event="infinite">∞</button>
+	<slot name="demand" x="50" y="19" style="plain"/>
+	<slot name="offer" x="50" y="53" style="plain"/>
+	<slot name="input" x="80" y="19" style="plain"/>
+	<slot name="output" x="80" y="53" style="plain"/>
+	<text x="12" y="23">{ic2.container.personalTrader.want}</text>
+	<text x="12" y="57">{ic2.container.personalTrader.offer}</text>
+	<text x="108" y="28">{ic2.container.personalTrader.totalTrades0}</text>
+	<text x="108" y="36">{ic2.container.personalTrader.totalTrades1}</text>
+	<text x="112" y="44">%amount:trades%</text>
+	<only if="infinite">
+		<text x="108" y="60">{ic2.container.personalTrader.stock} ∞</text>
+	</only>
+	<only if="infinite" inverted="true">
+		<text x="108" y="60">{ic2.container.personalTrader.stock} %amount:stock%</text>
+	</only>
+	<text x="8" y="72">{container.inventory}</text>
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

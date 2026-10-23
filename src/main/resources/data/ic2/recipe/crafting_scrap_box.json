@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "SSS",
+    "SSS"
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:crafting_scrap"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_scrap_box"
+  }
+}

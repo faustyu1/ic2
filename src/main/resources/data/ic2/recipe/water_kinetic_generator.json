@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "S S",
+    " M ",
+    "S S"
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:crafting_iron_shaft"
+    },
+    "M": {
+      "item": "ic2:machine"
+    }
+  },
+  "result": {
+    "id": "ic2:water_kinetic_generator"
+  }
+}

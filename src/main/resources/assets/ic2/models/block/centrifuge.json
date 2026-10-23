@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/processing/advanced/centrifuge_top",
+    "down": "ic2:block/machine/processing/advanced/centrifuge_bottom",
+    "north": "ic2:block/machine/processing/advanced/centrifuge_front",
+    "south": "ic2:block/machine/processing/advanced/centrifuge_back",
+    "west": "ic2:block/machine/processing/advanced/centrifuge_leftright",
+    "east": "ic2:block/machine/processing/advanced/centrifuge_leftright",
+    "particle": "ic2:block/machine/processing/advanced/centrifuge_front"
+  }
+}

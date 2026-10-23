@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:gems/diamond"
+    },
+    "B": {
+      "tag": "c:ingots/steel"
+    }
+  },
+  "result": {
+    "id": "ic2:block_cutting_blade_diamond"
+  }
+}

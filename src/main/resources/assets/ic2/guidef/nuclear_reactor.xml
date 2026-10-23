@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    The 1.12.2 reactor GUI was written by hand (GuiNuclearReactor / ContainerNuclearReactor) rather
+    than described by a guidef file; this transcribes that layout so the reactor uses the same
+    machine screen as everything else. The coordinates are the ones from the original code, minus
+    the one pixel that separates a slot background from the item in it.
+
+    A reactor walled into a full 5x5x5 hull cools with fluid instead of making EU; the coolant
+    slots and the two tank gauges belong to that mode and are hidden while it makes EU, which is
+    what the original did by swapping the whole background texture.
+-->
+<gui width="212" height="243">
+    <image x="0" y="0" src="ic2:textures/gui/GUINuclearReactor" width="212" height="243" basesize="256"/>
+    <slotgrid name="reactor" x="25" y="24" rows="6" background="false"
+              maxcols="9" lockedsrc="ic2:textures/gui/GUINuclearReactor" lockedu="213" lockedv="1"/>
+    <gauge name="heat" x="7" y="136" style="heatnuclearreactor"/>
+    <only if="fluidCooled">
+        <slot name="coolantinputSlot" x="7" y="24"/>
+        <slot name="hotcoolinputSlot" x="187" y="24"/>
+        <slot name="coolantoutputSlot" x="7" y="114"/>
+        <slot name="hotcoolantoutputSlot" x="187" y="114"/>
+        <fluidtank x="10" y="54" name="inputTank" style="borderless"/>
+        <fluidtank x="190" y="54" name="outputTank" style="borderless"/>
+    </only>
+    <playerInventory x="25" y="160"/>
+</gui>

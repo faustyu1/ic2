@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CcC",
+    "TCT",
+    "CTC"
+  ],
+  "key": {
+    "c": {
+      "tag": "ic2:circuits/basic"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "result": {
+    "id": "ic2:heat_exchanger"
+  }
+}

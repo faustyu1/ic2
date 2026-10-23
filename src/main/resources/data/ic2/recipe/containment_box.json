@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "ICI",
+    "III"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "I": {
+      "item": "ic2:casing_lead"
+    }
+  },
+  "result": {
+    "id": "ic2:containment_box"
+  }
+}

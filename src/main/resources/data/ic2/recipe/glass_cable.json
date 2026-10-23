@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "DRD",
+    "GGG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "R": {
+      "tag": "c:dusts/silver"
+    },
+    "D": {
+      "item": "ic2:dust_energium"
+    }
+  },
+  "result": {
+    "id": "ic2:glass_cable",
+    "count": 6
+  }
+}

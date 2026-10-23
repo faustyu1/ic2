@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CMC",
+    "RAR",
+    "RER"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:crafting_coil"
+    },
+    "R": {
+      "item": "minecraft:iron_ingot"
+    },
+    "A": {
+      "item": "ic2:advanced_machine"
+    },
+    "M": {
+      "item": "ic2:mining_laser"
+    },
+    "E": {
+      "item": "ic2:crafting_electric_motor"
+    }
+  },
+  "result": {
+    "id": "ic2:centrifuge"
+  }
+}

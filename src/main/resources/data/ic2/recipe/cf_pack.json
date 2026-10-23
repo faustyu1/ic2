@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCS",
+    "FTF",
+    "F F"
+  ],
+  "key": {
+    "T": {
+      "item": "ic2:casing_iron"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    },
+    "F": {
+      "item": "ic2:fluid_cell"
+    },
+    "S": {
+      "item": "ic2:foam_sprayer"
+    }
+  },
+  "result": {
+    "id": "ic2:cf_pack"
+  }
+}

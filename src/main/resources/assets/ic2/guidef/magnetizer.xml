@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiMagnetizer/ContainerMagnetizer); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIMagnetizer"/>
+	<text y="6" align="center">%name%</text>
+
+	<energygauge x="11" y="28"/>
+	<slot name="discharge" x="8" y="44" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="8" cols="1" spacing="2" style="plain"/>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

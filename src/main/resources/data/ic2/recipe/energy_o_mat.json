@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RBR",
+    "CMC"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "ic2:copper_cable_1"
+    },
+    "M": {
+      "item": "ic2:machine"
+    },
+    "B": {
+      "item": "ic2:re_battery"
+    }
+  },
+  "result": {
+    "id": "ic2:energy_o_mat"
+  }
+}

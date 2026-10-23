@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " DB",
+    "DBD",
+    "BD "
+  ],
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "D": {
+      "tag": "c:dyes/red"
+    }
+  },
+  "result": {
+    "id": "ic2:crowbar"
+  }
+}

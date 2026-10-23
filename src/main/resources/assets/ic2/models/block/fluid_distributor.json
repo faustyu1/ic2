@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/fluid/fluid_distributor_bottomtop",
+    "down": "ic2:block/machine/fluid/fluid_distributor_bottomtop",
+    "north": "ic2:block/machine/fluid/fluid_distributor_front",
+    "south": "ic2:block/machine/fluid/fluid_distributor_leftrightback",
+    "west": "ic2:block/machine/fluid/fluid_distributor_leftrightback",
+    "east": "ic2:block/machine/fluid/fluid_distributor_leftrightback",
+    "particle": "ic2:block/machine/fluid/fluid_distributor_front"
+  }
+}

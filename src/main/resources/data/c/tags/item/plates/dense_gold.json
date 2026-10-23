@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "ic2:plate_dense_gold",
+      "required": false
+    }
+  ]
+}

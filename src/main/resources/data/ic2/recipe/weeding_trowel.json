@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    " I ",
+    "RIR"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "tag": "ic2:rubber"
+    }
+  },
+  "result": {
+    "id": "ic2:weeding_trowel"
+  }
+}

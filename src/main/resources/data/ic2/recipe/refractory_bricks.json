@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CBC",
+    "BWB",
+    "CBC"
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:clay_ball"
+    },
+    "B": {
+      "item": "minecraft:brick"
+    },
+    "W": {
+      "item": "ic2:fluid_cell_water"
+    }
+  },
+  "result": {
+    "id": "ic2:refractory_bricks"
+  }
+}

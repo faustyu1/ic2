@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    " G ",
+    "I I"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "G": {
+      "item": "ic2:generator"
+    }
+  },
+  "result": {
+    "id": "ic2:wind_generator"
+  }
+}

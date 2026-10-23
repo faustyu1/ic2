@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "c",
+    "M",
+    "C"
+  ],
+  "key": {
+    "c": {
+      "tag": "ic2:circuits/basic"
+    },
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "M": {
+      "item": "ic2:machine"
+    }
+  },
+  "result": {
+    "id": "ic2:personal_chest"
+  }
+}

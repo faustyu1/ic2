@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "TBT",
+    "ICI"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "T": {
+      "item": "ic2:iron_tank"
+    },
+    "B": {
+      "item": "ic2:crafting_copper_boiler"
+    },
+    "C": {
+      "item": "ic2:crafting_heat_conductor"
+    }
+  },
+  "result": {
+    "id": "ic2:steam_repressurizer"
+  }
+}

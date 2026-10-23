@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "A",
+    "A",
+    "A"
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:crafting_steam_turbine_blade"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_steam_turbine"
+  }
+}

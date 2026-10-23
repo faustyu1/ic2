@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "TLT",
+    " F "
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:copper_cable_1"
+    },
+    "F": {
+      "item": "ic2:frequency_transmitter"
+    },
+    "L": {
+      "tag": "c:dusts/lapis"
+    },
+    "T": {
+      "item": "ic2:casing_tin"
+    }
+  },
+  "result": {
+    "id": "ic2:remote"
+  }
+}

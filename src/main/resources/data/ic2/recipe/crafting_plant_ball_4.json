@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "P P",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:leaves"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_plant_ball"
+  }
+}

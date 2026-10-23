@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "CGC",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "C": {
+      "item": "ic2:fluid_cell"
+    },
+    "G": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "B": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:fluid_regulator"
+  }
+}

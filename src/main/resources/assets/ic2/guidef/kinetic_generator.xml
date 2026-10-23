@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 wrote %base.getMaxProduction()% and %base.getProduction()%: the port syncs them as numbers -->
+<gui width="176" height="166">
+    <text y="6" align="center">%name%</text>
+    <playerInventory x="7" y="83"/>
+    <text x="41" y="33">{ic2.KineticGenerator.gui.Bandwidth|%amount:maxProduction%}</text>
+    <text x="41" y="45">{ic2.KineticGenerator.gui.Output|%amount:production%}</text>
+</gui>

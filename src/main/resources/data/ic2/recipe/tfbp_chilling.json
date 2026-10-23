@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " S ",
+    "S#S",
+    " S "
+  ],
+  "key": {
+    "#": {
+      "item": "ic2:tfbp_blank"
+    },
+    "S": {
+      "item": "minecraft:snowball"
+    }
+  },
+  "result": {
+    "id": "ic2:tfbp_chilling"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AAA",
+    "ABA",
+    "AAA"
+  ],
+  "key": {
+    "A": {
+      "tag": "c:plates/iron"
+    },
+    "B": {
+      "item": "minecraft:stone"
+    }
+  },
+  "result": {
+    "id": "ic2:block_cutting_blade_iron"
+  }
+}

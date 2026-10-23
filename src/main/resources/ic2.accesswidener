@@ -1,0 +1,8 @@
+accessWidener v2 named
+
+# crops take a humidity bonus from the biome's downfall and its temperature at the crop, which
+# 1.12.2 read through Biome.getRainfall/getTemperature(pos); 1.21 keeps both private
+accessible class net/minecraft/world/biome/Biome$Weather
+accessible field net/minecraft/world/biome/Biome weather Lnet/minecraft/world/biome/Biome$Weather;
+accessible field net/minecraft/world/biome/Biome$Weather downfall F
+accessible method net/minecraft/world/biome/Biome getTemperature (Lnet/minecraft/util/math/BlockPos;)F

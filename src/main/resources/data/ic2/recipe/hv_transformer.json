@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " c ",
+    "CEB",
+    " c "
+  ],
+  "key": {
+    "E": {
+      "item": "ic2:mv_transformer"
+    },
+    "c": {
+      "item": "ic2:gold_cable_2"
+    },
+    "B": {
+      "item": "ic2:advanced_re_battery"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:hv_transformer"
+  }
+}

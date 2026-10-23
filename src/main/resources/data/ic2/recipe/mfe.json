@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cCc",
+    "CMC",
+    "cCc"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:machine"
+    },
+    "c": {
+      "item": "ic2:gold_cable_2"
+    },
+    "C": {
+      "item": "ic2:energy_crystal"
+    }
+  },
+  "result": {
+    "id": "ic2:mfe"
+  }
+}

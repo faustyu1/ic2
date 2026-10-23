@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " T ",
+    "CXC",
+    " T "
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "ic2:crafting_coil"
+    },
+    "T": {
+      "item": "ic2:casing_tin"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_electric_motor"
+  }
+}

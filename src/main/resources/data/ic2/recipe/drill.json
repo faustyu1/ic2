@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "III",
+    "IBI"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "B": {
+      "item": "ic2:crafting_power_unit"
+    }
+  },
+  "result": {
+    "id": "ic2:drill"
+  }
+}

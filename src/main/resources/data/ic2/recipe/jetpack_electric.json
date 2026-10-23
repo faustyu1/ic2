@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "IBI",
+    "G G"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "B": {
+      "item": "ic2:batbox"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    }
+  },
+  "result": {
+    "id": "ic2:jetpack_electric"
+  }
+}

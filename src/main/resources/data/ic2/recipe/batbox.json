@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "BBB",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "item": "ic2:tin_cable_1"
+    },
+    "B": {
+      "item": "ic2:re_battery"
+    }
+  },
+  "result": {
+    "id": "ic2:batbox"
+  }
+}

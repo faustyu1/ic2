@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiSteamGenerator); the positions are theirs. It has no player inventory. -->
+<gui width="176" height="220">
+	<image x="0" y="0" width="176" height="220" src="textures/gui/GUISteamGenerator"/>
+	<text y="6" align="center">%name%</text>
+
+	<fluidtank name="waterTank" type="plain" x="10" y="155" width="75" height="47"/>
+	<tooltip text="{ic2.SteamGenerator.gui.systemheat|%amount:heat%}">
+		<gauge name="heat" x="13" y="70" style="heatsteamgenerator"/>
+	</tooltip>
+	<tooltip text="{ic2.SteamGenerator.gui.calcification|%amount:calcification%}">
+		<gauge name="calcification" x="155" y="61" style="calcificationsteamgenerator"/>
+	</tooltip>
+
+	<tooltip text="ic2.SteamGenerator.gui.info.waterinput">
+		<text x="91" y="172" width="59" height="13" color="0x20EB3E" center="xy">%amount:inputMB%{ic2.generic.text.mb}{ic2.generic.text.tick}</text>
+	</tooltip>
+	<tooltip text="ic2.SteamGenerator.gui.info.heatinput">
+		<text x="31" y="133" width="111" height="13" color="0x20EB3E" center="y">{ic2.SteamGenerator.gui.heatInput|%amount:heatInput%}</text>
+	</tooltip>
+	<tooltip text="ic2.SteamGenerator.gui.info.pressvalve">
+		<text x="22" y="35" width="42" height="13" color="0x20EB3E" center="y">{ic2.SteamGenerator.gui.pressurevalve|%amount:pressure%}</text>
+	</tooltip>
+	<tooltip text="ic2.SteamGenerator.gui.info.fluidoutput">
+		<text x="66" y="25" width="81" height="13" color="0x20EB3E" center="y">%amount:outputMB%{ic2.generic.text.mb}{ic2.generic.text.tick}</text>
+	</tooltip>
+	<only if="outWater">
+		<text x="66" y="45" width="100" height="13" color="0x20EB3E" center="y">{ic2.SteamGenerator.output.water}</text>
+	</only>
+	<only if="outDistilled">
+		<text x="66" y="45" width="100" height="13" color="0x20EB3E" center="y">{ic2.SteamGenerator.output.destiwater}</text>
+	</only>
+	<only if="outSteam">
+		<text x="66" y="45" width="100" height="13" color="0x20EB3E" center="y">{ic2.SteamGenerator.output.steam}</text>
+	</only>
+	<only if="outSuperheated">
+		<text x="66" y="45" width="100" height="13" color="0x20EB3E" center="y">{ic2.SteamGenerator.output.hotsteam}</text>
+	</only>
+
+	<button x="92" y="162" width="9" height="9" src="textures/gui/GUISteamGenerator" u="92" v="162" event="input:1000"/>
+	<button x="92" y="186" width="9" height="9" src="textures/gui/GUISteamGenerator" u="92" v="186" event="input:-1000"/>
+	<button x="102" y="162" width="9" height="9" src="textures/gui/GUISteamGenerator" u="102" v="162" event="input:100"/>
+	<button x="102" y="186" width="9" height="9" src="textures/gui/GUISteamGenerator" u="102" v="186" event="input:-100"/>
+	<button x="112" y="162" width="9" height="9" src="textures/gui/GUISteamGenerator" u="112" v="162" event="input:10"/>
+	<button x="112" y="186" width="9" height="9" src="textures/gui/GUISteamGenerator" u="112" v="186" event="input:-10"/>
+	<button x="122" y="162" width="9" height="9" src="textures/gui/GUISteamGenerator" u="122" v="162" event="input:1"/>
+	<button x="122" y="186" width="9" height="9" src="textures/gui/GUISteamGenerator" u="122" v="186" event="input:-1"/>
+	<button x="23" y="25" width="9" height="9" src="textures/gui/GUISteamGenerator" u="23" v="25" event="pressure:100"/>
+	<button x="23" y="49" width="9" height="9" src="textures/gui/GUISteamGenerator" u="23" v="49" event="pressure:-100"/>
+	<button x="33" y="25" width="9" height="9" src="textures/gui/GUISteamGenerator" u="33" v="25" event="pressure:10"/>
+	<button x="33" y="49" width="9" height="9" src="textures/gui/GUISteamGenerator" u="33" v="49" event="pressure:-10"/>
+	<button x="43" y="25" width="9" height="9" src="textures/gui/GUISteamGenerator" u="43" v="25" event="pressure:1"/>
+	<button x="43" y="49" width="9" height="9" src="textures/gui/GUISteamGenerator" u="43" v="49" event="pressure:-1"/>
+</gui>

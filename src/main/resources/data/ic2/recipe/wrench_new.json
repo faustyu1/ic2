@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "BBB",
+    "B B"
+  ],
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    }
+  },
+  "result": {
+    "id": "ic2:wrench_new"
+  }
+}

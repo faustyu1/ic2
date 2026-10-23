@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiFluidBottler/ContainerFluidBottler); the positions are theirs -->
+<gui width="176" height="184">
+	<image x="0" y="0" width="176" height="184" src="textures/gui/GUIBottler"/>
+	<text y="6" align="center">%name%</text>
+
+	<energygauge x="12" y="35"/>
+	<slot name="discharge" x="8" y="53" style="plain"/>
+	<fluidtank name="fluidTank" x="78" y="34"/>
+	<slot name="drainInput" x="44" y="35" style="plain"/>
+	<slot name="fillInput" x="44" y="72" style="plain"/>
+	<slot name="output" x="117" y="53" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="26" cols="1" spacing="2" style="plain"/>
+	<gauge name="progress" x="61" y="36" style="progressbottler"/>
+	<gauge name="progress" x="61" y="73" style="progressbottler"/>
+	<gauge name="progress" x="99" y="55" style="progressbottler"/>
+
+	<playerInventory x="7" y="101" background="false"/>
+</gui>

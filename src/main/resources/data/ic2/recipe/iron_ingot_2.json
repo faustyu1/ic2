@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "I I",
+    "III"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:crafting_coin"
+    }
+  },
+  "result": {
+    "id": "minecraft:iron_ingot",
+    "count": 2
+  }
+}

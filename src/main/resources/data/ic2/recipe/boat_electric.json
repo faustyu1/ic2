@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "XmX",
+    "XrX"
+  ],
+  "key": {
+    "X": {
+      "tag": "c:plates/iron"
+    },
+    "C": {
+      "item": "ic2:copper_cable_1"
+    },
+    "m": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "r": {
+      "item": "ic2:rotor_iron"
+    }
+  },
+  "result": {
+    "id": "ic2:boat_electric"
+  }
+}

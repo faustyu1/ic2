@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiSteamKineticGenerator/ContainerSteamKineticGenerator); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUISteamKineticGenerator"/>
+	<text y="6" align="center">%name%</text>
+
+	<fluidtank name="distilledWaterTank" type="plain" x="75" y="21" width="26" height="26"/>
+	<slot name="Turbineslot" x="80" y="26" style="plain"/>
+	<tooltip text="ic2.SteamKineticGenerator.gui.upgradeslot">
+		<slot name="upgrade" x="152" y="26" style="plain"/>
+	</tooltip>
+
+	<only if="venting">
+		<tooltip text="ic2.SteamKineticGenerator.gui.ventingWarning">
+			<image x="36" y="20" width="30" height="26" src="textures/gui/GUISteamKineticGenerator" u="176" v="0"/>
+		</tooltip>
+	</only>
+	<only if="throttled">
+		<tooltip text="ic2.SteamKineticGenerator.gui.condensationwarrning">
+			<image x="110" y="20" width="30" height="26" src="textures/gui/GUISteamKineticGenerator" u="176" v="0"/>
+		</tooltip>
+	</only>
+
+	<only if="hasTurbine" inverted="true">
+		<text x="8" y="51" width="160" height="13" color="0xE4112C" center="xy">{ic2.SteamKineticGenerator.gui.error.noturbine}</text>
+	</only>
+	<only if="hasTurbine">
+		<only if="blocked">
+			<text x="8" y="51" width="160" height="13" color="0xE4112C" center="xy">{ic2.SteamKineticGenerator.gui.error.filledupwithwater}</text>
+		</only>
+		<only if="blocked" inverted="true">
+			<only if="active">
+				<text x="8" y="51" width="160" height="13" color="0x20EB3E" center="xy">{ic2.SteamKineticGenerator.gui.aktive}</text>
+			</only>
+			<only if="active" inverted="true">
+				<text x="8" y="51" width="160" height="13" color="0x20EB3E" center="xy">{ic2.SteamKineticGenerator.gui.waiting}</text>
+			</only>
+			<text x="8" y="68" width="160" height="13" color="0x20EB3E" center="xy">{ic2.SteamKineticGenerator.gui.turbine.ouput|%amount:output%}</text>
+		</only>
+	</only>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

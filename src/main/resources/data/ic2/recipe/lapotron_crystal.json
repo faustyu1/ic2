@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LCL",
+    "LDL",
+    "LCL"
+  ],
+  "key": {
+    "D": {
+      "item": "ic2:energy_crystal"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "L": {
+      "tag": "c:dusts/lapis"
+    }
+  },
+  "result": {
+    "id": "ic2:lapotron_crystal"
+  }
+}

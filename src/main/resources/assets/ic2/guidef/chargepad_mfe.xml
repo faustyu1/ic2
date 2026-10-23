@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiElectricBlock / GuiChargepadBlock); the coordinates are theirs.
+     The armour slots of the storage blocks' window are not ported. -->
+<gui width="176" height="161">
+	<image x="0" y="0" width="176" height="161" src="textures/gui/GUIChargepadBlock"/>
+	<text y="6" align="center">%name%</text>
+	<slot name="charge" x="56" y="17" style="plain"/>
+	<slot name="discharge" x="56" y="53" style="plain"/>
+	<energygauge x="79" y="38" style="bar"/>
+	<text x="79" y="25" color="0x404040">{ic2.EUStorage.gui.info.level}</text>
+	<text x="110" y="35" color="0x404040"> %amount:energy%</text>
+	<text x="110" y="45" color="0x404040">/%capacity:energy%</text>
+	<only if="redstone0">
+		<tooltip text="ic2.blockChargepad.gui.mod.redstone0">
+			<button x="152" y="4" width="20" height="20" icon="minecraft:redstone" event="redstone"/>
+		</tooltip>
+	</only>
+	<only if="redstone1">
+		<tooltip text="ic2.blockChargepad.gui.mod.redstone1">
+			<button x="152" y="4" width="20" height="20" icon="minecraft:redstone" event="redstone"/>
+		</tooltip>
+	</only>
+	<playerInventory x="7" y="78" background="false"/>
+</gui>

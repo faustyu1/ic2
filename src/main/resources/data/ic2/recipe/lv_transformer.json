@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "PcP",
+    "PCP"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "C": {
+      "item": "ic2:tin_cable_1"
+    },
+    "c": {
+      "item": "ic2:crafting_coil"
+    }
+  },
+  "result": {
+    "id": "ic2:lv_transformer"
+  }
+}

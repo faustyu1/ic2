@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "C C",
+    "PCP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/bronze"
+    },
+    "C": {
+      "item": "ic2:casing_bronze"
+    }
+  },
+  "result": {
+    "id": "ic2:bronze_storage_box"
+  }
+}

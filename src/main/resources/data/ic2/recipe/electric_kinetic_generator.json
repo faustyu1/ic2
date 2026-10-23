@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IBI",
+    "ISI",
+    "IMI"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "B": {
+      "item": "ic2:re_battery"
+    },
+    "M": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "S": {
+      "item": "ic2:crafting_iron_shaft"
+    }
+  },
+  "result": {
+    "id": "ic2:electric_kinetic_generator"
+  }
+}

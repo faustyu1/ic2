@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiElectricHeatGenerator/ContainerElectricHeatGenerator); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIElectricHeatGenerator"/>
+	<text y="6" align="center">%name%</text>
+
+	<tooltip text="ic2.ElectricHeatGenerator.gui.coils">
+		<slotgrid name="CoilSlot" x="43" y="26" cols="5"/>
+	</tooltip>
+	<slot name="discharge" x="8" y="62" style="plain"/>
+	<energygauge x="12" y="44"/>
+	<tooltip text="ic2.ElectricHeatGenerator.gui.tooltipheat">
+		<text x="34" y="66" width="109" height="13" color="0x57C4DA" center="xy">{ic2.ElectricHeatGenerator.gui.hUmax|%amount:heat%|%capacity:heat%}</text>
+	</tooltip>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

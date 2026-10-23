@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:boat_broken_rubber"
+    },
+    {
+      "tag": "ic2:rubber"
+    }
+  ],
+  "result": {
+    "id": "ic2:boat_rubber"
+  }
+}

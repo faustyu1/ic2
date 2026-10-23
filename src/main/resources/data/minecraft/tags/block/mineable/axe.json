@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "ic2:rubber_wood",
+    "ic2:crop",
+    "ic2:wooden_storage_box",
+    "ic2:barrel",
+    "ic2:scaffold"
+  ]
+}

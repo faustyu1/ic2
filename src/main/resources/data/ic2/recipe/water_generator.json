@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SPS",
+    "PGP",
+    "SPS"
+  ],
+  "key": {
+    "S": {
+      "tag": "c:rods/wooden"
+    },
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "G": {
+      "item": "ic2:generator"
+    }
+  },
+  "result": {
+    "id": "ic2:water_generator",
+    "count": 2
+  }
+}

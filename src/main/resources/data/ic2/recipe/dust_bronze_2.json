@@ -1,0 +1,53 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    [
+      {
+        "tag": "c:dusts/tin"
+      },
+      {
+        "item": "ic2:crushed_tin"
+      },
+      {
+        "item": "ic2:purified_tin"
+      }
+    ],
+    [
+      {
+        "tag": "c:dusts/copper"
+      },
+      {
+        "item": "ic2:crushed_copper"
+      },
+      {
+        "item": "ic2:purified_copper"
+      }
+    ],
+    [
+      {
+        "tag": "c:dusts/copper"
+      },
+      {
+        "item": "ic2:crushed_copper"
+      },
+      {
+        "item": "ic2:purified_copper"
+      }
+    ],
+    [
+      {
+        "tag": "c:dusts/copper"
+      },
+      {
+        "item": "ic2:crushed_copper"
+      },
+      {
+        "item": "ic2:purified_copper"
+      }
+    ]
+  ],
+  "result": {
+    "id": "ic2:dust_bronze",
+    "count": 4
+  }
+}

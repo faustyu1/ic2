@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiIndustrialWorkbench/ContainerIndustrialWorkbench); the positions are theirs -->
+<gui width="194" height="228">
+	<image x="0" y="0" width="194" height="228" src="textures/gui/GUIIndustrialWorkbench"/>
+	<text y="6" align="center">%name%</text>
+	<!-- storage first, so a shift-click from the player's inventory fills it before the grid -->
+	<slotgrid name="craftingStorage" x="8" y="106" cols="9" spacing="2" style="plain"/>
+	<slotgrid name="crafting" x="30" y="43" cols="3" spacing="2" style="plain"/>
+	<craftresult name="main" x="124" y="61" style="plain"/>
+	<slot name="leftTool" x="7" y="17" style="plain"/>
+	<slot name="leftInput" x="25" y="17" style="plain"/>
+	<craftresult name="left" x="69" y="17" style="plain"/>
+	<slot name="rightTool" x="91" y="17" style="plain"/>
+	<slot name="rightInput" x="109" y="17" style="plain"/>
+	<craftresult name="right" x="153" y="17" style="plain"/>
+	<tooltip text="Clear">
+		<button x="94" y="43" width="14" height="14" src="textures/gui/common" u="210" v="47" event="clear"/>
+	</tooltip>
+	<!-- the machines next to the workbench, each opening its own window -->
+	<only if="gui_0">
+		<tooltip text="ic2.dir.Bottom">
+			<button x="173" y="93" width="18" height="18" src="textures/gui/GUIIndustrialWorkbench" u="173" v="93" event="open:0"/>
+		</tooltip>
+		<itemimage name="side_0" x="174" y="94"/>
+	</only>
+	<only if="gui_1">
+		<tooltip text="ic2.dir.Top">
+			<button x="173" y="3" width="18" height="18" src="textures/gui/GUIIndustrialWorkbench" u="173" v="3" event="open:1"/>
+		</tooltip>
+		<itemimage name="side_1" x="174" y="4"/>
+	</only>
+	<only if="gui_2">
+		<tooltip text="ic2.dir.North">
+			<button x="173" y="21" width="18" height="18" src="textures/gui/GUIIndustrialWorkbench" u="173" v="21" event="open:2"/>
+		</tooltip>
+		<itemimage name="side_2" x="174" y="22"/>
+	</only>
+	<only if="gui_3">
+		<tooltip text="ic2.dir.South">
+			<button x="173" y="39" width="18" height="18" src="textures/gui/GUIIndustrialWorkbench" u="173" v="39" event="open:3"/>
+		</tooltip>
+		<itemimage name="side_3" x="174" y="40"/>
+	</only>
+	<only if="gui_4">
+		<tooltip text="ic2.dir.West">
+			<button x="173" y="57" width="18" height="18" src="textures/gui/GUIIndustrialWorkbench" u="173" v="57" event="open:4"/>
+		</tooltip>
+		<itemimage name="side_4" x="174" y="58"/>
+	</only>
+	<only if="gui_5">
+		<tooltip text="ic2.dir.East">
+			<button x="173" y="75" width="18" height="18" src="textures/gui/GUIIndustrialWorkbench" u="173" v="75" event="open:5"/>
+		</tooltip>
+		<itemimage name="side_5" x="174" y="76"/>
+	</only>
+	<playerInventory x="7" y="145" background="false"/>
+</gui>

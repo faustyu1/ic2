@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IAI",
+    "CRC",
+    "IAI"
+  ],
+  "key": {
+    "R": {
+      "tag": "c:plates/steel"
+    },
+    "A": {
+      "item": "ic2:crafting_alloy"
+    },
+    "C": {
+      "item": "ic2:crafting_carbon_plate"
+    },
+    "I": {
+      "tag": "c:nuggets/iridium"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_jetpack_attachment_plate"
+  }
+}

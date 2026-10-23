@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BCB",
+    "BTB",
+    "B B"
+  ],
+  "key": {
+    "T": {
+      "item": "ic2:casing_copper"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    },
+    "B": {
+      "item": "ic2:advanced_re_battery"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_batpack"
+  }
+}

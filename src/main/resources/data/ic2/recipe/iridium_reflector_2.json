@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "RIR",
+    "RCR"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:plates/dense_copper"
+    },
+    "R": {
+      "item": "ic2:thick_neutron_reflector"
+    },
+    "I": {
+      "item": "ic2:crafting_iridium"
+    }
+  },
+  "result": {
+    "id": "ic2:iridium_reflector"
+  }
+}

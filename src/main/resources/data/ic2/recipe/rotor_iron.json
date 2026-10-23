@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "ABA",
+    " A "
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:crafting_iron_rotor_blade"
+    },
+    "B": {
+      "item": "ic2:crafting_iron_shaft"
+    }
+  },
+  "result": {
+    "id": "ic2:rotor_iron"
+  }
+}

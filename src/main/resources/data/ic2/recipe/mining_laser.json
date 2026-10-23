@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRc",
+    "AAC",
+    " AA"
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:crafting_alloy"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "c": {
+      "item": "ic2:energy_crystal"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "ic2:mining_laser"
+  }
+}

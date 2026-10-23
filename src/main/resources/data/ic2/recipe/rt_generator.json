@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "ICI",
+    "IGI"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "C": {
+      "item": "ic2:reactor_chamber"
+    },
+    "G": {
+      "item": "ic2:generator"
+    }
+  },
+  "result": {
+    "id": "ic2:rt_generator"
+  }
+}

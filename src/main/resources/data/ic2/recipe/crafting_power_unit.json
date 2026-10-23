@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "BAC",
+    "BIM",
+    "BAC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:casing_iron"
+    },
+    "B": {
+      "item": "ic2:re_battery"
+    },
+    "I": {
+      "tag": "ic2:circuits/basic"
+    },
+    "M": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "A": {
+      "item": "ic2:copper_cable_0"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_power_unit"
+  }
+}

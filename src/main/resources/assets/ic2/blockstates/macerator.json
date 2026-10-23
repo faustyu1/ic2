@@ -1,0 +1,50 @@
+{
+  "variants": {
+    "active=false,facing=down": {
+      "model": "ic2:block/macerator",
+      "x": 90
+    },
+    "active=true,facing=down": {
+      "model": "ic2:block/macerator_active",
+      "x": 90
+    },
+    "active=false,facing=up": {
+      "model": "ic2:block/macerator",
+      "x": 270
+    },
+    "active=true,facing=up": {
+      "model": "ic2:block/macerator_active",
+      "x": 270
+    },
+    "active=false,facing=north": {
+      "model": "ic2:block/macerator"
+    },
+    "active=true,facing=north": {
+      "model": "ic2:block/macerator_active"
+    },
+    "active=false,facing=south": {
+      "model": "ic2:block/macerator",
+      "y": 180
+    },
+    "active=true,facing=south": {
+      "model": "ic2:block/macerator_active",
+      "y": 180
+    },
+    "active=false,facing=west": {
+      "model": "ic2:block/macerator",
+      "y": 270
+    },
+    "active=true,facing=west": {
+      "model": "ic2:block/macerator_active",
+      "y": 270
+    },
+    "active=false,facing=east": {
+      "model": "ic2:block/macerator",
+      "y": 90
+    },
+    "active=true,facing=east": {
+      "model": "ic2:block/macerator_active",
+      "y": 90
+    }
+  }
+}

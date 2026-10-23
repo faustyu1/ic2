@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiWindKineticGenerator); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIWindKineticGenerator"/>
+	<text y="6" align="center">%name%</text>
+
+	<slot name="rotorslot" x="80" y="26" style="plain"/>
+
+	<only if="hasRotor" inverted="true">
+		<text x="17" y="48" width="143" height="13" color="0x20EB3E" center="xy">{ic2.WindKineticGenerator.gui.rotormiss}</text>
+	</only>
+	<only if="hasRotor">
+		<only if="rotorSpace" inverted="true">
+			<text x="17" y="48" width="143" height="13" color="0x20EB3E" center="xy">{ic2.WindKineticGenerator.gui.rotorspace}</text>
+		</only>
+		<only if="rotorSpace">
+			<only if="windStrong" inverted="true">
+				<text x="17" y="48" width="143" height="13" color="0x20EB3E" center="xy">{ic2.WindKineticGenerator.gui.windweak1}</text>
+				<text x="17" y="66" width="143" height="13" color="0x20EB3E" center="xy">{ic2.WindKineticGenerator.gui.windweak2}</text>
+			</only>
+			<only if="windStrong">
+				<text x="17" y="48" width="143" height="13" color="0x20EB3E" center="xy">{ic2.WindKineticGenerator.gui.output|%amount:output%}</text>
+				<text x="17" y="66" width="143" height="13" color="0x20EB3E" center="xy">{ic2.WindKineticGenerator.gui.rotorhealth|%amount:rotorHealth%} %</text>
+			</only>
+		</only>
+	</only>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

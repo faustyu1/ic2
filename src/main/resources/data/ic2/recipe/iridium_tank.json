@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PUP",
+    "U U",
+    "PUP"
+  ],
+  "key": {
+    "U": {
+      "item": "ic2:fluid_cell"
+    },
+    "P": {
+      "item": "ic2:crafting_iridium"
+    }
+  },
+  "result": {
+    "id": "ic2:iridium_tank"
+  }
+}

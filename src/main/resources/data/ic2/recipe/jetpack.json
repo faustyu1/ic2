@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "IFI",
+    "R R"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    },
+    "F": {
+      "item": "ic2:fluid_cell"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "ic2:jetpack"
+  }
+}

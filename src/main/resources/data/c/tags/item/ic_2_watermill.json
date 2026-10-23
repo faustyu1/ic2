@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "ic2:water_generator",
+      "required": false
+    }
+  ]
+}

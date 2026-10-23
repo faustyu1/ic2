@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "ic2:ingot_lead",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiFermenter/ContainerFermenter); the positions are theirs -->
+<gui width="176" height="184">
+	<image x="0" y="0" width="176" height="184" src="textures/gui/GUIFermenter"/>
+	<text y="6" align="center">%name%</text>
+
+	<fluidtank name="input" type="plain" x="38" y="49" width="48" height="30"/>
+	<fluidtank name="output" x="125" y="22"/>
+	<tooltip text="ic2.Fermenter.gui.info.conversion">
+		<gauge name="heat" x="42" y="41" style="heatfermenter"/>
+	</tooltip>
+	<tooltip text="ic2.Fermenter.gui.info.waste">
+		<gauge name="progress" x="38" y="88" style="progressfermenter"/>
+	</tooltip>
+
+	<slot name="biomassInput" x="14" y="46" style="plain"/>
+	<slot name="biomassOutput" x="14" y="64" style="plain"/>
+	<slot name="biogasInput" x="148" y="43" style="plain"/>
+	<slot name="biogassOutput" x="148" y="61" style="plain"/>
+	<slot name="output" x="86" y="83" style="plain"/>
+	<slot name="upgrade" index="0" x="125" y="83" style="plain"/>
+	<slot name="upgrade" index="1" x="143" y="83" style="plain"/>
+
+	<playerInventory x="7" y="101" background="false"/>
+</gui>

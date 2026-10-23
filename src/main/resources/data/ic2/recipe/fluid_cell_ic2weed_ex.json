@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R",
+    "G",
+    "C"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "G": {
+      "item": "ic2:crop_res_grin_powder"
+    },
+    "C": {
+      "item": "ic2:fluid_cell"
+    }
+  },
+  "result": {
+    "id": "ic2:fluid_cell_ic2weed_ex"
+  }
+}

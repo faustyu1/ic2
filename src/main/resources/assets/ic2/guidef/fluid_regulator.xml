@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiFluidRegulator/ContainerFluidRegulator); the positions are theirs -->
+<gui width="176" height="184">
+	<image x="0" y="0" width="176" height="184" src="textures/gui/GUIFluidRegulator"/>
+	<text y="6" align="center">%name%</text>
+
+	<energygauge x="12" y="39"/>
+	<slot name="discharge" x="8" y="57" style="plain"/>
+	<fluidtank name="fluidTank" x="78" y="34"/>
+	<slot name="wasserinputSlot" x="58" y="53" style="plain"/>
+	<slot name="wasseroutputSlot" x="58" y="71" style="plain"/>
+
+	<text x="105" y="57" color="0x20EB3E">%amount:output%{ic2.generic.text.mb}</text>
+	<only if="tickMode">
+		<text x="145" y="57" color="0x20EB3E">{ic2.generic.text.tick}</text>
+	</only>
+	<only if="tickMode" inverted="true">
+		<text x="145" y="57" color="0x20EB3E">{ic2.generic.text.sec}</text>
+	</only>
+
+	<button x="102" y="44" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="102" v="44" event="out:1000"/>
+	<button x="112" y="44" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="112" v="44" event="out:100"/>
+	<button x="122" y="44" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="122" v="44" event="out:10"/>
+	<button x="132" y="44" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="132" v="44" event="out:1"/>
+	<button x="102" y="68" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="102" v="68" event="out:-1000"/>
+	<button x="112" y="68" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="112" v="68" event="out:-100"/>
+	<button x="122" y="68" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="122" v="68" event="out:-10"/>
+	<button x="132" y="68" width="9" height="9" src="textures/gui/GUIFluidRegulator" u="132" v="68" event="out:-1"/>
+	<button x="151" y="44" width="11" height="9" src="textures/gui/GUIFluidRegulator" u="151" v="44" event="tick"/>
+	<button x="151" y="68" width="11" height="9" src="textures/gui/GUIFluidRegulator" u="151" v="68" event="sec"/>
+
+	<playerInventory x="7" y="101" background="false"/>
+</gui>

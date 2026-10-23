@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiMatter/ContainerMatter); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIMatter"/>
+	<text y="6" align="center">%name%</text>
+
+	<fluidtank name="fluidTank" x="96" y="22"/>
+	<slot name="scrap" x="72" y="40" style="plain"/>
+	<slot name="output" x="125" y="59" style="plain"/>
+	<slot name="container" x="125" y="23" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="8" cols="1" spacing="2" style="plain"/>
+
+	<text x="8" y="22" color="0x404040">{ic2.Matter.gui.info.progress}</text>
+	<text x="18" y="31" color="0x404040">%amount:progress%%</text>
+	<only if="scrap">
+		<text x="8" y="46" color="0x404040">{ic2.Matter.gui.info.amplifier}</text>
+		<text x="8" y="58" color="0x404040">%amount:scrap%</text>
+	</only>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

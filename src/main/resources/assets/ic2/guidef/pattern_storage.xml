@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiPatternStorage/ContainerPatternStorage); the positions are theirs.
+     The UU cost is shown in microbuckets: the screen only gets whole numbers. -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIPatternStorage"/>
+	<text y="6" align="center">%name%</text>
+
+	<slot name="SaveSlot" x="18" y="20" style="plain"/>
+	<itemimage name="pattern" x="152" y="29"/>
+	<text y="30" align="center" color="0x404040">%amount:index% / %amount:count%</text>
+
+	<tooltip text="ic2.PatternStorage.gui.info.last">
+		<button x="7" y="19" width="9" height="18" src="textures/gui/GUIPatternStorage" u="7" v="19" event="last"/>
+	</tooltip>
+	<tooltip text="ic2.PatternStorage.gui.info.next">
+		<button x="36" y="19" width="9" height="18" src="textures/gui/GUIPatternStorage" u="36" v="19" event="next"/>
+	</tooltip>
+	<tooltip text="ic2.PatternStorage.gui.info.export">
+		<button x="10" y="37" width="16" height="8" src="textures/gui/GUIPatternStorage" u="10" v="37" event="export"/>
+	</tooltip>
+	<tooltip text="ic2.PatternStorage.gui.info.import">
+		<button x="26" y="37" width="16" height="8" src="textures/gui/GUIPatternStorage" u="26" v="37" event="import"/>
+	</tooltip>
+
+	<text x="10" y="48" color="0xFFFFFF">{ic2.generic.text.Name}</text>
+	<text x="10" y="59" color="0xFFFFFF">{ic2.generic.text.UUMatte}</text>
+	<text x="10" y="70" color="0xFFFFFF">{ic2.generic.text.Energy}</text>
+	<only if="hasPattern">
+		<text x="80" y="59" color="0xFFFFFF">%amount:patternUuMicro% µB</text>
+		<text x="80" y="70" color="0xFFFFFF">0 EU</text>
+	</only>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

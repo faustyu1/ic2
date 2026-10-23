@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CTC",
+    "TCT",
+    "CTC"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:dusts/copper"
+    },
+    "T": {
+      "tag": "c:dusts/tin"
+    }
+  },
+  "result": {
+    "id": "ic2:dust_small_iron"
+  }
+}

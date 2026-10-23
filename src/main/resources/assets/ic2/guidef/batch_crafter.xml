@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiBatchCrafter/ContainerBatchCrafter); the positions are theirs -->
+<gui width="176" height="206">
+	<image x="0" y="0" width="176" height="206" src="textures/gui/GUIBatchCrafter"/>
+	<text y="6" align="center">%name%</text>
+	<slot name="ingredient[0]" x="8" y="84" style="plain"/>
+	<slot name="ingredient[1]" x="26" y="84" style="plain"/>
+	<slot name="ingredient[2]" x="44" y="84" style="plain"/>
+	<slot name="ingredient[3]" x="62" y="84" style="plain"/>
+	<slot name="ingredient[4]" x="80" y="84" style="plain"/>
+	<slot name="ingredient[5]" x="98" y="84" style="plain"/>
+	<slot name="ingredient[6]" x="116" y="84" style="plain"/>
+	<slot name="ingredient[7]" x="134" y="84" style="plain"/>
+	<slot name="ingredient[8]" x="152" y="84" style="plain"/>
+	<slotgrid name="grid" hologram="true" x="30" y="17" cols="3" spacing="2" stack="1" style="plain"/>
+	<slot name="output" x="124" y="35" style="plain"/>
+	<slotgrid name="containersOut" x="8" y="102" cols="9" spacing="2" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="8" cols="1" spacing="2" style="plain"/>
+	<slot name="discharge" x="8" y="62" style="plain"/>
+	<energygauge x="12" y="45"/>
+	<gauge name="progress" x="90" y="35" style="progressarrow"/>
+	<itemimage name="recipeOutput" x="94" y="14"/>
+	<playerInventory x="7" y="123" background="false"/>
+</gui>

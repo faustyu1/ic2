@@ -1,0 +1,530 @@
+{
+  "generators.generator_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/generator_loop",
+        "stream": true
+      }
+    ]
+  },
+  "generators.geothermal_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/geothermal_loop",
+        "stream": true
+      }
+    ]
+  },
+  "generators.mass_fabricator.mass_fab_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/mass_fabricator/mass_fab_loop",
+        "stream": true
+      }
+    ]
+  },
+  "generators.mass_fabricator.mass_fab_scrap_solo": {
+    "sounds": [
+      {
+        "name": "ic2:generators/mass_fabricator/mass_fab_scrap_solo",
+        "stream": false
+      }
+    ]
+  },
+  "generators.nuclear_reactor.geiger_high_eu": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/geiger_high_eu",
+        "stream": false
+      }
+    ]
+  },
+  "generators.nuclear_reactor.geiger_low_eu": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/geiger_low_eu",
+        "stream": false
+      }
+    ]
+  },
+  "generators.nuclear_reactor.geiger_med_eu": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/geiger_med_eu",
+        "stream": false
+      }
+    ]
+  },
+  "generators.nuclear_reactor.nuclear_reactor_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/nuclear_reactor/nuclear_reactor_loop",
+        "stream": true
+      }
+    ]
+  },
+  "generators.watermill_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/watermill_loop",
+        "stream": true
+      }
+    ]
+  },
+  "generators.wind_gen_loop": {
+    "sounds": [
+      {
+        "name": "ic2:generators/wind_gen_loop",
+        "stream": true
+      }
+    ]
+  },
+  "machines.canner_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/canner_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.canner_reverse_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/canner_reverse_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.compressor_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/compressor_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.electro_furnace.electro_furnace_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/electro_furnace/electro_furnace_loop",
+        "stream": true
+      }
+    ]
+  },
+  "machines.electro_furnace.electro_furnace_start": {
+    "sounds": [
+      {
+        "name": "ic2:machines/electro_furnace/electro_furnace_start",
+        "stream": false
+      }
+    ]
+  },
+  "machines.electro_furnace.electro_furnace_stop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/electro_furnace/electro_furnace_stop",
+        "stream": false
+      }
+    ]
+  },
+  "machines.electrolyzer_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/electrolyzer_loop",
+        "stream": true
+      }
+    ]
+  },
+  "machines.extractor_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/extractor_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.forcefield_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/forcefield_loop",
+        "stream": true
+      }
+    ]
+  },
+  "machines.induction_furnace.induction_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/induction_furnace/induction_loop",
+        "stream": true
+      }
+    ]
+  },
+  "machines.induction_furnace.induction_start": {
+    "sounds": [
+      {
+        "name": "ic2:machines/induction_furnace/induction_start",
+        "stream": false
+      }
+    ]
+  },
+  "machines.induction_furnace.induction_stop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/induction_furnace/induction_stop",
+        "stream": false
+      }
+    ]
+  },
+  "machines.interrupt_one": {
+    "sounds": [
+      {
+        "name": "ic2:machines/interrupt_one",
+        "stream": false
+      }
+    ]
+  },
+  "machines.iron_furnace_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/iron_furnace_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.macerator_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/macerator_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.machine_overload": {
+    "sounds": [
+      {
+        "name": "ic2:machines/machine_overload",
+        "stream": false
+      }
+    ]
+  },
+  "machines.magnetizer_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/magnetizer_loop",
+        "stream": true
+      }
+    ]
+  },
+  "machines.miner_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/miner_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.o_mat": {
+    "sounds": [
+      {
+        "name": "ic2:machines/o_mat",
+        "stream": false
+      }
+    ]
+  },
+  "machines.pump_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/pump_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.recycler_op": {
+    "sounds": [
+      {
+        "name": "ic2:machines/recycler_op",
+        "stream": false
+      }
+    ]
+  },
+  "machines.teleporter.tele_charged_loop": {
+    "sounds": [
+      {
+        "name": "ic2:machines/teleporter/tele_charged_loop",
+        "stream": true
+      }
+    ]
+  },
+  "machines.teleporter.tele_use": {
+    "sounds": [
+      {
+        "name": "ic2:machines/teleporter/tele_use",
+        "stream": false
+      }
+    ]
+  },
+  "terraformers.terraformer_genericloop": {
+    "sounds": [
+      {
+        "name": "ic2:terraformers/terraformer_genericloop",
+        "stream": true
+      }
+    ]
+  },
+  "tools.battery_use": {
+    "sounds": [
+      {
+        "name": "ic2:tools/battery_use",
+        "stream": false
+      }
+    ]
+  },
+  "tools.chainsaw.chainsaw_idle": {
+    "sounds": [
+      {
+        "name": "ic2:tools/chainsaw/chainsaw_idle",
+        "stream": false
+      }
+    ]
+  },
+  "tools.chainsaw.chainsaw_stop": {
+    "sounds": [
+      {
+        "name": "ic2:tools/chainsaw/chainsaw_stop",
+        "stream": false
+      }
+    ]
+  },
+  "tools.chainsaw.chainsaw_use_one": {
+    "sounds": [
+      {
+        "name": "ic2:tools/chainsaw/chainsaw_use_one",
+        "stream": false
+      }
+    ]
+  },
+  "tools.chainsaw.chainsaw_use_two": {
+    "sounds": [
+      {
+        "name": "ic2:tools/chainsaw/chainsaw_use_two",
+        "stream": false
+      }
+    ]
+  },
+  "tools.crowbar": {
+    "sounds": [
+      {
+        "name": "ic2:tools/crowbar",
+        "stream": false
+      }
+    ]
+  },
+  "tools.drill.drill_hard": {
+    "sounds": [
+      {
+        "name": "ic2:tools/drill/drill_hard",
+        "stream": false
+      }
+    ]
+  },
+  "tools.drill.drill_soft": {
+    "sounds": [
+      {
+        "name": "ic2:tools/drill/drill_soft",
+        "stream": false
+      }
+    ]
+  },
+  "tools.drill.drill_use_loop": {
+    "sounds": [
+      {
+        "name": "ic2:tools/drill/drill_use_loop",
+        "stream": true
+      }
+    ]
+  },
+  "tools.dynamiteomote": {
+    "sounds": [
+      {
+        "name": "ic2:tools/dynamiteomote",
+        "stream": false
+      }
+    ]
+  },
+  "tools.eat": {
+    "sounds": [
+      {
+        "name": "ic2:tools/eat",
+        "stream": false
+      }
+    ]
+  },
+  "tools.insulation_cutters": {
+    "sounds": [
+      {
+        "name": "ic2:tools/insulation_cutters",
+        "stream": false
+      }
+    ]
+  },
+  "tools.jetpack.jetpack_fire": {
+    "sounds": [
+      {
+        "name": "ic2:tools/jetpack/jetpack_fire",
+        "stream": false
+      }
+    ]
+  },
+  "tools.jetpack.jetpack_loop": {
+    "sounds": [
+      {
+        "name": "ic2:tools/jetpack/jetpack_loop",
+        "stream": true
+      }
+    ]
+  },
+  "tools.mining_laser.mining_laser": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/mining_laser",
+        "stream": false
+      }
+    ]
+  },
+  "tools.mining_laser.mining_laser_explosive": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/mining_laser_explosive",
+        "stream": false
+      }
+    ]
+  },
+  "tools.mining_laser.mining_laser_long_range": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/mining_laser_long_range",
+        "stream": false
+      }
+    ]
+  },
+  "tools.mining_laser.mining_laser_low_focus": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/mining_laser_low_focus",
+        "stream": false
+      }
+    ]
+  },
+  "tools.mining_laser.mining_laser_scatter": {
+    "sounds": [
+      {
+        "name": "ic2:tools/mining_laser/mining_laser_scatter",
+        "stream": false
+      }
+    ]
+  },
+  "tools.nanosabre.nanosabre_idle": {
+    "sounds": [
+      {
+        "name": "ic2:tools/nanosabre/nanosabre_idle",
+        "stream": false
+      }
+    ]
+  },
+  "tools.nanosabre.nanosabre_powerup": {
+    "sounds": [
+      {
+        "name": "ic2:tools/nanosabre/nanosabre_powerup",
+        "stream": false
+      }
+    ]
+  },
+  "tools.nanosabre.nanosabre_swing_1": {
+    "sounds": [
+      {
+        "name": "ic2:tools/nanosabre/nanosabre_swing_1",
+        "stream": false
+      }
+    ]
+  },
+  "tools.nanosabre.nanosabre_swing_2": {
+    "sounds": [
+      {
+        "name": "ic2:tools/nanosabre/nanosabre_swing_2",
+        "stream": false
+      }
+    ]
+  },
+  "tools.nanosabre.nanosabre_swing_3": {
+    "sounds": [
+      {
+        "name": "ic2:tools/nanosabre/nanosabre_swing_3",
+        "stream": false
+      }
+    ]
+  },
+  "tools.nuke_explosion": {
+    "sounds": [
+      {
+        "name": "ic2:tools/nuke_explosion",
+        "stream": false
+      }
+    ]
+  },
+  "tools.od_scanner": {
+    "sounds": [
+      {
+        "name": "ic2:tools/od_scanner",
+        "stream": false
+      }
+    ]
+  },
+  "tools.painter": {
+    "sounds": [
+      {
+        "name": "ic2:tools/painter",
+        "stream": false
+      }
+    ]
+  },
+  "tools.quantum_suit.helmet_loop": {
+    "sounds": [
+      {
+        "name": "ic2:tools/quantum_suit/helmet_loop",
+        "stream": true
+      }
+    ]
+  },
+  "tools.quantum_suit.quantumsuit_boots": {
+    "sounds": [
+      {
+        "name": "ic2:tools/quantum_suit/quantumsuit_boots",
+        "stream": false
+      }
+    ]
+  },
+  "tools.rubber_trampoline": {
+    "sounds": [
+      {
+        "name": "ic2:tools/rubber_trampoline",
+        "stream": false
+      }
+    ]
+  },
+  "tools.treetap": {
+    "sounds": [
+      {
+        "name": "ic2:tools/treetap",
+        "stream": false
+      }
+    ]
+  },
+  "tools.wrench": {
+    "sounds": [
+      {
+        "name": "ic2:tools/wrench",
+        "stream": false
+      }
+    ]
+  }
+}

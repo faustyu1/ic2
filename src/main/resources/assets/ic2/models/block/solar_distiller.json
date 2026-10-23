@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/fluid/solar_distiller_top",
+    "down": "ic2:block/machine/fluid/solar_distiller_bottom",
+    "north": "ic2:block/machine/fluid/solar_distiller_sides",
+    "south": "ic2:block/machine/fluid/solar_distiller_sides",
+    "west": "ic2:block/machine/fluid/solar_distiller_sides",
+    "east": "ic2:block/machine/fluid/solar_distiller_sides",
+    "particle": "ic2:block/machine/fluid/solar_distiller_sides"
+  }
+}

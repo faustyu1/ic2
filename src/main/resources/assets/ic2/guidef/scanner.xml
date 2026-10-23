@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiScanner/ContainerScanner); the positions are theirs.
+     The scan cost is shown in microbuckets: the screen only gets whole numbers. -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIScanner"/>
+	<text y="6" align="center">%name%</text>
+	<text x="105" y="6" color="0x404040">{ic2.Scanner.gui.info5}:</text>
+
+	<energygauge x="12" y="25"/>
+	<slot name="discharge" x="8" y="43" style="plain"/>
+	<slot name="input" x="55" y="35" style="plain"/>
+	<slot name="disk" x="152" y="65" style="plain"/>
+	<gauge name="progress" x="30" y="20" style="progressuuscanner"/>
+
+	<only if="canDelete">
+		<tooltip text="ic2.Scanner.gui.button.delete">
+			<button x="102" y="49" width="12" height="12" src="textures/gui/GUIScanner" u="176" v="57" event="delete"/>
+		</tooltip>
+	</only>
+	<only if="canSave">
+		<tooltip text="ic2.Scanner.gui.button.save">
+			<button x="143" y="49" width="24" height="12" src="textures/gui/GUIScanner" u="176" v="69" event="save"/>
+		</tooltip>
+	</only>
+
+	<only if="state_idle">
+		<text x="10" y="69" color="0xEBEB20">{ic2.Scanner.gui.idle}</text>
+	</only>
+	<only if="state_no_storage">
+		<text x="10" y="69" color="0xEBEB20">{ic2.Scanner.gui.info2}</text>
+	</only>
+	<only if="state_scanning">
+		<text x="10" y="69" color="0x20EB3E">{ic2.Scanner.gui.info1}</text>
+		<text x="125" y="69" color="0x20EB3E">%amount:percent%%</text>
+	</only>
+	<only if="state_no_energy">
+		<text x="10" y="69" color="0xD70F10">{ic2.Scanner.gui.info3}</text>
+	</only>
+	<only if="state_already_recorded">
+		<text x="10" y="69" color="0xD70F10">{ic2.Scanner.gui.info8}</text>
+	</only>
+	<only if="state_failed">
+		<text x="10" y="69" color="0x20EB3E">{ic2.Scanner.gui.info4}</text>
+		<text x="110" y="30" color="0xD70F10">{ic2.Scanner.gui.info6}</text>
+	</only>
+	<only if="state_completed">
+		<text x="10" y="69" color="0x20EB3E">{ic2.Scanner.gui.info4}</text>
+	</only>
+	<only if="state_transfer_error">
+		<text x="10" y="69" color="0xD70F10">{ic2.Scanner.gui.info7}</text>
+	</only>
+	<only if="showResult">
+		<text x="105" y="25" color="0xFFFFFF">%amount:patternUuMicro% µB UUM</text>
+	</only>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

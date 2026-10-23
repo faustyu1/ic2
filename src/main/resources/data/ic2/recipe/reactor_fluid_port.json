@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VCV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "ic2:reactor_vessel"
+    },
+    "C": {
+      "item": "ic2:fluid_cell"
+    }
+  },
+  "result": {
+    "id": "ic2:reactor_fluid_port"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ALA",
+    "BLB",
+    "L L"
+  ],
+  "key": {
+    "L": {
+      "item": "ic2:casing_iron"
+    },
+    "A": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "B": {
+      "item": "ic2:energy_crystal"
+    }
+  },
+  "result": {
+    "id": "ic2:energy_pack"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " c ",
+    "CED",
+    " c "
+  ],
+  "key": {
+    "E": {
+      "item": "ic2:hv_transformer"
+    },
+    "c": {
+      "item": "ic2:iron_cable_3"
+    },
+    "D": {
+      "item": "ic2:lapotron_crystal"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    }
+  },
+  "result": {
+    "id": "ic2:ev_transformer"
+  }
+}

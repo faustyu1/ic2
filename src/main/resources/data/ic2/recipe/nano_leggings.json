@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CcC",
+    "C C",
+    "C C"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:crafting_carbon_plate"
+    },
+    "c": {
+      "item": "ic2:energy_crystal"
+    }
+  },
+  "result": {
+    "id": "ic2:nano_leggings"
+  }
+}

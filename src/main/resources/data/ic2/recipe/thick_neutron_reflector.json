@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CRC",
+    "RCR",
+    "CRC"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:plates/copper"
+    },
+    "R": {
+      "item": "ic2:neutron_reflector"
+    }
+  },
+  "result": {
+    "id": "ic2:thick_neutron_reflector"
+  }
+}

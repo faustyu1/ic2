@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"particle": "ic2:block/resource/rubber_wood_sides",
+		"down": "ic2:block/resource/rubber_wood_dry_bottomtop",
+		"up": "ic2:block/resource/rubber_wood_dry_bottomtop",
+		"north": "ic2:block/resource/rubber_wood_dry_front",
+		"south": "ic2:block/resource/rubber_wood_dry_leftrightback",
+		"east": "ic2:block/resource/rubber_wood_dry_leftrightback",
+		"west": "ic2:block/resource/rubber_wood_dry_leftrightback"
+	}
+}

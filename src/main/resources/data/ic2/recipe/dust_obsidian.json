@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "item": "ic2:dust_small_obsidian"
+    }
+  },
+  "result": {
+    "id": "ic2:dust_obsidian"
+  }
+}

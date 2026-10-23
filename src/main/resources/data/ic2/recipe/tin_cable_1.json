@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "ic2:rubber"
+    },
+    {
+      "item": "ic2:tin_cable_0"
+    }
+  ],
+  "result": {
+    "id": "ic2:tin_cable_1"
+  }
+}

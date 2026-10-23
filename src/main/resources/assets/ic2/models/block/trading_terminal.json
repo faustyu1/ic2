@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/personal/trading_terminal_top",
+    "down": "ic2:block/personal/trading_terminal_bottom",
+    "north": "ic2:block/personal/trading_terminal_front",
+    "south": "ic2:block/personal/trading_terminal_leftrightback",
+    "west": "ic2:block/personal/trading_terminal_leftrightback",
+    "east": "ic2:block/personal/trading_terminal_leftrightback",
+    "particle": "ic2:block/personal/trading_terminal_front"
+  }
+}

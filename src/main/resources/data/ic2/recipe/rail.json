@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B B",
+    "BsB",
+    "B B"
+  ],
+  "key": {
+    "B": {
+      "tag": "c:ingots/bronze"
+    },
+    "s": {
+      "tag": "c:rods/wooden"
+    }
+  },
+  "result": {
+    "id": "minecraft:rail",
+    "count": 8
+  }
+}

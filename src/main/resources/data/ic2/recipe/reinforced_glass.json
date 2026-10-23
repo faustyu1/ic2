@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GAG",
+    "GGG",
+    "GAG"
+  ],
+  "key": {
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "A": {
+      "item": "ic2:crafting_alloy"
+    }
+  },
+  "result": {
+    "id": "ic2:reinforced_glass",
+    "count": 7
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "variants": {
+    "stage=0": { "model": "ic2:block/rubber_sapling" },
+    "stage=1": { "model": "ic2:block/rubber_sapling" }
+  }
+}

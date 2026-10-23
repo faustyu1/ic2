@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:ingots/tin"
+    },
+    {
+      "tag": "ic2:tools/forge_hammer"
+    }
+  ],
+  "result": {
+    "id": "ic2:plate_tin"
+  }
+}

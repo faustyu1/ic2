@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "UUU",
+    "CCC",
+    "UUU"
+  ],
+  "key": {
+    "U": {
+      "item": "ic2:nuclear_uranium_238"
+    },
+    "C": {
+      "item": "ic2:nuclear_plutonium"
+    }
+  },
+  "result": {
+    "id": "ic2:nuclear_mox"
+  }
+}

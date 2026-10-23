@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CUC",
+    "UMU",
+    "CIC"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "item": "minecraft:chest"
+    },
+    "U": {
+      "item": "ic2:upgrade_ejector"
+    },
+    "I": {
+      "item": "ic2:upgrade_pulling"
+    }
+  },
+  "result": {
+    "id": "ic2:weighted_item_distributor"
+  }
+}

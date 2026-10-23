@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:plates/lead"
+    },
+    {
+      "item": "ic2:crafting_alloy"
+    }
+  ],
+  "result": {
+    "id": "ic2:plating"
+  }
+}

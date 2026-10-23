@@ -1,0 +1,81 @@
+plugins {
+    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'maven-publish'
+}
+
+version = project.mod_version
+group = project.maven_group
+
+base {
+    archivesName = project.archives_base_name
+}
+
+loom {
+    // opens the biome climate the crops read their humidity bonus from (see ic2.accesswidener)
+    accessWidenerPath = file("src/main/resources/ic2.accesswidener")
+
+    runs {
+        gametest {
+            server()
+            name "Game Test"
+            vmArg "-Dfabric-api.gametest"
+            vmArg "-Dfabric-api.gametest.report-file=${project.buildDir}/junit-gametest.xml"
+            runDir "build/gametest"
+        }
+    }
+
+    mixin {
+        // remap the mixin annotations at remapJar time instead of generating a refmap with the
+        // annotation processor, so ic2.mixins.json needs no refmap entry
+        useLegacyMixinAp = false
+    }
+}
+
+repositories {
+    // Third-party libraries (e.g. EJML for the nuclear reactor / crop math)
+    // will be added here during the port.
+    mavenCentral()
+    // Roughly Enough Items and its libraries (cloth-config, architectury)
+    maven { url "https://maven.shedaniel.me/" }
+    maven { url "https://maven.architectury.dev/" }
+}
+
+dependencies {
+    minecraft "com.mojang:minecraft:${project.minecraft_version}"
+    mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
+    modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+    // EJML (the energy grid's and the wind simulation's linear algebra). 1.12.2 shaded EJML 0.26
+    // into ic2.shades; the port uses 0.43 from Maven Central and ships it inside the mod jar
+    // (jar-in-jar): `implementation` alone only puts it on the development classpath, and a real
+    // installation then fails with NoClassDefFoundError. include is not transitive, so every
+    // module of ejml-all is listed.
+    implementation 'org.ejml:ejml-all:0.43'
+    ['core', 'ddense', 'fdense', 'cdense', 'zdense', 'dsparse', 'fsparse', 'simple'].each {
+        include "org.ejml:ejml-${it}:0.43"
+    }
+
+    // REI is optional: compiled against its API, present only in the dev client
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${project.rei_version}"
+    modCompileOnly "me.shedaniel:RoughlyEnoughItems-default-plugin-fabric:${project.rei_version}"
+    modLocalRuntime "me.shedaniel:RoughlyEnoughItems-fabric:${project.rei_version}"
+    testImplementation 'junit:junit:4.13.2'
+
+}
+
+processResources {
+    inputs.property "version", project.version
+    filesMatching("fabric.mod.json") {
+        expand "version": project.version
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    it.options.release = 21
+}
+
+java {
+    withSourcesJar()
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}

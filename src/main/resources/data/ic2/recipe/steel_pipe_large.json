@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P P",
+    "P P",
+    "P P"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/steel"
+    }
+  },
+  "result": {
+    "id": "ic2:steel_pipe_large"
+  }
+}

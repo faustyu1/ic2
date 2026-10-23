@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/misc/terraformer_top",
+    "down": "ic2:block/machine/misc/terraformer_bottom",
+    "north": "ic2:block/machine/misc/terraformer_sides",
+    "south": "ic2:block/machine/misc/terraformer_sides",
+    "west": "ic2:block/machine/misc/terraformer_sides",
+    "east": "ic2:block/machine/misc/terraformer_sides",
+    "particle": "ic2:block/machine/misc/terraformer_sides"
+  }
+}

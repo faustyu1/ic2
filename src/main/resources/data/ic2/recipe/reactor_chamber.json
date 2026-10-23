@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "ICI",
+    " I "
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/lead"
+    },
+    "C": {
+      "item": "ic2:machine"
+    }
+  },
+  "result": {
+    "id": "ic2:reactor_chamber"
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:diamond",
+    {
+      "id": "ic2:crafting_industrial_diamond",
+      "required": false
+    }
+  ]
+}

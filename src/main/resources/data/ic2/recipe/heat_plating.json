@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CcC",
+    "CCC"
+  ],
+  "key": {
+    "c": {
+      "item": "ic2:plating"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "result": {
+    "id": "ic2:heat_plating"
+  }
+}

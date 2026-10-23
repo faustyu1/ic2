@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "TCT",
+    "TcT",
+    "TCT"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:tri_heat_storage"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    },
+    "c": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "result": {
+    "id": "ic2:hex_heat_storage"
+  }
+}

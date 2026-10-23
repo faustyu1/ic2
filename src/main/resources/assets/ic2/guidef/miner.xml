@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiMiner/ContainerMiner); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIMiner"/>
+	<text y="6" align="center">%name%</text>
+
+	<slot name="drill" x="8" y="22" style="plain"/>
+	<slot name="pipe" x="8" y="40" style="plain"/>
+	<slot name="scanner" x="8" y="58" style="plain"/>
+	<slotgrid name="buffer" x="44" y="22" cols="5" spacing="2" style="plain"/>
+	<slot name="upgrade" x="152" y="22" style="plain"/>
+	<slot name="discharge" x="152" y="58" style="plain"/>
+	<energygauge x="155" y="41"/>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

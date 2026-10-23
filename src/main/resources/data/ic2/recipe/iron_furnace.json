@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "I I",
+    "IFI"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "F": {
+      "item": "minecraft:furnace"
+    }
+  },
+  "result": {
+    "id": "ic2:iron_furnace"
+  }
+}

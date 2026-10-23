@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiItemBuffer/ContainerItemBuffer); the positions are theirs -->
+<gui width="176" height="232">
+	<image x="0" y="0" width="176" height="232" src="textures/gui/GUIItemBuffer"/>
+	<text y="6" align="center">%name%</text>
+	<slotgrid name="leftcontent" x="8" y="18" cols="4" spacing="2" style="plain"/>
+	<slotgrid name="rightcontent" x="98" y="18" cols="4" spacing="2" style="plain"/>
+	<slot name="upgrade" index="0" x="35" y="128" style="plain"/>
+	<slot name="upgrade" index="1" x="125" y="128" style="plain"/>
+	<playerInventory x="7" y="149" background="false"/>
+</gui>

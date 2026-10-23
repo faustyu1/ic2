@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/personal/trade_o_mat_top",
+    "down": "ic2:block/personal/trade_o_mat_bottom",
+    "north": "ic2:block/personal/trade_o_mat_front",
+    "south": "ic2:block/personal/trade_o_mat_leftrightback",
+    "west": "ic2:block/personal/trade_o_mat_leftrightback",
+    "east": "ic2:block/personal/trade_o_mat_leftrightback",
+    "particle": "ic2:block/personal/trade_o_mat_front"
+  }
+}

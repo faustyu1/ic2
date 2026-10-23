@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SSS",
+    "CAC",
+    "MRM"
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:reinforced_stone"
+    },
+    "R": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "A": {
+      "item": "ic2:advanced_machine"
+    },
+    "M": {
+      "item": "ic2:mining_laser"
+    },
+    "C": {
+      "item": "ic2:crystal_memory"
+    }
+  },
+  "result": {
+    "id": "ic2:pattern_storage"
+  }
+}

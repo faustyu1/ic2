@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/steam/coke_kiln",
+    "down": "ic2:block/steam/coke_kiln",
+    "north": "ic2:block/steam/coke_kiln",
+    "south": "ic2:block/steam/coke_kiln",
+    "west": "ic2:block/steam/coke_kiln",
+    "east": "ic2:block/steam/coke_kiln",
+    "particle": "ic2:block/steam/coke_kiln"
+  }
+}

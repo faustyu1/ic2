@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    " A ",
+    "R R"
+  ],
+  "key": {
+    "C": {
+      "tag": "ic2:circuits/basic"
+    },
+    "A": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "ic2:tfbp_blank"
+  }
+}

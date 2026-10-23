@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "ic2:scrap"
+    },
+    {
+      "tag": "ic2:scrap"
+    },
+    {
+      "item": "ic2:crop_res_fertilizer"
+    }
+  ],
+  "result": {
+    "id": "ic2:crop_res_fertilizer",
+    "count": 2
+  }
+}

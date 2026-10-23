@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiElectrolyzer/ContainerElectrolyzer); the positions are theirs.
+     The five output slots show the outputs of the recipe of the fluid in the tank. -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIElectrolyzer"/>
+	<text y="6" align="center">%name%</text>
+
+	<energygauge x="12" y="44"/>
+	<slot name="discharge" x="8" y="62" style="plain"/>
+	<fluidslot name="input" x="78" y="16"/>
+	<slotgrid name="upgradeSlot" x="152" y="8" cols="1" spacing="2" style="plain"/>
+	<fluidslot name="out0" x="36" y="61"/>
+	<fluidslot name="out1" x="57" y="61"/>
+	<fluidslot name="out2" x="78" y="61"/>
+	<fluidslot name="out3" x="99" y="61"/>
+	<fluidslot name="out4" x="120" y="61"/>
+	<only if="outputs1">
+		<gauge name="progress" x="84" y="36" style="electrolyzer1"/>
+	</only>
+	<only if="outputs2">
+		<gauge name="progress" x="60" y="36" style="electrolyzer2"/>
+	</only>
+	<only if="outputs3">
+		<gauge name="progress" x="60" y="36" style="electrolyzer3"/>
+	</only>
+	<only if="outputs4">
+		<gauge name="progress" x="39" y="36" style="electrolyzer4"/>
+	</only>
+	<only if="outputs5">
+		<gauge name="progress" x="39" y="36" style="electrolyzer5"/>
+	</only>
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

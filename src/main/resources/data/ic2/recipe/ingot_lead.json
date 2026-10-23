@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "B"
+  ],
+  "key": {
+    "B": {
+      "item": "ic2:lead_block"
+    }
+  },
+  "result": {
+    "id": "ic2:ingot_lead",
+    "count": 9
+  }
+}

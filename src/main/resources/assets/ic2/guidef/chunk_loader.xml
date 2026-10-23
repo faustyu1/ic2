@@ -1,0 +1,500 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiChunkLoader/ContainerChunkLoader); the positions are theirs.
+     The 9x9 map of the chunks around the loader is a grid of buttons, one per chunk (event chunk:<column>:<row>,
+     columns west to east, rows north to south), marked green while the chunk is kept loaded. -->
+<gui width="176" height="250">
+	<image x="0" y="0" width="176" height="250" src="textures/gui/GUIChunkLoader"/>
+	<text x="8" y="16" color="0x404040">%amount:chunks%</text>
+	<text x="8" y="25" color="0x404040">/</text>
+	<text x="8" y="34" color="0x404040">%capacity:chunks%</text>
+	<only if="chunk_0_0">
+		<button x="25" y="16" width="16" height="16" event="chunk:0:0">§a■</button>
+	</only>
+	<only if="chunk_0_0" inverted="true">
+		<button x="25" y="16" width="16" height="16" event="chunk:0:0"></button>
+	</only>
+	<only if="chunk_1_0">
+		<button x="41" y="16" width="16" height="16" event="chunk:1:0">§a■</button>
+	</only>
+	<only if="chunk_1_0" inverted="true">
+		<button x="41" y="16" width="16" height="16" event="chunk:1:0"></button>
+	</only>
+	<only if="chunk_2_0">
+		<button x="57" y="16" width="16" height="16" event="chunk:2:0">§a■</button>
+	</only>
+	<only if="chunk_2_0" inverted="true">
+		<button x="57" y="16" width="16" height="16" event="chunk:2:0"></button>
+	</only>
+	<only if="chunk_3_0">
+		<button x="73" y="16" width="16" height="16" event="chunk:3:0">§a■</button>
+	</only>
+	<only if="chunk_3_0" inverted="true">
+		<button x="73" y="16" width="16" height="16" event="chunk:3:0"></button>
+	</only>
+	<only if="chunk_4_0">
+		<button x="89" y="16" width="16" height="16" event="chunk:4:0">§a■</button>
+	</only>
+	<only if="chunk_4_0" inverted="true">
+		<button x="89" y="16" width="16" height="16" event="chunk:4:0"></button>
+	</only>
+	<only if="chunk_5_0">
+		<button x="105" y="16" width="16" height="16" event="chunk:5:0">§a■</button>
+	</only>
+	<only if="chunk_5_0" inverted="true">
+		<button x="105" y="16" width="16" height="16" event="chunk:5:0"></button>
+	</only>
+	<only if="chunk_6_0">
+		<button x="121" y="16" width="16" height="16" event="chunk:6:0">§a■</button>
+	</only>
+	<only if="chunk_6_0" inverted="true">
+		<button x="121" y="16" width="16" height="16" event="chunk:6:0"></button>
+	</only>
+	<only if="chunk_7_0">
+		<button x="137" y="16" width="16" height="16" event="chunk:7:0">§a■</button>
+	</only>
+	<only if="chunk_7_0" inverted="true">
+		<button x="137" y="16" width="16" height="16" event="chunk:7:0"></button>
+	</only>
+	<only if="chunk_8_0">
+		<button x="153" y="16" width="16" height="16" event="chunk:8:0">§a■</button>
+	</only>
+	<only if="chunk_8_0" inverted="true">
+		<button x="153" y="16" width="16" height="16" event="chunk:8:0"></button>
+	</only>
+	<only if="chunk_0_1">
+		<button x="25" y="32" width="16" height="16" event="chunk:0:1">§a■</button>
+	</only>
+	<only if="chunk_0_1" inverted="true">
+		<button x="25" y="32" width="16" height="16" event="chunk:0:1"></button>
+	</only>
+	<only if="chunk_1_1">
+		<button x="41" y="32" width="16" height="16" event="chunk:1:1">§a■</button>
+	</only>
+	<only if="chunk_1_1" inverted="true">
+		<button x="41" y="32" width="16" height="16" event="chunk:1:1"></button>
+	</only>
+	<only if="chunk_2_1">
+		<button x="57" y="32" width="16" height="16" event="chunk:2:1">§a■</button>
+	</only>
+	<only if="chunk_2_1" inverted="true">
+		<button x="57" y="32" width="16" height="16" event="chunk:2:1"></button>
+	</only>
+	<only if="chunk_3_1">
+		<button x="73" y="32" width="16" height="16" event="chunk:3:1">§a■</button>
+	</only>
+	<only if="chunk_3_1" inverted="true">
+		<button x="73" y="32" width="16" height="16" event="chunk:3:1"></button>
+	</only>
+	<only if="chunk_4_1">
+		<button x="89" y="32" width="16" height="16" event="chunk:4:1">§a■</button>
+	</only>
+	<only if="chunk_4_1" inverted="true">
+		<button x="89" y="32" width="16" height="16" event="chunk:4:1"></button>
+	</only>
+	<only if="chunk_5_1">
+		<button x="105" y="32" width="16" height="16" event="chunk:5:1">§a■</button>
+	</only>
+	<only if="chunk_5_1" inverted="true">
+		<button x="105" y="32" width="16" height="16" event="chunk:5:1"></button>
+	</only>
+	<only if="chunk_6_1">
+		<button x="121" y="32" width="16" height="16" event="chunk:6:1">§a■</button>
+	</only>
+	<only if="chunk_6_1" inverted="true">
+		<button x="121" y="32" width="16" height="16" event="chunk:6:1"></button>
+	</only>
+	<only if="chunk_7_1">
+		<button x="137" y="32" width="16" height="16" event="chunk:7:1">§a■</button>
+	</only>
+	<only if="chunk_7_1" inverted="true">
+		<button x="137" y="32" width="16" height="16" event="chunk:7:1"></button>
+	</only>
+	<only if="chunk_8_1">
+		<button x="153" y="32" width="16" height="16" event="chunk:8:1">§a■</button>
+	</only>
+	<only if="chunk_8_1" inverted="true">
+		<button x="153" y="32" width="16" height="16" event="chunk:8:1"></button>
+	</only>
+	<only if="chunk_0_2">
+		<button x="25" y="48" width="16" height="16" event="chunk:0:2">§a■</button>
+	</only>
+	<only if="chunk_0_2" inverted="true">
+		<button x="25" y="48" width="16" height="16" event="chunk:0:2"></button>
+	</only>
+	<only if="chunk_1_2">
+		<button x="41" y="48" width="16" height="16" event="chunk:1:2">§a■</button>
+	</only>
+	<only if="chunk_1_2" inverted="true">
+		<button x="41" y="48" width="16" height="16" event="chunk:1:2"></button>
+	</only>
+	<only if="chunk_2_2">
+		<button x="57" y="48" width="16" height="16" event="chunk:2:2">§a■</button>
+	</only>
+	<only if="chunk_2_2" inverted="true">
+		<button x="57" y="48" width="16" height="16" event="chunk:2:2"></button>
+	</only>
+	<only if="chunk_3_2">
+		<button x="73" y="48" width="16" height="16" event="chunk:3:2">§a■</button>
+	</only>
+	<only if="chunk_3_2" inverted="true">
+		<button x="73" y="48" width="16" height="16" event="chunk:3:2"></button>
+	</only>
+	<only if="chunk_4_2">
+		<button x="89" y="48" width="16" height="16" event="chunk:4:2">§a■</button>
+	</only>
+	<only if="chunk_4_2" inverted="true">
+		<button x="89" y="48" width="16" height="16" event="chunk:4:2"></button>
+	</only>
+	<only if="chunk_5_2">
+		<button x="105" y="48" width="16" height="16" event="chunk:5:2">§a■</button>
+	</only>
+	<only if="chunk_5_2" inverted="true">
+		<button x="105" y="48" width="16" height="16" event="chunk:5:2"></button>
+	</only>
+	<only if="chunk_6_2">
+		<button x="121" y="48" width="16" height="16" event="chunk:6:2">§a■</button>
+	</only>
+	<only if="chunk_6_2" inverted="true">
+		<button x="121" y="48" width="16" height="16" event="chunk:6:2"></button>
+	</only>
+	<only if="chunk_7_2">
+		<button x="137" y="48" width="16" height="16" event="chunk:7:2">§a■</button>
+	</only>
+	<only if="chunk_7_2" inverted="true">
+		<button x="137" y="48" width="16" height="16" event="chunk:7:2"></button>
+	</only>
+	<only if="chunk_8_2">
+		<button x="153" y="48" width="16" height="16" event="chunk:8:2">§a■</button>
+	</only>
+	<only if="chunk_8_2" inverted="true">
+		<button x="153" y="48" width="16" height="16" event="chunk:8:2"></button>
+	</only>
+	<only if="chunk_0_3">
+		<button x="25" y="64" width="16" height="16" event="chunk:0:3">§a■</button>
+	</only>
+	<only if="chunk_0_3" inverted="true">
+		<button x="25" y="64" width="16" height="16" event="chunk:0:3"></button>
+	</only>
+	<only if="chunk_1_3">
+		<button x="41" y="64" width="16" height="16" event="chunk:1:3">§a■</button>
+	</only>
+	<only if="chunk_1_3" inverted="true">
+		<button x="41" y="64" width="16" height="16" event="chunk:1:3"></button>
+	</only>
+	<only if="chunk_2_3">
+		<button x="57" y="64" width="16" height="16" event="chunk:2:3">§a■</button>
+	</only>
+	<only if="chunk_2_3" inverted="true">
+		<button x="57" y="64" width="16" height="16" event="chunk:2:3"></button>
+	</only>
+	<only if="chunk_3_3">
+		<button x="73" y="64" width="16" height="16" event="chunk:3:3">§a■</button>
+	</only>
+	<only if="chunk_3_3" inverted="true">
+		<button x="73" y="64" width="16" height="16" event="chunk:3:3"></button>
+	</only>
+	<only if="chunk_4_3">
+		<button x="89" y="64" width="16" height="16" event="chunk:4:3">§a■</button>
+	</only>
+	<only if="chunk_4_3" inverted="true">
+		<button x="89" y="64" width="16" height="16" event="chunk:4:3"></button>
+	</only>
+	<only if="chunk_5_3">
+		<button x="105" y="64" width="16" height="16" event="chunk:5:3">§a■</button>
+	</only>
+	<only if="chunk_5_3" inverted="true">
+		<button x="105" y="64" width="16" height="16" event="chunk:5:3"></button>
+	</only>
+	<only if="chunk_6_3">
+		<button x="121" y="64" width="16" height="16" event="chunk:6:3">§a■</button>
+	</only>
+	<only if="chunk_6_3" inverted="true">
+		<button x="121" y="64" width="16" height="16" event="chunk:6:3"></button>
+	</only>
+	<only if="chunk_7_3">
+		<button x="137" y="64" width="16" height="16" event="chunk:7:3">§a■</button>
+	</only>
+	<only if="chunk_7_3" inverted="true">
+		<button x="137" y="64" width="16" height="16" event="chunk:7:3"></button>
+	</only>
+	<only if="chunk_8_3">
+		<button x="153" y="64" width="16" height="16" event="chunk:8:3">§a■</button>
+	</only>
+	<only if="chunk_8_3" inverted="true">
+		<button x="153" y="64" width="16" height="16" event="chunk:8:3"></button>
+	</only>
+	<only if="chunk_0_4">
+		<button x="25" y="80" width="16" height="16" event="chunk:0:4">§a■</button>
+	</only>
+	<only if="chunk_0_4" inverted="true">
+		<button x="25" y="80" width="16" height="16" event="chunk:0:4"></button>
+	</only>
+	<only if="chunk_1_4">
+		<button x="41" y="80" width="16" height="16" event="chunk:1:4">§a■</button>
+	</only>
+	<only if="chunk_1_4" inverted="true">
+		<button x="41" y="80" width="16" height="16" event="chunk:1:4"></button>
+	</only>
+	<only if="chunk_2_4">
+		<button x="57" y="80" width="16" height="16" event="chunk:2:4">§a■</button>
+	</only>
+	<only if="chunk_2_4" inverted="true">
+		<button x="57" y="80" width="16" height="16" event="chunk:2:4"></button>
+	</only>
+	<only if="chunk_3_4">
+		<button x="73" y="80" width="16" height="16" event="chunk:3:4">§a■</button>
+	</only>
+	<only if="chunk_3_4" inverted="true">
+		<button x="73" y="80" width="16" height="16" event="chunk:3:4"></button>
+	</only>
+	<only if="chunk_4_4">
+		<button x="89" y="80" width="16" height="16" event="chunk:4:4">§a■</button>
+	</only>
+	<only if="chunk_4_4" inverted="true">
+		<button x="89" y="80" width="16" height="16" event="chunk:4:4"></button>
+	</only>
+	<only if="chunk_5_4">
+		<button x="105" y="80" width="16" height="16" event="chunk:5:4">§a■</button>
+	</only>
+	<only if="chunk_5_4" inverted="true">
+		<button x="105" y="80" width="16" height="16" event="chunk:5:4"></button>
+	</only>
+	<only if="chunk_6_4">
+		<button x="121" y="80" width="16" height="16" event="chunk:6:4">§a■</button>
+	</only>
+	<only if="chunk_6_4" inverted="true">
+		<button x="121" y="80" width="16" height="16" event="chunk:6:4"></button>
+	</only>
+	<only if="chunk_7_4">
+		<button x="137" y="80" width="16" height="16" event="chunk:7:4">§a■</button>
+	</only>
+	<only if="chunk_7_4" inverted="true">
+		<button x="137" y="80" width="16" height="16" event="chunk:7:4"></button>
+	</only>
+	<only if="chunk_8_4">
+		<button x="153" y="80" width="16" height="16" event="chunk:8:4">§a■</button>
+	</only>
+	<only if="chunk_8_4" inverted="true">
+		<button x="153" y="80" width="16" height="16" event="chunk:8:4"></button>
+	</only>
+	<only if="chunk_0_5">
+		<button x="25" y="96" width="16" height="16" event="chunk:0:5">§a■</button>
+	</only>
+	<only if="chunk_0_5" inverted="true">
+		<button x="25" y="96" width="16" height="16" event="chunk:0:5"></button>
+	</only>
+	<only if="chunk_1_5">
+		<button x="41" y="96" width="16" height="16" event="chunk:1:5">§a■</button>
+	</only>
+	<only if="chunk_1_5" inverted="true">
+		<button x="41" y="96" width="16" height="16" event="chunk:1:5"></button>
+	</only>
+	<only if="chunk_2_5">
+		<button x="57" y="96" width="16" height="16" event="chunk:2:5">§a■</button>
+	</only>
+	<only if="chunk_2_5" inverted="true">
+		<button x="57" y="96" width="16" height="16" event="chunk:2:5"></button>
+	</only>
+	<only if="chunk_3_5">
+		<button x="73" y="96" width="16" height="16" event="chunk:3:5">§a■</button>
+	</only>
+	<only if="chunk_3_5" inverted="true">
+		<button x="73" y="96" width="16" height="16" event="chunk:3:5"></button>
+	</only>
+	<only if="chunk_4_5">
+		<button x="89" y="96" width="16" height="16" event="chunk:4:5">§a■</button>
+	</only>
+	<only if="chunk_4_5" inverted="true">
+		<button x="89" y="96" width="16" height="16" event="chunk:4:5"></button>
+	</only>
+	<only if="chunk_5_5">
+		<button x="105" y="96" width="16" height="16" event="chunk:5:5">§a■</button>
+	</only>
+	<only if="chunk_5_5" inverted="true">
+		<button x="105" y="96" width="16" height="16" event="chunk:5:5"></button>
+	</only>
+	<only if="chunk_6_5">
+		<button x="121" y="96" width="16" height="16" event="chunk:6:5">§a■</button>
+	</only>
+	<only if="chunk_6_5" inverted="true">
+		<button x="121" y="96" width="16" height="16" event="chunk:6:5"></button>
+	</only>
+	<only if="chunk_7_5">
+		<button x="137" y="96" width="16" height="16" event="chunk:7:5">§a■</button>
+	</only>
+	<only if="chunk_7_5" inverted="true">
+		<button x="137" y="96" width="16" height="16" event="chunk:7:5"></button>
+	</only>
+	<only if="chunk_8_5">
+		<button x="153" y="96" width="16" height="16" event="chunk:8:5">§a■</button>
+	</only>
+	<only if="chunk_8_5" inverted="true">
+		<button x="153" y="96" width="16" height="16" event="chunk:8:5"></button>
+	</only>
+	<only if="chunk_0_6">
+		<button x="25" y="112" width="16" height="16" event="chunk:0:6">§a■</button>
+	</only>
+	<only if="chunk_0_6" inverted="true">
+		<button x="25" y="112" width="16" height="16" event="chunk:0:6"></button>
+	</only>
+	<only if="chunk_1_6">
+		<button x="41" y="112" width="16" height="16" event="chunk:1:6">§a■</button>
+	</only>
+	<only if="chunk_1_6" inverted="true">
+		<button x="41" y="112" width="16" height="16" event="chunk:1:6"></button>
+	</only>
+	<only if="chunk_2_6">
+		<button x="57" y="112" width="16" height="16" event="chunk:2:6">§a■</button>
+	</only>
+	<only if="chunk_2_6" inverted="true">
+		<button x="57" y="112" width="16" height="16" event="chunk:2:6"></button>
+	</only>
+	<only if="chunk_3_6">
+		<button x="73" y="112" width="16" height="16" event="chunk:3:6">§a■</button>
+	</only>
+	<only if="chunk_3_6" inverted="true">
+		<button x="73" y="112" width="16" height="16" event="chunk:3:6"></button>
+	</only>
+	<only if="chunk_4_6">
+		<button x="89" y="112" width="16" height="16" event="chunk:4:6">§a■</button>
+	</only>
+	<only if="chunk_4_6" inverted="true">
+		<button x="89" y="112" width="16" height="16" event="chunk:4:6"></button>
+	</only>
+	<only if="chunk_5_6">
+		<button x="105" y="112" width="16" height="16" event="chunk:5:6">§a■</button>
+	</only>
+	<only if="chunk_5_6" inverted="true">
+		<button x="105" y="112" width="16" height="16" event="chunk:5:6"></button>
+	</only>
+	<only if="chunk_6_6">
+		<button x="121" y="112" width="16" height="16" event="chunk:6:6">§a■</button>
+	</only>
+	<only if="chunk_6_6" inverted="true">
+		<button x="121" y="112" width="16" height="16" event="chunk:6:6"></button>
+	</only>
+	<only if="chunk_7_6">
+		<button x="137" y="112" width="16" height="16" event="chunk:7:6">§a■</button>
+	</only>
+	<only if="chunk_7_6" inverted="true">
+		<button x="137" y="112" width="16" height="16" event="chunk:7:6"></button>
+	</only>
+	<only if="chunk_8_6">
+		<button x="153" y="112" width="16" height="16" event="chunk:8:6">§a■</button>
+	</only>
+	<only if="chunk_8_6" inverted="true">
+		<button x="153" y="112" width="16" height="16" event="chunk:8:6"></button>
+	</only>
+	<only if="chunk_0_7">
+		<button x="25" y="128" width="16" height="16" event="chunk:0:7">§a■</button>
+	</only>
+	<only if="chunk_0_7" inverted="true">
+		<button x="25" y="128" width="16" height="16" event="chunk:0:7"></button>
+	</only>
+	<only if="chunk_1_7">
+		<button x="41" y="128" width="16" height="16" event="chunk:1:7">§a■</button>
+	</only>
+	<only if="chunk_1_7" inverted="true">
+		<button x="41" y="128" width="16" height="16" event="chunk:1:7"></button>
+	</only>
+	<only if="chunk_2_7">
+		<button x="57" y="128" width="16" height="16" event="chunk:2:7">§a■</button>
+	</only>
+	<only if="chunk_2_7" inverted="true">
+		<button x="57" y="128" width="16" height="16" event="chunk:2:7"></button>
+	</only>
+	<only if="chunk_3_7">
+		<button x="73" y="128" width="16" height="16" event="chunk:3:7">§a■</button>
+	</only>
+	<only if="chunk_3_7" inverted="true">
+		<button x="73" y="128" width="16" height="16" event="chunk:3:7"></button>
+	</only>
+	<only if="chunk_4_7">
+		<button x="89" y="128" width="16" height="16" event="chunk:4:7">§a■</button>
+	</only>
+	<only if="chunk_4_7" inverted="true">
+		<button x="89" y="128" width="16" height="16" event="chunk:4:7"></button>
+	</only>
+	<only if="chunk_5_7">
+		<button x="105" y="128" width="16" height="16" event="chunk:5:7">§a■</button>
+	</only>
+	<only if="chunk_5_7" inverted="true">
+		<button x="105" y="128" width="16" height="16" event="chunk:5:7"></button>
+	</only>
+	<only if="chunk_6_7">
+		<button x="121" y="128" width="16" height="16" event="chunk:6:7">§a■</button>
+	</only>
+	<only if="chunk_6_7" inverted="true">
+		<button x="121" y="128" width="16" height="16" event="chunk:6:7"></button>
+	</only>
+	<only if="chunk_7_7">
+		<button x="137" y="128" width="16" height="16" event="chunk:7:7">§a■</button>
+	</only>
+	<only if="chunk_7_7" inverted="true">
+		<button x="137" y="128" width="16" height="16" event="chunk:7:7"></button>
+	</only>
+	<only if="chunk_8_7">
+		<button x="153" y="128" width="16" height="16" event="chunk:8:7">§a■</button>
+	</only>
+	<only if="chunk_8_7" inverted="true">
+		<button x="153" y="128" width="16" height="16" event="chunk:8:7"></button>
+	</only>
+	<only if="chunk_0_8">
+		<button x="25" y="144" width="16" height="16" event="chunk:0:8">§a■</button>
+	</only>
+	<only if="chunk_0_8" inverted="true">
+		<button x="25" y="144" width="16" height="16" event="chunk:0:8"></button>
+	</only>
+	<only if="chunk_1_8">
+		<button x="41" y="144" width="16" height="16" event="chunk:1:8">§a■</button>
+	</only>
+	<only if="chunk_1_8" inverted="true">
+		<button x="41" y="144" width="16" height="16" event="chunk:1:8"></button>
+	</only>
+	<only if="chunk_2_8">
+		<button x="57" y="144" width="16" height="16" event="chunk:2:8">§a■</button>
+	</only>
+	<only if="chunk_2_8" inverted="true">
+		<button x="57" y="144" width="16" height="16" event="chunk:2:8"></button>
+	</only>
+	<only if="chunk_3_8">
+		<button x="73" y="144" width="16" height="16" event="chunk:3:8">§a■</button>
+	</only>
+	<only if="chunk_3_8" inverted="true">
+		<button x="73" y="144" width="16" height="16" event="chunk:3:8"></button>
+	</only>
+	<only if="chunk_4_8">
+		<button x="89" y="144" width="16" height="16" event="chunk:4:8">§a■</button>
+	</only>
+	<only if="chunk_4_8" inverted="true">
+		<button x="89" y="144" width="16" height="16" event="chunk:4:8"></button>
+	</only>
+	<only if="chunk_5_8">
+		<button x="105" y="144" width="16" height="16" event="chunk:5:8">§a■</button>
+	</only>
+	<only if="chunk_5_8" inverted="true">
+		<button x="105" y="144" width="16" height="16" event="chunk:5:8"></button>
+	</only>
+	<only if="chunk_6_8">
+		<button x="121" y="144" width="16" height="16" event="chunk:6:8">§a■</button>
+	</only>
+	<only if="chunk_6_8" inverted="true">
+		<button x="121" y="144" width="16" height="16" event="chunk:6:8"></button>
+	</only>
+	<only if="chunk_7_8">
+		<button x="137" y="144" width="16" height="16" event="chunk:7:8">§a■</button>
+	</only>
+	<only if="chunk_7_8" inverted="true">
+		<button x="137" y="144" width="16" height="16" event="chunk:7:8"></button>
+	</only>
+	<only if="chunk_8_8">
+		<button x="153" y="144" width="16" height="16" event="chunk:8:8">§a■</button>
+	</only>
+	<only if="chunk_8_8" inverted="true">
+		<button x="153" y="144" width="16" height="16" event="chunk:8:8"></button>
+	</only>
+	<slotgrid name="upgrade" x="8" y="44" cols="1" spacing="2" style="plain"/>
+	<energygauge x="12" y="125"/>
+	<slot name="discharge" x="8" y="143" style="plain"/>
+	<playerInventory x="7" y="167" background="false"/>
+</gui>

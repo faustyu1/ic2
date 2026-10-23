@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GA ",
+    "GA ",
+    "CcC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:crafting_carbon_plate"
+    },
+    "c": {
+      "item": "ic2:energy_crystal"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "A": {
+      "item": "ic2:crafting_alloy"
+    }
+  },
+  "result": {
+    "id": "ic2:nano_saber"
+  }
+}

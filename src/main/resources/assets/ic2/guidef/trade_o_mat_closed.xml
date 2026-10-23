@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- the customer's window, GuiTradeOMatClosed/ContainerTradeOMatClosed; the positions are 1.12.2's -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUITradeOMatClosed"/>
+	<text y="6" align="center">%name%</text>
+	<slot name="demand" x="50" y="19" style="plain" readonly="true"/>
+	<slot name="offer" x="50" y="38" style="plain" readonly="true"/>
+	<slot name="input" x="143" y="17" style="plain"/>
+	<slot name="output" x="143" y="53" style="plain"/>
+	<text x="12" y="23">{ic2.container.personalTrader.want}</text>
+	<text x="12" y="42">{ic2.container.personalTrader.offer}</text>
+	<text x="12" y="60">{ic2.container.personalTrader.stock}</text>
+	<only if="infinite">
+		<text x="50" y="60">∞</text>
+	</only>
+	<only if="infinite" inverted="true">
+		<only if="nostock">
+			<text x="50" y="60" color="0xFF5555">%amount:stock%</text>
+		</only>
+		<only if="nostock" inverted="true">
+			<text x="50" y="60">%amount:stock%</text>
+		</only>
+	</only>
+	<text x="8" y="72">{container.inventory}</text>
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

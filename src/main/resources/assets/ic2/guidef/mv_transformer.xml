@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiTransformer / ContainerTransformer, 219 high); the
+     coordinates are theirs. The wrench marks the chosen mode. -->
+<gui width="176" height="219">
+	<image x="0" y="0" width="176" height="219" src="textures/gui/GUITransfomer"/>
+	<text y="6" align="center">%name%</text>
+	<text x="6" y="30" color="0x404040">{ic2.Transformer.gui.Output}</text>
+	<text x="6" y="43" color="0x404040">{ic2.Transformer.gui.Input}</text>
+	<text x="52" y="30" color="0x20EB3E">%amount:outputflow% {ic2.generic.text.EUt}</text>
+	<text x="52" y="45" color="0x20EB3E">%amount:inputflow% {ic2.generic.text.EUt}</text>
+	<button x="7" y="65" width="144" height="20" event="mode0">{ic2.Transformer.gui.switch.mode1}</button>
+	<button x="7" y="85" width="144" height="20" event="mode1">{ic2.Transformer.gui.switch.mode2}</button>
+	<button x="7" y="105" width="144" height="20" event="mode2">{ic2.Transformer.gui.switch.mode3}</button>
+	<itemimage name="mode0" x="152" y="67"/>
+	<itemimage name="mode1" x="152" y="87"/>
+	<itemimage name="mode2" x="152" y="107"/>
+	<playerInventory x="7" y="136" background="false"/>
+</gui>

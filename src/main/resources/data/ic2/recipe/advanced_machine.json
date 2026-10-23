@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SCS",
+    "AMA",
+    "SCS"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:machine"
+    },
+    "A": {
+      "item": "ic2:crafting_alloy"
+    },
+    "S": {
+      "tag": "c:plates/steel"
+    },
+    "C": {
+      "item": "ic2:crafting_carbon_plate"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_machine"
+  }
+}

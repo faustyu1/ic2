@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "RFR"
+  ],
+  "key": {
+    "C": {
+      "tag": "ic2:circuits/basic"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "F": {
+      "item": "ic2:iron_furnace"
+    }
+  },
+  "result": {
+    "id": "ic2:electric_furnace"
+  }
+}

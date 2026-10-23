@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/resource/cropmatron_top",
+    "down": "ic2:block/machine/resource/cropmatron_bottom",
+    "north": "ic2:block/machine/resource/cropmatron_sides",
+    "south": "ic2:block/machine/resource/cropmatron_sides",
+    "west": "ic2:block/machine/resource/cropmatron_sides",
+    "east": "ic2:block/machine/resource/cropmatron_sides",
+    "particle": "ic2:block/machine/resource/cropmatron_sides"
+  }
+}

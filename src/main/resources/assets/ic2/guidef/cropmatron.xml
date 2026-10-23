@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiCropmatron/ContainerCropmatron); the positions are theirs -->
+<gui width="176" height="192">
+	<image x="0" y="0" width="176" height="192" src="textures/gui/GUICropmatron"/>
+	<text y="6" align="center">%name%</text>
+
+	<fluidtank name="waterTank" type="plain" x="11" y="26" width="24" height="47"/>
+	<fluidtank name="exTank" type="plain" x="105" y="26" width="24" height="47"/>
+
+	<slot name="exInputSlot" x="49" y="27" style="plain"/>
+	<slot name="exOutputSlot" x="67" y="27" style="plain"/>
+	<slot name="wasserinputSlot" x="57" y="56" style="plain"/>
+	<slot name="wasseroutputSlot" x="75" y="56" style="plain"/>
+	<slotgrid name="fertilizer" x="8" y="80" cols="7" spacing="2" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="26" cols="1" spacing="2" style="plain"/>
+	<slot name="discharge" x="134" y="80" style="plain"/>
+	<energygauge x="138" y="82"/>
+
+	<playerInventory x="7" y="109" background="false"/>
+</gui>

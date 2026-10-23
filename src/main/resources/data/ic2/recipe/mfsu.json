@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "LCL",
+    "LML",
+    "LAL"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:mfe"
+    },
+    "A": {
+      "item": "ic2:advanced_machine"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "L": {
+      "item": "ic2:lapotron_crystal"
+    }
+  },
+  "result": {
+    "id": "ic2:mfsu"
+  }
+}

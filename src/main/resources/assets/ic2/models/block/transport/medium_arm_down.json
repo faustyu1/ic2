@@ -1,0 +1,75 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#side",
+    "side": "ic2:block/transport/pipe_side",
+    "size": "ic2:block/transport/pipe_medium"
+  },
+  "elements": [
+    {
+      "from": [
+        4.0,
+        0.0,
+        4.0
+      ],
+      "to": [
+        12.0,
+        4.0,
+        12.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#size",
+          "uv": [
+            4.0,
+            4.0,
+            12.0,
+            12.0
+          ],
+          "tintindex": 0,
+          "cullface": "down"
+        },
+        "north": {
+          "texture": "#side",
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            4.0
+          ],
+          "tintindex": 0
+        },
+        "south": {
+          "texture": "#side",
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            4.0
+          ],
+          "tintindex": 0
+        },
+        "west": {
+          "texture": "#side",
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            4.0
+          ],
+          "tintindex": 0
+        },
+        "east": {
+          "texture": "#side",
+          "uv": [
+            4.0,
+            0.0,
+            12.0,
+            4.0
+          ],
+          "tintindex": 0
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "cBc",
+    "UMU",
+    "CCC"
+  ],
+  "key": {
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "item": "ic2:crop_stick"
+    },
+    "c": {
+      "tag": "ic2:circuits/basic"
+    },
+    "B": {
+      "tag": "c:chests/wooden"
+    },
+    "U": {
+      "item": "ic2:fluid_cell"
+    }
+  },
+  "result": {
+    "id": "ic2:cropmatron"
+  }
+}

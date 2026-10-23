@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "CMC",
+    " P "
+  ],
+  "key": {
+    "P": {
+      "item": "ic2:mining_pipe"
+    },
+    "M": {
+      "item": "ic2:machine"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    },
+    "X": {
+      "item": "minecraft:chest"
+    }
+  },
+  "result": {
+    "id": "ic2:miner"
+  }
+}

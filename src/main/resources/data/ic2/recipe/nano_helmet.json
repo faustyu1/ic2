@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CcC",
+    "CGC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:crafting_carbon_plate"
+    },
+    "c": {
+      "item": "ic2:energy_crystal"
+    },
+    "G": {
+      "item": "ic2:nightvision_goggles"
+    }
+  },
+  "result": {
+    "id": "ic2:nano_helmet"
+  }
+}

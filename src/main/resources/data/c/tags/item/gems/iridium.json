@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "ic2:misc_resource_iridium_ore",
+      "required": false
+    }
+  ]
+}

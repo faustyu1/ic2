@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/misc/teleporter_top",
+    "down": "ic2:block/machine/misc/teleporter_bottom",
+    "north": "ic2:block/machine/misc/teleporter_sides",
+    "south": "ic2:block/machine/misc/teleporter_sides",
+    "west": "ic2:block/machine/misc/teleporter_sides",
+    "east": "ic2:block/machine/misc/teleporter_sides",
+    "particle": "ic2:block/machine/misc/teleporter_sides"
+  }
+}

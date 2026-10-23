@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:plates/copper"
+    },
+    {
+      "tag": "ic2:tools/wire_cutter"
+    }
+  ],
+  "result": {
+    "id": "ic2:copper_cable_0",
+    "count": 2
+  }
+}

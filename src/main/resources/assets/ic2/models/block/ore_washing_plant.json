@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/processing/advanced/ore_washing_plant_top",
+    "down": "ic2:block/machine/processing/advanced/ore_washing_plant_bottom",
+    "north": "ic2:block/machine/processing/advanced/ore_washing_plant_front",
+    "south": "ic2:block/machine/processing/advanced/ore_washing_plant_back",
+    "west": "ic2:block/machine/processing/advanced/ore_washing_plant_left",
+    "east": "ic2:block/machine/processing/advanced/ore_washing_plant_right",
+    "particle": "ic2:block/machine/processing/advanced/ore_washing_plant_front"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:crafting_carbon_fibre"
+    },
+    {
+      "item": "ic2:crafting_carbon_fibre"
+    }
+  ],
+  "result": {
+    "id": "ic2:crafting_carbon_mesh"
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "foam": "none"
+      },
+      "apply": {
+        "model": "ic2:block/tin_cable_0_core"
+      }
+    },
+    {
+      "when": {
+        "foam": "none",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/tin_cable_0_arm"
+      }
+    },
+    {
+      "when": {
+        "foam": "none",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/tin_cable_0_arm",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "foam": "none",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/tin_cable_0_arm",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "foam": "none",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/tin_cable_0_arm",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "foam": "none",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/tin_cable_0_arm",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "foam": "none",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/tin_cable_0_arm",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "foam": "soft"
+      },
+      "apply": {
+        "model": "ic2:block/cf/foam"
+      }
+    },
+    {
+      "when": {
+        "foam": "hardened"
+      },
+      "apply": {
+        "model": "ic2:block/cf/wall_light_gray"
+      }
+    }
+  ]
+}

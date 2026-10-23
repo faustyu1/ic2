@@ -1,0 +1,33 @@
+# Gradle
+.gradle/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Minecraft runtime
+run/
+runClient/
+runServer/
+
+# Logs / OS
+*.log
+.DS_Store
+
+# Compiled output
+out/
+*.class
+
+# Binaries
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+logs/
+__pycache__/
+
+# agent worktrees
+.claude/worktrees/
+
+# Decompiled reference of the original IC2 (local only, never published)
+decompiled/

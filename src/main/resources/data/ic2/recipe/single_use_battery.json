@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "C",
+    "R",
+    "D"
+  ],
+  "key": {
+    "D": {
+      "tag": "c:dusts/coal"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "ic2:copper_cable_1"
+    }
+  },
+  "result": {
+    "id": "ic2:single_use_battery",
+    "count": 5
+  }
+}

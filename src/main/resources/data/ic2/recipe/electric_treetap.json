@@ -1,0 +1,14 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:treetap"
+    },
+    {
+      "item": "ic2:crafting_small_power_unit"
+    }
+  ],
+  "result": {
+    "id": "ic2:electric_treetap"
+  }
+}

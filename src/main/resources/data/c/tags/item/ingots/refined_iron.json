@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "ic2:ingot_refined_iron",
+      "required": false
+    }
+  ]
+}

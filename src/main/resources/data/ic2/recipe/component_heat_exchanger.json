@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "GSG",
+    " G "
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:heat_exchanger"
+    },
+    "G": {
+      "tag": "c:plates/gold"
+    }
+  },
+  "result": {
+    "id": "ic2:component_heat_exchanger"
+  }
+}

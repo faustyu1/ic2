@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CWC",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:dusts/coal"
+    },
+    "W": {
+      "item": "ic2:fluid_cell_water"
+    }
+  },
+  "result": {
+    "id": "ic2:dust_coal_fuel",
+    "count": 8
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/processing/basic/iron_furnace_top",
+    "down": "ic2:block/machine/processing/basic/iron_furnace_bottom",
+    "north": "ic2:block/machine/processing/basic/iron_furnace_front",
+    "south": "ic2:block/machine/processing/basic/iron_furnace_leftrightback",
+    "west": "ic2:block/machine/processing/basic/iron_furnace_leftrightback",
+    "east": "ic2:block/machine/processing/basic/iron_furnace_leftrightback",
+    "particle": "ic2:block/machine/processing/basic/iron_furnace_front"
+  }
+}

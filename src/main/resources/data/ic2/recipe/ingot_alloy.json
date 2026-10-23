@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "III",
+    "BBB",
+    "TTT"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "B": {
+      "tag": "c:plates/bronze"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    }
+  },
+  "result": {
+    "id": "ic2:ingot_alloy",
+    "count": 2
+  }
+}

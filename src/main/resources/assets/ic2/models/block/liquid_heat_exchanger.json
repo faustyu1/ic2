@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/fluid/liquid_heat_exchanger_top",
+    "down": "ic2:block/machine/fluid/liquid_heat_exchanger_bottom",
+    "north": "ic2:block/machine/fluid/liquid_heat_exchanger_front",
+    "south": "ic2:block/machine/fluid/liquid_heat_exchanger_back",
+    "west": "ic2:block/machine/fluid/liquid_heat_exchanger_leftright",
+    "east": "ic2:block/machine/fluid/liquid_heat_exchanger_leftright",
+    "particle": "ic2:block/machine/fluid/liquid_heat_exchanger_front"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:crafting_industrial_diamond"
+    }
+  ],
+  "result": {
+    "id": "minecraft:diamond"
+  }
+}

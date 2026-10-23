@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T T",
+    " E ",
+    "T T"
+  ],
+  "key": {
+    "E": {
+      "item": "ic2:crafting_electric_motor"
+    },
+    "T": {
+      "tag": "c:plates/tin"
+    }
+  },
+  "result": {
+    "id": "ic2:upgrade_fluid_ejector"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T T",
+    " P ",
+    "T T"
+  ],
+  "key": {
+    "T": {
+      "tag": "c:plates/dense_tin"
+    },
+    "P": {
+      "item": "minecraft:sticky_piston"
+    }
+  },
+  "result": {
+    "id": "ic2:upgrade_pulling",
+    "count": 9
+  }
+}

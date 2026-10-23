@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VRV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "ic2:reactor_vessel"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    }
+  },
+  "result": {
+    "id": "ic2:reactor_redstone_port"
+  }
+}

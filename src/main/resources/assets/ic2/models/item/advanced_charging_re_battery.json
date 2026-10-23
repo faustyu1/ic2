@@ -1,0 +1,32 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "ic2:item/battery/advanced_charging_re_battery_0"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "ic2:charge": 0.125
+      },
+      "model": "ic2:item/battery/advanced_charging_re_battery_1"
+    },
+    {
+      "predicate": {
+        "ic2:charge": 0.375
+      },
+      "model": "ic2:item/battery/advanced_charging_re_battery_2"
+    },
+    {
+      "predicate": {
+        "ic2:charge": 0.625
+      },
+      "model": "ic2:item/battery/advanced_charging_re_battery_3"
+    },
+    {
+      "predicate": {
+        "ic2:charge": 0.875
+      },
+      "model": "ic2:item/battery/advanced_charging_re_battery_4"
+    }
+  ]
+}

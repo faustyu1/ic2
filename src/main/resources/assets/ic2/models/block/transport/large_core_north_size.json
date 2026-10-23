@@ -1,0 +1,34 @@
+{
+  "ambientocclusion": false,
+  "textures": {
+    "particle": "#side",
+    "side": "ic2:block/transport/pipe_side",
+    "size": "ic2:block/transport/pipe_large"
+  },
+  "elements": [
+    {
+      "from": [
+        3.0,
+        3.0,
+        3.0
+      ],
+      "to": [
+        13.0,
+        13.0,
+        13.0
+      ],
+      "faces": {
+        "north": {
+          "texture": "#size",
+          "uv": [
+            3.0,
+            3.0,
+            13.0,
+            13.0
+          ],
+          "tintindex": 0
+        }
+      }
+    }
+  ]
+}

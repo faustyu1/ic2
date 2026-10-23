@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "CGC",
+    "ICI"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:crafting_heat_conductor"
+    },
+    "C": {
+      "item": "ic2:fluid_cell"
+    },
+    "I": {
+      "item": "ic2:casing_iron"
+    }
+  },
+  "result": {
+    "id": "ic2:fluid_heat_generator"
+  }
+}

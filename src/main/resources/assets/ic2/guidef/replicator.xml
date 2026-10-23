@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiReplicator/ContainerReplicator); the positions are theirs -->
+<gui width="176" height="184">
+	<image x="0" y="0" width="176" height="184" src="textures/gui/GUIReplicator"/>
+	<text y="6" align="center">%name%</text>
+
+	<energygauge x="136" y="84"/>
+	<slot name="discharge" x="152" y="83" style="plain"/>
+	<fluidtank name="fluidTank" x="27" y="30"/>
+	<itemimage name="pattern" x="91" y="17"/>
+	<slot name="output" x="90" y="59" style="plain"/>
+	<slot name="fluid" x="8" y="27" style="plain"/>
+	<slot name="cell" x="8" y="72" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="8" cols="1" spacing="2" style="plain"/>
+
+	<tooltip text="ic2.Replicator.gui.info.last">
+		<button x="80" y="16" width="9" height="18" src="textures/gui/GUIReplicator" u="80" v="16" event="last"/>
+	</tooltip>
+	<tooltip text="ic2.Replicator.gui.info.next">
+		<button x="109" y="16" width="9" height="18" src="textures/gui/GUIReplicator" u="109" v="16" event="next"/>
+	</tooltip>
+	<tooltip text="ic2.Replicator.gui.info.Stop">
+		<button x="75" y="82" width="16" height="16" src="textures/gui/GUIReplicator" u="75" v="82" event="stop"/>
+	</tooltip>
+	<tooltip text="ic2.Replicator.gui.info.single">
+		<button x="92" y="82" width="16" height="16" src="textures/gui/GUIReplicator" u="92" v="82" event="single"/>
+	</tooltip>
+	<tooltip text="ic2.Replicator.gui.info.repeat">
+		<button x="109" y="82" width="16" height="16" src="textures/gui/GUIReplicator" u="109" v="82" event="repeat"/>
+	</tooltip>
+
+	<only if="stopped">
+		<text x="49" y="36" width="96" height="16" color="0xEBEB20" center="xy">{ic2.Replicator.gui.info.Waiting}</text>
+	</only>
+	<only if="stopped" inverted="true">
+		<only if="single">
+			<text x="49" y="36" width="96" height="16" color="0x20EB3E" center="xy">UU:%amount:uuProgress%%  EU:0%  &gt;</text>
+		</only>
+		<only if="single" inverted="true">
+			<text x="49" y="36" width="96" height="16" color="0x20EB3E" center="xy">UU:%amount:uuProgress%%  EU:0%  &gt;&gt;</text>
+		</only>
+	</only>
+
+	<playerInventory x="7" y="101" background="false"/>
+</gui>

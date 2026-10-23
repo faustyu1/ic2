@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GnG",
+    "ILI",
+    "CNC"
+  ],
+  "key": {
+    "N": {
+      "item": "ic2:hazmat_helmet"
+    },
+    "n": {
+      "item": "ic2:nano_helmet"
+    },
+    "I": {
+      "item": "ic2:crafting_iridium"
+    },
+    "L": {
+      "item": "ic2:lapotron_crystal"
+    },
+    "G": {
+      "item": "ic2:reinforced_glass"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    }
+  },
+  "result": {
+    "id": "ic2:quantum_helmet"
+  }
+}

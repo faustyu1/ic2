@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:crop_res_coffee_beans"
+    }
+  ],
+  "result": {
+    "id": "ic2:crop_res_coffee_powder"
+  }
+}

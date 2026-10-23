@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/wiring/storage/batbox_top",
+    "down": "ic2:block/wiring/storage/batbox_bottom",
+    "north": "ic2:block/wiring/storage/batbox_front",
+    "south": "ic2:block/wiring/storage/batbox_back",
+    "west": "ic2:block/wiring/storage/batbox_leftright",
+    "east": "ic2:block/wiring/storage/batbox_leftright",
+    "particle": "ic2:block/wiring/storage/batbox_front"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "X X",
+    "XXX"
+  ],
+  "key": {
+    "X": {
+      "tag": "ic2:rubber"
+    }
+  },
+  "result": {
+    "id": "ic2:boat_rubber"
+  }
+}

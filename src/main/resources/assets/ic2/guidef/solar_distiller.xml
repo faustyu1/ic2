@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiSolarDestiller/ContainerSolarDestiller); the positions are theirs -->
+<gui width="176" height="184">
+	<image x="0" y="0" width="176" height="184" src="textures/gui/GUISolarDestiller"/>
+	<only if="working">
+		<image x="36" y="26" width="97" height="29" src="textures/gui/GUISolarDestiller" u="0" v="184"/>
+	</only>
+	<text y="6" align="center">%name%</text>
+
+	<fluidtank name="inputTank" type="plain" x="37" y="43" width="53" height="18"/>
+	<fluidtank name="outputTank" type="plain" x="115" y="55" width="17" height="43"/>
+	<slot name="waterInput" x="17" y="27" style="plain"/>
+	<slot name="waterOutput" x="17" y="45" style="plain"/>
+	<slot name="destilledWaterInput" x="136" y="64" style="plain"/>
+	<slot name="destilledWaterOutput" x="136" y="82" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="8" cols="1" spacing="2" style="plain"/>
+
+	<playerInventory x="7" y="101" background="false"/>
+</gui>

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " G ",
+    "DMD",
+    "IDI"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "M": {
+      "item": "ic2:compressor"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "ic2:recycler"
+  }
+}

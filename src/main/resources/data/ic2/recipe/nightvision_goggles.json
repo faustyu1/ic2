@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XbX",
+    "LGL",
+    "RCR"
+  ],
+  "key": {
+    "X": {
+      "item": "ic2:advanced_heat_exchanger"
+    },
+    "b": {
+      "item": "ic2:advanced_re_battery"
+    },
+    "L": {
+      "item": "ic2:luminator_flat"
+    },
+    "G": {
+      "item": "ic2:reinforced_glass"
+    },
+    "R": {
+      "tag": "ic2:rubber"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    }
+  },
+  "result": {
+    "id": "ic2:nightvision_goggles"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/generator/reactor/nuclear_reactor_top",
+    "down": "ic2:block/generator/reactor/nuclear_reactor_bottom",
+    "north": "ic2:block/generator/reactor/nuclear_reactor_sides",
+    "south": "ic2:block/generator/reactor/nuclear_reactor_sides",
+    "west": "ic2:block/generator/reactor/nuclear_reactor_sides",
+    "east": "ic2:block/generator/reactor/nuclear_reactor_sides",
+    "particle": "ic2:block/generator/reactor/nuclear_reactor_sides"
+  }
+}

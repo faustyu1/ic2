@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "RCR",
+    "RCR"
+  ],
+  "key": {
+    "R": {
+      "tag": "ic2:rubber"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_heat_conductor"
+  }
+}

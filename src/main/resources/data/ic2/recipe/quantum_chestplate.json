@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "AnA",
+    "ILI",
+    "IJI"
+  ],
+  "key": {
+    "J": {
+      "item": "ic2:jetpack_electric"
+    },
+    "n": {
+      "item": "ic2:nano_chestplate"
+    },
+    "I": {
+      "item": "ic2:crafting_iridium"
+    },
+    "L": {
+      "item": "ic2:lapotron_crystal"
+    },
+    "A": {
+      "item": "ic2:crafting_alloy"
+    }
+  },
+  "result": {
+    "id": "ic2:quantum_chestplate"
+  }
+}

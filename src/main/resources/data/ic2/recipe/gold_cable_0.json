@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "tag": "c:plates/gold"
+    },
+    {
+      "tag": "ic2:tools/wire_cutter"
+    }
+  ],
+  "result": {
+    "id": "ic2:gold_cable_0",
+    "count": 4
+  }
+}

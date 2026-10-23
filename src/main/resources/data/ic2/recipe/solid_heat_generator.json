@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " B ",
+    "III",
+    " F "
+  ],
+  "key": {
+    "B": {
+      "item": "ic2:crafting_heat_conductor"
+    },
+    "F": {
+      "item": "ic2:iron_furnace"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "result": {
+    "id": "ic2:solid_heat_generator"
+  }
+}

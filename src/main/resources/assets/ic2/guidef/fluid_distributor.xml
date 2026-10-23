@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiFluidDistributor/ContainerFluidDistributor); the positions are theirs -->
+<gui width="176" height="184">
+	<image x="0" y="0" width="176" height="184" src="textures/gui/GUIFluidDistributor"/>
+	<text y="6" align="center">%name%</text>
+
+	<fluidtank name="fluidTank" type="plain" x="29" y="38" width="55" height="47"/>
+	<slot name="inputSlot" x="9" y="54" style="plain"/>
+	<slot name="OutputSlot" x="9" y="72" style="plain"/>
+
+	<text x="112" y="47" color="0x57C4DA">{ic2.FluidDistributor.gui.mode.info}</text>
+	<only if="concentrate">
+		<text x="95" y="71" color="0x57C4DA">{ic2.FluidDistributor.gui.mode.concentrate}</text>
+	</only>
+	<only if="concentrate" inverted="true">
+		<text x="95" y="71" color="0x57C4DA">{ic2.FluidDistributor.gui.mode.distribute}</text>
+	</only>
+	<button x="117" y="58" width="19" height="9" src="textures/gui/GUIFluidDistributor" u="117" v="58" event="mode"/>
+
+	<playerInventory x="7" y="101" background="false"/>
+</gui>

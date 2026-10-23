@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "ic2:block/steam/burning_box_front",
+    "north": "ic2:block/steam/burning_box_front",
+    "south": "ic2:block/steam/casing_side",
+    "east": "ic2:block/steam/casing_side",
+    "west": "ic2:block/steam/casing_side",
+    "up": "ic2:block/steam/burning_box_top",
+    "down": "ic2:block/steam/casing_side"
+  }
+}

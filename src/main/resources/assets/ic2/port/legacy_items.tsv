@@ -1,0 +1,115 @@
+# 1.12.2 item reference -> 1.21.1 item id
+#
+# The shipped IC2 config files address vanilla items the way 1.12.2 did: pre-flattening ids plus a
+# metadata value. This table maps those references onto the modern ids so the config files can stay
+# byte-identical to the originals.
+#
+# Format: <1.12 name>[@<metadata>]<TAB><1.21 id>. A name without a metadata suffix is the fallback
+# for that name, which is also what an "@*" (any metadata) reference resolves to.
+# Only differing names are listed; anything absent keeps its id.
+
+brick_block	bricks
+carpet	white_carpet
+dirt@1	coarse_dirt
+double_plant	sunflower
+double_plant@1	lilac
+double_plant@2	tall_grass
+double_plant@3	large_fern
+double_plant@4	rose_bush
+double_plant@5	peony
+dye	ink_sac
+dye@0	ink_sac
+dye@1	red_dye
+dye@2	green_dye
+dye@3	cocoa_beans
+dye@4	lapis_lazuli
+dye@5	purple_dye
+dye@6	cyan_dye
+dye@7	light_gray_dye
+dye@8	gray_dye
+dye@9	pink_dye
+dye@10	lime_dye
+dye@11	yellow_dye
+dye@12	light_blue_dye
+dye@13	magenta_dye
+dye@14	orange_dye
+dye@15	bone_meal
+fence	oak_fence
+golden_apple@1	enchanted_golden_apple
+grass	grass_block
+hardened_clay	terracotta
+log	oak_log
+log@0	oak_log
+log@1	spruce_log
+log@2	birch_log
+log@3	jungle_log
+log2	acacia_log
+log2@0	acacia_log
+log2@1	dark_oak_log
+melon	melon_slice
+nether_brick	nether_bricks
+netherbrick	nether_brick
+planks	oak_planks
+planks@0	oak_planks
+planks@1	spruce_planks
+planks@2	birch_planks
+planks@3	jungle_planks
+planks@4	acacia_planks
+planks@5	dark_oak_planks
+prismarine@1	prismarine_bricks
+prismarine@2	dark_prismarine
+record_13	music_disc_13
+record_cat	music_disc_cat
+red_flower	poppy
+red_flower@0	poppy
+red_flower@1	blue_orchid
+red_flower@2	allium
+red_flower@3	azure_bluet
+red_flower@4	red_tulip
+red_flower@5	orange_tulip
+red_flower@6	white_tulip
+red_flower@7	pink_tulip
+red_flower@8	oxeye_daisy
+reeds	sugar_cane
+sand@1	red_sand
+sandstone@1	chiseled_sandstone
+sandstone@2	cut_sandstone
+sapling	oak_sapling
+sapling@0	oak_sapling
+sapling@1	spruce_sapling
+sapling@2	birch_sapling
+sapling@3	jungle_sapling
+sapling@4	acacia_sapling
+sapling@5	dark_oak_sapling
+snow	snow_block
+snow_layer	snow
+sponge@1	wet_sponge
+stained_hardened_clay	white_terracotta
+stained_hardened_clay@1	orange_terracotta
+stained_hardened_clay@4	yellow_terracotta
+stained_hardened_clay@8	light_gray_terracotta
+stained_hardened_clay@11	blue_terracotta
+stained_hardened_clay@12	brown_terracotta
+stained_hardened_clay@14	red_terracotta
+stone@1	granite
+stone@3	diorite
+stone@5	andesite
+stone_slab	smooth_stone_slab
+stone_slab@1	sandstone_slab
+stone_stairs	cobblestone_stairs
+stonebrick	stone_bricks
+stonebrick@0	stone_bricks
+stonebrick@1	mossy_stone_bricks
+stonebrick@2	cracked_stone_bricks
+stonebrick@3	chiseled_stone_bricks
+tallgrass	short_grass
+tallgrass@1	short_grass
+tallgrass@2	fern
+trapdoor	oak_trapdoor
+waterlily	lily_pad
+wooden_door	oak_door
+wooden_pressure_plate	oak_pressure_plate
+wool	white_wool
+wool@0	white_wool
+wool@15	black_wool
+yellow_flower	dandelion

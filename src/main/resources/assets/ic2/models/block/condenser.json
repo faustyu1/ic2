@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/fluid/condenser_top",
+    "down": "ic2:block/machine/fluid/condenser_bottom",
+    "north": "ic2:block/machine/fluid/condenser_frontback",
+    "south": "ic2:block/machine/fluid/condenser_frontback",
+    "west": "ic2:block/machine/fluid/condenser_leftright",
+    "east": "ic2:block/machine/fluid/condenser_leftright",
+    "particle": "ic2:block/machine/fluid/condenser_frontback"
+  }
+}

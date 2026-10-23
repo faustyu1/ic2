@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GGG",
+    "G G",
+    "CMC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:fluid_cell"
+    },
+    "M": {
+      "item": "ic2:machine"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    }
+  },
+  "result": {
+    "id": "ic2:solar_distiller"
+  }
+}

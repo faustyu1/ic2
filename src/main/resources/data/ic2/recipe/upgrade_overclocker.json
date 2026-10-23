@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "WEW"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:heat_storage"
+    },
+    "W": {
+      "item": "ic2:copper_cable_1"
+    },
+    "E": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:upgrade_overclocker",
+    "count": 2
+  }
+}

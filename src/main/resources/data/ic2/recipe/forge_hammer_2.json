@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " II",
+    "SSI",
+    " II"
+  ],
+  "key": {
+    "S": {
+      "tag": "c:rods/wooden"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "ic2:forge_hammer"
+  }
+}

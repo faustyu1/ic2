@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "CAC",
+    " CB"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:casing_tin"
+    },
+    "A": {
+      "item": "ic2:casing_bronze"
+    },
+    "B": {
+      "item": "ic2:crafting_small_power_unit"
+    }
+  },
+  "result": {
+    "id": "ic2:wind_meter"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/generator/electric/generator_top",
+    "down": "ic2:block/generator/electric/generator_bottom",
+    "north": "ic2:block/generator/electric/generator_front",
+    "south": "ic2:block/generator/electric/generator_leftrightback",
+    "west": "ic2:block/generator/electric/generator_leftrightback",
+    "east": "ic2:block/generator/electric/generator_leftrightback",
+    "particle": "ic2:block/generator/electric/generator_front"
+  }
+}

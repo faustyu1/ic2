@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PUP",
+    "U U",
+    "PUP"
+  ],
+  "key": {
+    "U": {
+      "item": "ic2:fluid_cell"
+    },
+    "P": {
+      "tag": "c:plates/iron"
+    }
+  },
+  "result": {
+    "id": "ic2:iron_tank"
+  }
+}

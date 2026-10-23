@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PSP",
+    "PSP",
+    "PSP"
+  ],
+  "key": {
+    "P": {
+      "item": "ic2:crafting_carbon_plate"
+    },
+    "S": {
+      "item": "ic2:crafting_carbon_mesh"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_carbon_rotor_blade"
+  }
+}

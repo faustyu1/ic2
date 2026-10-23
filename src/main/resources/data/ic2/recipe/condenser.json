@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CIC",
+    "CAC",
+    "IBI"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:fluid_cell"
+    },
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "B": {
+      "tag": "ic2:circuits/basic"
+    },
+    "A": {
+      "item": "ic2:machine"
+    }
+  },
+  "result": {
+    "id": "ic2:condenser"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "SOS",
+    "OSO",
+    "SOS"
+  ],
+  "key": {
+    "O": {
+      "tag": "c:dusts/obsidian"
+    },
+    "S": {
+      "tag": "c:dusts/silicon_dioxide"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_raw_crystal_memory"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "textures": {
+    "cable": "ic2:block/wiring/cable/gold_cable_0",
+    "particle": "ic2:block/wiring/cable/gold_cable_0"
+  },
+  "elements": [
+    {
+      "from": [
+        6.5,
+        6.5,
+        0
+      ],
+      "to": [
+        9.5,
+        9.5,
+        6.5
+      ],
+      "faces": {
+        "down": {
+          "texture": "#cable",
+          "uv": [
+            6.5,
+            0,
+            9.5,
+            6.5
+          ]
+        },
+        "up": {
+          "texture": "#cable",
+          "uv": [
+            6.5,
+            0,
+            9.5,
+            6.5
+          ]
+        },
+        "north": {
+          "texture": "#cable",
+          "uv": [
+            6.5,
+            6.5,
+            9.5,
+            9.5
+          ],
+          "cullface": "north"
+        },
+        "west": {
+          "texture": "#cable",
+          "uv": [
+            0,
+            6.5,
+            6.5,
+            9.5
+          ]
+        },
+        "east": {
+          "texture": "#cable",
+          "uv": [
+            0,
+            6.5,
+            6.5,
+            9.5
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/generator/reactor/reactor_vessel",
+    "down": "ic2:block/generator/reactor/reactor_vessel",
+    "north": "ic2:block/generator/reactor/reactor_vessel",
+    "south": "ic2:block/generator/reactor/reactor_vessel",
+    "west": "ic2:block/generator/reactor/reactor_vessel",
+    "east": "ic2:block/generator/reactor/reactor_vessel",
+    "particle": "ic2:block/generator/reactor/reactor_vessel"
+  }
+}

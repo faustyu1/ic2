@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " I ",
+    "ACA",
+    "HWH"
+  ],
+  "key": {
+    "H": {
+      "item": "ic2:forge_hammer"
+    },
+    "W": {
+      "item": "ic2:wrench_new"
+    },
+    "C": {
+      "item": "ic2:advanced_machine"
+    },
+    "A": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "I": {
+      "item": "ic2:industrial_workbench"
+    }
+  },
+  "result": {
+    "id": "ic2:batch_crafter"
+  }
+}

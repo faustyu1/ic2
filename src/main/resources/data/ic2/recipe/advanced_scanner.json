@@ -1,0 +1,31 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PDP",
+    "GCG",
+    "cSc"
+  ],
+  "key": {
+    "S": {
+      "item": "ic2:scanner"
+    },
+    "c": {
+      "item": "ic2:gold_cable_2"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "C": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "P": {
+      "item": "ic2:casing_gold"
+    },
+    "D": {
+      "item": "ic2:energy_crystal"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_scanner"
+  }
+}

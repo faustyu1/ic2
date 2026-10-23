@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " W ",
+    "W#W",
+    " W "
+  ],
+  "key": {
+    "#": {
+      "item": "ic2:tfbp_blank"
+    },
+    "W": {
+      "item": "minecraft:water_bucket"
+    }
+  },
+  "result": {
+    "id": "ic2:tfbp_irrigation"
+  }
+}

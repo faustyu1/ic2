@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " C ",
+    "TRT",
+    "TRT"
+  ],
+  "key": {
+    "T": {
+      "item": "ic2:casing_tin"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "item": "ic2:tin_cable_1"
+    }
+  },
+  "result": {
+    "id": "ic2:re_battery"
+  }
+}

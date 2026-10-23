@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiAdvMiner/ContainerAdvMiner); the positions are theirs -->
+<gui width="176" height="203">
+	<image x="0" y="0" width="176" height="203" src="textures/gui/GUIAdvMiner"/>
+	<text y="6" align="center">%name%</text>
+
+	<energygauge x="12" y="55"/>
+	<slot name="discharge" x="8" y="80" style="plain"/>
+	<slot name="scanner" x="8" y="26" style="plain"/>
+	<slotgrid name="upgrade" x="152" y="26" cols="1" spacing="2" style="plain"/>
+	<slotgrid name="list" x="36" y="44" cols="5" spacing="2" style="plain"/>
+
+	<tooltip text="ic2.AdvMiner.gui.switch.reset">
+		<button x="133" y="101" width="36" height="15" src="textures/gui/common" u="192" v="32" event="reset"/>
+	</tooltip>
+	<tooltip text="ic2.AdvMiner.gui.switch.mode">
+		<button x="123" y="27" width="18" height="15" src="textures/gui/common" u="228" v="32" event="mode"/>
+	</tooltip>
+	<only if="silkTouch">
+		<tooltip text="{ic2.AdvMiner.gui.switch.silktouch|true}">
+			<button x="129" y="45" width="18" height="15" src="textures/gui/common" u="192" v="47" event="silktouch"/>
+		</tooltip>
+	</only>
+	<only if="silkTouch" inverted="true">
+		<tooltip text="{ic2.AdvMiner.gui.switch.silktouch|false}">
+			<button x="129" y="45" width="18" height="15" src="textures/gui/common" u="192" v="47" event="silktouch"/>
+		</tooltip>
+	</only>
+
+	<only if="hasTarget">
+		<text x="28" y="105" color="0x20EB3E">{ic2.AdvMiner.gui.info.minelevel|%amount:targetX%|%amount:targetZ%|%amount:targetY%}</text>
+	</only>
+	<only if="blacklist">
+		<text x="40" y="31" color="0x20EB3E">{ic2.AdvMiner.gui.mode.blacklist}</text>
+	</only>
+	<only if="blacklist" inverted="true">
+		<text x="40" y="31" color="0x20EB3E">{ic2.AdvMiner.gui.mode.whitelist}</text>
+	</only>
+
+	<playerInventory x="7" y="120" background="false"/>
+</gui>

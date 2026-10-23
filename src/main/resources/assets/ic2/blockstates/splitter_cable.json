@@ -1,0 +1,168 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "active": "false",
+        "foam": "none"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_core"
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "foam": "none",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_arm"
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "foam": "none",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_arm",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "foam": "none",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_arm",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "foam": "none",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_arm",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "foam": "none",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_arm",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "active": "false",
+        "foam": "none",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_arm",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "foam": "none"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_active_core"
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "foam": "none",
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_active_arm"
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "foam": "none",
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_active_arm",
+        "y": 90
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "foam": "none",
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_active_arm",
+        "y": 180
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "foam": "none",
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_active_arm",
+        "y": 270
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "foam": "none",
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_active_arm",
+        "x": 270
+      }
+    },
+    {
+      "when": {
+        "active": "true",
+        "foam": "none",
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/splitter_cable_active_arm",
+        "x": 90
+      }
+    },
+    {
+      "when": {
+        "foam": "soft"
+      },
+      "apply": {
+        "model": "ic2:block/cf/foam"
+      }
+    },
+    {
+      "when": {
+        "foam": "hardened"
+      },
+      "apply": {
+        "model": "ic2:block/cf/wall_light_gray"
+      }
+    }
+  ]
+}

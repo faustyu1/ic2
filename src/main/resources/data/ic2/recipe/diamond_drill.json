@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "DdD"
+  ],
+  "key": {
+    "D": {
+      "tag": "c:gems/diamond"
+    },
+    "d": {
+      "item": "ic2:drill"
+    }
+  },
+  "result": {
+    "id": "ic2:diamond_drill"
+  }
+}

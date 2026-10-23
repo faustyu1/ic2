@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "CMC"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "M": {
+      "item": "ic2:machine"
+    }
+  },
+  "result": {
+    "id": "ic2:trade_o_mat"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:bronze_pipe_medium"
+    },
+    {
+      "item": "minecraft:piston"
+    },
+    {
+      "item": "ic2:copper_cable_1"
+    }
+  ],
+  "result": {
+    "id": "ic2:cover_pump_lv"
+  }
+}

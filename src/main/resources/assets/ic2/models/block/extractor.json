@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/machine/processing/basic/extractor_top",
+    "down": "ic2:block/machine/processing/basic/extractor_bottom",
+    "north": "ic2:block/machine/processing/basic/extractor_front",
+    "south": "ic2:block/machine/processing/basic/extractor_back",
+    "west": "ic2:block/machine/processing/basic/extractor_leftright",
+    "east": "ic2:block/machine/processing/basic/extractor_leftright",
+    "particle": "ic2:block/machine/processing/basic/extractor_front"
+  }
+}

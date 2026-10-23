@@ -1,0 +1,358 @@
+{
+  "multipart": [
+    {
+      "when": {
+        "down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_arm_down"
+      }
+    },
+    {
+      "when": {
+        "down": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_down_size"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "down": "false",
+            "north": "true"
+          },
+          {
+            "down": "false",
+            "south": "true",
+            "north": "false"
+          },
+          {
+            "down": "false",
+            "west": "true",
+            "north": "false",
+            "south": "false"
+          },
+          {
+            "down": "false",
+            "east": "true",
+            "north": "false",
+            "south": "false",
+            "west": "false"
+          }
+        ]
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_down_side"
+      }
+    },
+    {
+      "when": {
+        "cover_down": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_cover_down"
+      }
+    },
+    {
+      "when": {
+        "up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_arm_up"
+      }
+    },
+    {
+      "when": {
+        "up": "false",
+        "north": "false",
+        "south": "false",
+        "west": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_up_size"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "up": "false",
+            "north": "true"
+          },
+          {
+            "up": "false",
+            "south": "true",
+            "north": "false"
+          },
+          {
+            "up": "false",
+            "west": "true",
+            "north": "false",
+            "south": "false"
+          },
+          {
+            "up": "false",
+            "east": "true",
+            "north": "false",
+            "south": "false",
+            "west": "false"
+          }
+        ]
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_up_side"
+      }
+    },
+    {
+      "when": {
+        "cover_up": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_cover_up"
+      }
+    },
+    {
+      "when": {
+        "north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_arm_north"
+      }
+    },
+    {
+      "when": {
+        "north": "false",
+        "down": "false",
+        "up": "false",
+        "west": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_north_size"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "north": "false",
+            "down": "true"
+          },
+          {
+            "north": "false",
+            "up": "true",
+            "down": "false"
+          },
+          {
+            "north": "false",
+            "west": "true",
+            "down": "false",
+            "up": "false"
+          },
+          {
+            "north": "false",
+            "east": "true",
+            "down": "false",
+            "up": "false",
+            "west": "false"
+          }
+        ]
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_north_side"
+      }
+    },
+    {
+      "when": {
+        "cover_north": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_cover_north"
+      }
+    },
+    {
+      "when": {
+        "south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_arm_south"
+      }
+    },
+    {
+      "when": {
+        "south": "false",
+        "down": "false",
+        "up": "false",
+        "west": "false",
+        "east": "false"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_south_size"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "south": "false",
+            "down": "true"
+          },
+          {
+            "south": "false",
+            "up": "true",
+            "down": "false"
+          },
+          {
+            "south": "false",
+            "west": "true",
+            "down": "false",
+            "up": "false"
+          },
+          {
+            "south": "false",
+            "east": "true",
+            "down": "false",
+            "up": "false",
+            "west": "false"
+          }
+        ]
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_south_side"
+      }
+    },
+    {
+      "when": {
+        "cover_south": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_cover_south"
+      }
+    },
+    {
+      "when": {
+        "west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_arm_west"
+      }
+    },
+    {
+      "when": {
+        "west": "false",
+        "down": "false",
+        "up": "false",
+        "north": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_west_size"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "west": "false",
+            "down": "true"
+          },
+          {
+            "west": "false",
+            "up": "true",
+            "down": "false"
+          },
+          {
+            "west": "false",
+            "north": "true",
+            "down": "false",
+            "up": "false"
+          },
+          {
+            "west": "false",
+            "south": "true",
+            "down": "false",
+            "up": "false",
+            "north": "false"
+          }
+        ]
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_west_side"
+      }
+    },
+    {
+      "when": {
+        "cover_west": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_cover_west"
+      }
+    },
+    {
+      "when": {
+        "east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_arm_east"
+      }
+    },
+    {
+      "when": {
+        "east": "false",
+        "down": "false",
+        "up": "false",
+        "north": "false",
+        "south": "false"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_east_size"
+      }
+    },
+    {
+      "when": {
+        "OR": [
+          {
+            "east": "false",
+            "down": "true"
+          },
+          {
+            "east": "false",
+            "up": "true",
+            "down": "false"
+          },
+          {
+            "east": "false",
+            "north": "true",
+            "down": "false",
+            "up": "false"
+          },
+          {
+            "east": "false",
+            "south": "true",
+            "down": "false",
+            "up": "false",
+            "north": "false"
+          }
+        ]
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_core_east_side"
+      }
+    },
+    {
+      "when": {
+        "cover_east": "true"
+      },
+      "apply": {
+        "model": "ic2:block/transport/small_cover_east"
+      }
+    }
+  ]
+}

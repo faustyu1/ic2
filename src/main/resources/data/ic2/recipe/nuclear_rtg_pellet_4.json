@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "AAA",
+    "RRR"
+  ],
+  "key": {
+    "R": {
+      "tag": "c:plates/dense_iron"
+    },
+    "A": {
+      "tag": "c:ingots/plutonium"
+    }
+  },
+  "result": {
+    "id": "ic2:nuclear_rtg_pellet"
+  }
+}

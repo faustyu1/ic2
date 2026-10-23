@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- the customer's window, GuiEnergyOMatClosed/ContainerEnergyOMatClosed; the positions are 1.12.2's -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIEnergyOMatClosed"/>
+	<text y="6" align="center">%name%</text>
+	<slot name="demand" x="50" y="17" style="plain" readonly="true"/>
+	<slot name="input" x="143" y="17" style="plain"/>
+	<slot name="charge" x="143" y="53" style="plain"/>
+	<text x="12" y="21">{ic2.container.personalTrader.want}</text>
+	<text x="12" y="39">{ic2.container.personalTrader.offer}</text>
+	<text x="50" y="39">%amount:offer% EU</text>
+	<text x="12" y="57">{ic2.container.personalTraderEnergy.paidFor|%amount:paid%}</text>
+	<text x="8" y="72">{container.inventory}</text>
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

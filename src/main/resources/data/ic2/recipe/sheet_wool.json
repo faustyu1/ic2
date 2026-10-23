@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "WRW"
+  ],
+  "key": {
+    "W": {
+      "item": "minecraft:white_carpet"
+    },
+    "R": {
+      "item": "ic2:sheet_resin"
+    }
+  },
+  "result": {
+    "id": "ic2:sheet_wool"
+  }
+}

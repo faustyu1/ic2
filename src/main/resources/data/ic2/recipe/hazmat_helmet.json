@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " O ",
+    "RGR",
+    "R#R"
+  ],
+  "key": {
+    "R": {
+      "tag": "ic2:rubber"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "#": {
+      "item": "minecraft:iron_bars"
+    },
+    "O": {
+      "item": "minecraft:orange_dye"
+    }
+  },
+  "result": {
+    "id": "ic2:hazmat_helmet"
+  }
+}

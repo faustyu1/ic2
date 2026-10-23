@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- the owner's window, GuiEnergyOMatOpen/ContainerEnergyOMatOpen; the positions are 1.12.2's -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIEnergyOMatOpen"/>
+	<text y="6" align="center">%name%</text>
+	<slot name="demand" x="24" y="17" style="plain"/>
+	<slot name="upgrade" x="24" y="53" style="plain"/>
+	<slot name="input" x="60" y="17" style="plain"/>
+	<slot name="charge" x="60" y="53" style="plain"/>
+	<button x="102" y="16" width="32" height="10" event="offer:-100000">-100k</button>
+	<button x="102" y="26" width="32" height="10" event="offer:-10000">-10k</button>
+	<button x="102" y="36" width="32" height="10" event="offer:-1000">-1k</button>
+	<button x="102" y="46" width="32" height="10" event="offer:-100">-100</button>
+	<button x="134" y="16" width="32" height="10" event="offer:100000">+100k</button>
+	<button x="134" y="26" width="32" height="10" event="offer:10000">+10k</button>
+	<button x="134" y="36" width="32" height="10" event="offer:1000">+1k</button>
+	<button x="134" y="46" width="32" height="10" event="offer:100">+100</button>
+	<text x="100" y="60">{ic2.container.personalTrader.offer}</text>
+	<text x="100" y="68">%amount:offer% EU</text>
+	<text x="8" y="72">{container.inventory}</text>
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

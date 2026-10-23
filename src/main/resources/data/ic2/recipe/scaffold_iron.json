@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PPP",
+    "sss",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/iron"
+    },
+    "s": {
+      "item": "ic2:iron_fence"
+    }
+  },
+  "result": {
+    "id": "ic2:scaffold_iron",
+    "count": 16
+  }
+}

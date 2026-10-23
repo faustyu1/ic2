@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiRTHeatGenerator/ContainerRTHeatGenerator); the positions are theirs -->
+<gui width="176" height="166">
+	<image x="0" y="0" width="176" height="166" src="textures/gui/GUIRTHeatGenerator"/>
+	<text y="6" align="center">%name%</text>
+
+	<slot name="fuelSlot" index="0" x="62" y="27" style="plain"/>
+	<slot name="fuelSlot" index="1" x="80" y="27" style="plain"/>
+	<slot name="fuelSlot" index="2" x="98" y="27" style="plain"/>
+	<slot name="fuelSlot" index="3" x="62" y="45" style="plain"/>
+	<slot name="fuelSlot" index="4" x="80" y="45" style="plain"/>
+	<slot name="fuelSlot" index="5" x="98" y="45" style="plain"/>
+	<tooltip text="ic2.RTHeatGenerator.gui.tooltipheat">
+		<text x="49" y="66" width="79" height="13" color="0x57C4DA" center="xy">%amount:heat% / %capacity:heat%</text>
+	</tooltip>
+
+	<playerInventory x="7" y="83" background="false"/>
+</gui>

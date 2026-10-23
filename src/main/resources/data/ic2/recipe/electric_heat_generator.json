@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IBI",
+    "ICI",
+    "IGI"
+  ],
+  "key": {
+    "I": {
+      "item": "ic2:casing_iron"
+    },
+    "B": {
+      "item": "ic2:re_battery"
+    },
+    "G": {
+      "item": "ic2:crafting_heat_conductor"
+    },
+    "C": {
+      "tag": "ic2:circuits/basic"
+    }
+  },
+  "result": {
+    "id": "ic2:electric_heat_generator"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "I I",
+    "I I",
+    "ITI"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "T": {
+      "item": "ic2:treetap"
+    }
+  },
+  "result": {
+    "id": "ic2:mining_pipe",
+    "count": 16
+  }
+}

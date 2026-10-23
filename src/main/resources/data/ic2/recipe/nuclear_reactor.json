@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PcP",
+    "CCC",
+    "PGP"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:reactor_chamber"
+    },
+    "c": {
+      "tag": "ic2:circuits/advanced"
+    },
+    "G": {
+      "item": "ic2:generator"
+    },
+    "P": {
+      "tag": "c:plates/dense_lead"
+    }
+  },
+  "result": {
+    "id": "ic2:nuclear_reactor"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "CGC",
+    "ICI"
+  ],
+  "key": {
+    "G": {
+      "item": "ic2:geo_generator"
+    },
+    "C": {
+      "item": "ic2:fluid_cell"
+    },
+    "I": {
+      "item": "ic2:casing_iron"
+    }
+  },
+  "result": {
+    "id": "ic2:semifluid_generator"
+  }
+}

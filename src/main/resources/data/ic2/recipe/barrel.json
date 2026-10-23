@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "P",
+    "W",
+    "P"
+  ],
+  "key": {
+    "P": {
+      "tag": "minecraft:planks"
+    },
+    "W": {
+      "item": "ic2:rubber_wood"
+    }
+  },
+  "result": {
+    "id": "ic2:barrel"
+  }
+}

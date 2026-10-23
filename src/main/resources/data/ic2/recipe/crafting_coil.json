@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "CXC",
+    "CCC"
+  ],
+  "key": {
+    "X": {
+      "item": "minecraft:iron_ingot"
+    },
+    "C": {
+      "item": "ic2:copper_cable_0"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_coil"
+  }
+}

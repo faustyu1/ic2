@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " CC",
+    " IC",
+    "I  "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:white_wool"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    }
+  },
+  "result": {
+    "id": "ic2:painter"
+  }
+}

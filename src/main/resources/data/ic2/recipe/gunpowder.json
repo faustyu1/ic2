@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RCR",
+    "CRC",
+    "RCR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "C": {
+      "tag": "c:dusts/coal"
+    }
+  },
+  "result": {
+    "id": "minecraft:gunpowder",
+    "count": 3
+  }
+}

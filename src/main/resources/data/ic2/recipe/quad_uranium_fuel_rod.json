@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "UIU",
+    "CIC",
+    "UIU"
+  ],
+  "key": {
+    "U": {
+      "item": "ic2:uranium_fuel_rod"
+    },
+    "I": {
+      "tag": "c:plates/iron"
+    },
+    "C": {
+      "tag": "c:plates/copper"
+    }
+  },
+  "result": {
+    "id": "ic2:quad_uranium_fuel_rod"
+  }
+}

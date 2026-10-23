@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "IAI",
+    "ADA",
+    "IAI"
+  ],
+  "key": {
+    "I": {
+      "tag": "c:gems/iridium"
+    },
+    "A": {
+      "item": "ic2:crafting_alloy"
+    },
+    "D": {
+      "tag": "c:gems/diamond"
+    }
+  },
+  "result": {
+    "id": "ic2:crafting_iridium"
+  }
+}

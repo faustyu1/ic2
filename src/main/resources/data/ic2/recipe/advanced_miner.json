@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CBC",
+    "MAT",
+    "CBC"
+  ],
+  "key": {
+    "A": {
+      "item": "ic2:advanced_machine"
+    },
+    "B": {
+      "item": "ic2:miner"
+    },
+    "C": {
+      "item": "ic2:crafting_alloy"
+    },
+    "T": {
+      "item": "ic2:teleporter"
+    },
+    "M": {
+      "item": "ic2:mfe"
+    }
+  },
+  "result": {
+    "id": "ic2:advanced_miner"
+  }
+}

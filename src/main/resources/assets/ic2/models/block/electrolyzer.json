@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "up": "ic2:block/wiring/storage/electrolyzer_top",
+    "down": "ic2:block/wiring/storage/electrolyzer_bottom",
+    "north": "ic2:block/wiring/storage/electrolyzer_sides",
+    "south": "ic2:block/wiring/storage/electrolyzer_sides",
+    "west": "ic2:block/wiring/storage/electrolyzer_sides",
+    "east": "ic2:block/wiring/storage/electrolyzer_sides",
+    "particle": "ic2:block/wiring/storage/electrolyzer_sides"
+  }
+}

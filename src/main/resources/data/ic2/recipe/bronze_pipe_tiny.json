@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "CCC",
+    "   ",
+    "CCC"
+  ],
+  "key": {
+    "C": {
+      "item": "ic2:casing_bronze"
+    }
+  },
+  "result": {
+    "id": "ic2:bronze_pipe_tiny",
+    "count": 6
+  }
+}

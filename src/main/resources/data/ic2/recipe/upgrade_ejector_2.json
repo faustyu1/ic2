@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "T T",
+    " P ",
+    "T T"
+  ],
+  "key": {
+    "T": {
+      "tag": "c:plates/dense_tin"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "id": "ic2:upgrade_ejector",
+    "count": 9
+  }
+}

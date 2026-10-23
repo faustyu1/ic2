@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "ic2:mug_empty"
+    },
+    {
+      "item": "ic2:crop_res_coffee_powder"
+    },
+    {
+      "item": "ic2:fluid_cell_water"
+    }
+  ],
+  "result": {
+    "id": "ic2:mug_cold_coffee"
+  }
+}

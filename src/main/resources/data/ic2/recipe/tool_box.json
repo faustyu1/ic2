@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ICI",
+    "III"
+  ],
+  "key": {
+    "C": {
+      "tag": "c:chests/wooden"
+    },
+    "I": {
+      "item": "ic2:casing_bronze"
+    }
+  },
+  "result": {
+    "id": "ic2:tool_box"
+  }
+}

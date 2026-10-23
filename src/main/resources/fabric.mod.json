@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "id": "ic2",
+  "version": "${version}",
+  "name": "IndustrialCraft 2",
+  "description": "Industrial age themed expansion for Minecraft (Fabric port).",
+  "authors": [
+    "Alblaka",
+    "Player",
+    "RichardG",
+    "Thunderdark",
+    "GregoriusT",
+    "alexthesax",
+    "Drashian",
+    "Elementalist",
+    "Feanturi",
+    "Lurch1985",
+    "SirusKing",
+    "tahu44",
+    "Aroma1997",
+    "estebes",
+    "Chocohead"
+  ],
+  "contact": {
+    "homepage": "https://www.industrial-craft.net"
+  },
+  "license": "IC2-License",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "ic2.core.IC2Mod"
+    ],
+    "client": [
+      "ic2.core.client.IC2ModClient"
+    ],
+    "fabric-gametest": [
+      "ic2.core.gametest.CropGameTest",
+      "ic2.core.gametest.DropGameTest",
+      "ic2.core.gametest.PaintGameTest",
+      "ic2.core.gametest.ExplosiveGameTest",
+      "ic2.core.gametest.FluidItemGameTest",
+      "ic2.core.gametest.MachineGameTest",
+      "ic2.core.gametest.KineticGameTest",
+      "ic2.core.gametest.SteamGameTest",
+      "ic2.core.gametest.FluidMachineGameTest",
+      "ic2.core.gametest.MinerGameTest",
+      "ic2.core.gametest.UuGameTest",
+      "ic2.core.gametest.UtilityGameTest",
+      "ic2.core.gametest.TeleporterGameTest",
+      "ic2.core.gametest.BoatGameTest",
+      "ic2.core.gametest.LogisticsGameTest",
+      "ic2.core.gametest.PersonalGameTest",
+      "ic2.core.gametest.GeneratorGameTest",
+      "ic2.core.gametest.WiringGameTest",
+      "ic2.core.gametest.ScrapGameTest",
+      "ic2.core.gametest.PipeGameTest",
+      "ic2.core.gametest.UuGraphGameTest",
+      "ic2.core.gametest.JetpackGameTest",
+      "ic2.core.gametest.FoamCableGameTest",
+      "ic2.core.gametest.RecipeTransferGameTest",
+      "ic2.core.gametest.VanillaCopperGameTest",
+      "ic2.core.gametest.OutputUnifierGameTest"
+    ],
+    "rei_client": [
+      "ic2.integration.rei.Ic2ReiPlugin"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.16.0",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  },
+  "accessWidener": "ic2.accesswidener",
+  "mixins": [
+    "ic2.mixins.json"
+  ],
+  "suggests": {
+    "roughlyenoughitems": "*"
+  }
+}

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiSortingMachine/ContainerSortingMachine); the positions are theirs -->
+<gui width="212" height="243">
+	<image x="0" y="0" width="212" height="243" src="textures/gui/GUISortingMachine"/>
+	<text y="6" align="center">%name%</text>
+	<!-- side 0: whether an inventory is there, the default route switch and the seven filters -->
+	<only if="adj_0">
+		<image x="60" y="18" width="18" height="18" u="212" v="15" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="adj_0" inverted="true">
+		<image x="60" y="18" width="18" height="18" u="212" v="33" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="route_0">
+		<tooltip text="ic2.SortingMachine.default">
+			<button x="42" y="18" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="33" event="route:0"/>
+		</tooltip>
+	</only>
+	<only if="route_0" inverted="true">
+		<tooltip text="ic2.SortingMachine.whitelist">
+			<button x="42" y="18" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="15" event="route:0"/>
+		</tooltip>
+	</only>
+	<slotgrid name="filter_0" hologram="true" x="80" y="19" cols="7" spacing="2" style="plain"/>
+	<!-- side 1: whether an inventory is there, the default route switch and the seven filters -->
+	<only if="adj_1">
+		<image x="60" y="38" width="18" height="18" u="212" v="15" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="adj_1" inverted="true">
+		<image x="60" y="38" width="18" height="18" u="212" v="33" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="route_1">
+		<tooltip text="ic2.SortingMachine.default">
+			<button x="42" y="38" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="33" event="route:1"/>
+		</tooltip>
+	</only>
+	<only if="route_1" inverted="true">
+		<tooltip text="ic2.SortingMachine.whitelist">
+			<button x="42" y="38" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="15" event="route:1"/>
+		</tooltip>
+	</only>
+	<slotgrid name="filter_1" hologram="true" x="80" y="39" cols="7" spacing="2" style="plain"/>
+	<!-- side 2: whether an inventory is there, the default route switch and the seven filters -->
+	<only if="adj_2">
+		<image x="60" y="58" width="18" height="18" u="212" v="15" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="adj_2" inverted="true">
+		<image x="60" y="58" width="18" height="18" u="212" v="33" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="route_2">
+		<tooltip text="ic2.SortingMachine.default">
+			<button x="42" y="58" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="33" event="route:2"/>
+		</tooltip>
+	</only>
+	<only if="route_2" inverted="true">
+		<tooltip text="ic2.SortingMachine.whitelist">
+			<button x="42" y="58" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="15" event="route:2"/>
+		</tooltip>
+	</only>
+	<slotgrid name="filter_2" hologram="true" x="80" y="59" cols="7" spacing="2" style="plain"/>
+	<!-- side 3: whether an inventory is there, the default route switch and the seven filters -->
+	<only if="adj_3">
+		<image x="60" y="78" width="18" height="18" u="212" v="15" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="adj_3" inverted="true">
+		<image x="60" y="78" width="18" height="18" u="212" v="33" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="route_3">
+		<tooltip text="ic2.SortingMachine.default">
+			<button x="42" y="78" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="33" event="route:3"/>
+		</tooltip>
+	</only>
+	<only if="route_3" inverted="true">
+		<tooltip text="ic2.SortingMachine.whitelist">
+			<button x="42" y="78" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="15" event="route:3"/>
+		</tooltip>
+	</only>
+	<slotgrid name="filter_3" hologram="true" x="80" y="79" cols="7" spacing="2" style="plain"/>
+	<!-- side 4: whether an inventory is there, the default route switch and the seven filters -->
+	<only if="adj_4">
+		<image x="60" y="98" width="18" height="18" u="212" v="15" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="adj_4" inverted="true">
+		<image x="60" y="98" width="18" height="18" u="212" v="33" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="route_4">
+		<tooltip text="ic2.SortingMachine.default">
+			<button x="42" y="98" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="33" event="route:4"/>
+		</tooltip>
+	</only>
+	<only if="route_4" inverted="true">
+		<tooltip text="ic2.SortingMachine.whitelist">
+			<button x="42" y="98" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="15" event="route:4"/>
+		</tooltip>
+	</only>
+	<slotgrid name="filter_4" hologram="true" x="80" y="99" cols="7" spacing="2" style="plain"/>
+	<!-- side 5: whether an inventory is there, the default route switch and the seven filters -->
+	<only if="adj_5">
+		<image x="60" y="118" width="18" height="18" u="212" v="15" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="adj_5" inverted="true">
+		<image x="60" y="118" width="18" height="18" u="212" v="33" src="textures/gui/GUISortingMachine"/>
+	</only>
+	<only if="route_5">
+		<tooltip text="ic2.SortingMachine.default">
+			<button x="42" y="118" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="33" event="route:5"/>
+		</tooltip>
+	</only>
+	<only if="route_5" inverted="true">
+		<tooltip text="ic2.SortingMachine.whitelist">
+			<button x="42" y="118" width="18" height="18" src="textures/gui/GUISortingMachine" u="230" v="15" event="route:5"/>
+		</tooltip>
+	</only>
+	<slotgrid name="filter_5" hologram="true" x="80" y="119" cols="7" spacing="2" style="plain"/>
+	<slotgrid name="Buffer" x="8" y="141" cols="11" spacing="2" style="plain"/>
+	<slotgrid name="upgrade" x="188" y="161" cols="1" spacing="2" style="plain"/>
+	<slot name="discharge" x="188" y="219" style="plain"/>
+	<energygauge x="174" y="220"/>
+	<playerInventory x="7" y="160" background="false"/>
+</gui>

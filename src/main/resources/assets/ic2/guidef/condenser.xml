@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.12.2 drew this window in code (GuiCondenser/ContainerCondenser); the positions are theirs -->
+<gui width="176" height="184">
+	<image x="0" y="0" width="176" height="184" src="textures/gui/GUICondenser"/>
+	<text y="6" align="center">%name%</text>
+
+	<tooltip text="{ic2.Condenser.gui.tooltipvent|2}">
+		<slot name="ventSlots" index="0" x="25" y="25"/>
+		<slot name="ventSlots" index="2" x="25" y="43"/>
+		<slot name="ventSlots" index="1" x="133" y="25"/>
+		<slot name="ventSlots" index="3" x="133" y="43"/>
+	</tooltip>
+	<energygauge x="12" y="26"/>
+	<slot name="discharge" x="8" y="44" style="plain"/>
+	<fluidtank name="inputTank" type="plain" x="46" y="27" width="84" height="33"/>
+	<fluidtank name="outputTank" type="plain" x="46" y="74" width="84" height="15"/>
+	<gauge name="progress" x="47" y="63" style="progresscondenser"/>
+
+	<slot name="waterInputSlot" x="26" y="73" style="plain"/>
+	<slot name="waterOutputSlot" x="134" y="73" style="plain"/>
+	<slot name="upgradeSlot" x="152" y="73" style="plain"/>
+
+	<playerInventory x="7" y="101" background="false"/>
+</gui>

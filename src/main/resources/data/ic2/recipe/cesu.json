@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "PCP",
+    "BBB",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "tag": "c:plates/bronze"
+    },
+    "C": {
+      "item": "ic2:copper_cable_1"
+    },
+    "B": {
+      "item": "ic2:advanced_re_battery"
+    }
+  },
+  "result": {
+    "id": "ic2:cesu"
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "textures": {
+    "cable": "ic2:block/wiring/cable/iron_cable_3_yellow",
+    "particle": "ic2:block/wiring/cable/iron_cable_3_yellow"
+  },
+  "elements": [
+    {
+      "from": [
+        2.0,
+        2.0,
+        0
+      ],
+      "to": [
+        14.0,
+        14.0,
+        2.0
+      ],
+      "faces": {
+        "down": {
+          "texture": "#cable",
+          "uv": [
+            2.0,
+            0,
+            14.0,
+            2.0
+          ]
+        },
+        "up": {
+          "texture": "#cable",
+          "uv": [
+            2.0,
+            0,
+            14.0,
+            2.0
+          ]
+        },
+        "north": {
+          "texture": "#cable",
+          "uv": [
+            2.0,
+            2.0,
+            14.0,
+            14.0
+          ],
+          "cullface": "north"
+        },
+        "west": {
+          "texture": "#cable",
+          "uv": [
+            0,
+            2.0,
+            2.0,
+            14.0
+          ]
+        },
+        "east": {
+          "texture": "#cable",
+          "uv": [
+            0,
+            2.0,
+            2.0,
+            14.0
+          ]
+        }
+      }
+    }
+  ]
+}
