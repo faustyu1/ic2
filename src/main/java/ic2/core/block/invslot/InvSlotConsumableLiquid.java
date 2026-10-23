@@ -4,9 +4,10 @@ import ic2.core.block.IInventorySlotHolder;
 import ic2.core.block.comp.Fluids;
 import ic2.core.item.IItemFluidTank;
 import ic2.core.util.FluidContainers;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of InvSlotConsumableLiquid - the slot a machine's fluid containers go into.
@@ -41,19 +42,19 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
 
         IItemFluidTank itemTank = FluidContainers.tankOf(stack);
         if (itemTank != null) {
-            FluidStack content = itemTank.getFluid(stack);
+            ResourceAmount<FluidVariant> content = itemTank.getFluid(stack);
             return switch (opType) {
                 case Fill -> itemTank.getAmount(stack) < itemTank.getCapacity(stack);
-                case Drain -> content != null && acceptsLiquid(content.getFluid());
+                case Drain -> content != null && acceptsLiquid(content.resource().getFluid());
                 case Both -> true;
             };
         }
 
-        FluidStack content = FluidContainers.contentOf(stack);
+        ResourceAmount<FluidVariant> content = FluidContainers.contentOf(stack);
         if (opType == OpType.Fill) {
             return content == null;
         }
-        return content == null || acceptsLiquid(content.getFluid());
+        return content == null || acceptsLiquid(content.resource().getFluid());
     }
 
     /** Whether the machine's tank takes that fluid; the tank bound slot narrows this down. */
@@ -77,13 +78,13 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
             return drainItemTank(itemTank, stack, tank, outputSlot);
         }
 
-        FluidStack content = FluidContainers.contentOf(stack);
-        if (content == null || !acceptsLiquid(content.getFluid())) {
+        ResourceAmount<FluidVariant> content = FluidContainers.contentOf(stack);
+        if (content == null || !acceptsLiquid(content.resource().getFluid())) {
             return false;
         }
 
         // the whole container has to fit, otherwise the rest would be lost
-        if (tank.fillInternal(content, false) < content.amount) {
+        if (tank.fillInternal(content.resource(), content.amount(), false) < content.amount()) {
             return false;
         }
 
@@ -92,7 +93,7 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
             return false;
         }
 
-        tank.fillInternal(content, true);
+        tank.fillInternal(content.resource(), content.amount(), true);
         consume(1);
         if (!emptied.isEmpty()) {
             outputSlot.add(emptied);
@@ -124,9 +125,9 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
             return false;
         }
 
-        FluidStack stored = tank.getFluid();
-        int capacity = FluidContainers.capacityOf(stack);
-        if (capacity <= 0 || stored.amount < capacity) {
+        FluidVariant stored = tank.getFluid();
+        long capacity = FluidContainers.capacityOf(stack);
+        if (capacity <= 0 || tank.getFluidAmount() < capacity) {
             return false;
         }
 
@@ -147,11 +148,12 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
      */
     private boolean drainItemTank(IItemFluidTank itemTank, ItemStack stack, Fluids.InternalFluidTank tank, InvSlotOutput outputSlot) {
         boolean moved = false;
-        FluidStack content = itemTank.getFluid(stack);
-        if (content != null && acceptsLiquid(content.getFluid())) {
-            int amount = tank.fillInternal(content, false);
+        ResourceAmount<FluidVariant> content = itemTank.getFluid(stack);
+        if (content != null && acceptsLiquid(content.resource().getFluid())) {
+            long amount = tank.fillInternal(content.resource(), content.amount(), false);
             if (amount > 0) {
-                tank.fillInternal(itemTank.drain(stack, amount, true), true);
+                itemTank.drain(stack, amount, true);
+                tank.fillInternal(content.resource(), amount, true);
                 onChanged();
                 moved = true;
             }
@@ -166,11 +168,11 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
     /** Tops an item's own tank up from the machine; once it is full it moves on to the output slot. */
     private boolean fillItemTank(IItemFluidTank itemTank, ItemStack stack, Fluids.InternalFluidTank tank, InvSlotOutput outputSlot) {
         boolean moved = false;
-        FluidStack stored = tank.getFluid();
-        if (stored != null && stored.amount > 0) {
-            int amount = itemTank.fill(stack, stored, false);
+        FluidVariant stored = tank.getFluid();
+        if (!tank.isEmpty()) {
+            long amount = itemTank.fill(stack, stored, tank.getFluidAmount(), false);
             if (amount > 0) {
-                itemTank.fill(stack, tank.drainInternal(amount, true), true);
+                itemTank.fill(stack, stored, tank.drainInternal(amount, true), true);
                 onChanged();
                 moved = true;
             }

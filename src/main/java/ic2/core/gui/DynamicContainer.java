@@ -11,6 +11,7 @@ import ic2.core.gui.dynamic.SlotHologram;
 import ic2.core.gui.dynamic.SlotIC2;
 import ic2.core.gui.dynamic.SlotStyle;
 import ic2.core.init.IC2ScreenHandlers;
+import ic2.core.util.LiquidUtil;
 import java.util.ArrayList;
 import java.util.List;
 import net.minecraft.block.entity.BlockEntity;
@@ -21,8 +22,6 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.slot.Slot;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * The screen handler every guidef-driven machine GUI uses.
@@ -196,12 +195,12 @@ public class DynamicContainer extends ScreenHandler {
             }
             for (int i = 0; i < tankNames.size(); i++) {
                 Fluids.InternalFluidTank tank = tile.getFluidTank(tankNames.get(i));
-                FluidStack content = tank == null ? null : tank.getFluid();
+                boolean empty = tank == null || tank.isEmpty();
                 int base = tankOffset(i);
 
-                putWide(base, content == null ? 0 : FluidRegistry.getFluidId(content.getFluid()));
-                putWide(base + 2, content == null ? 0 : content.amount);
-                putWide(base + 4, tank == null ? 0 : tank.getCapacity());
+                putWide(base, empty ? 0 : LiquidUtil.syncId(tank.getFluid().getFluid()));
+                putWide(base + 2, empty ? 0 : (int) LiquidUtil.toMb(tank.getFluidAmount()));
+                putWide(base + 4, tank == null ? 0 : (int) LiquidUtil.toMb(tank.getCapacity()));
             }
         }
         super.sendContentUpdates();
@@ -232,11 +231,11 @@ public class DynamicContainer extends ScreenHandler {
     /**
      * What a tank holds: which fluid, how much of it and how much fits.
      *
-     * <p>The fluid travels as the id {@link FluidRegistry#getFluidId} gives it, which both sides
-     * derive from the fluid's name rather than from the order things were registered in. An empty
+     * <p>The fluid travels as the id {@link LiquidUtil#syncId} gives it, which both sides derive
+     * from the fluid's registry id rather than from the order things were registered in. An empty
      * tank has an amount of zero.
      *
-     * @return fluid id, amount and capacity, or null when the GUI does not show that tank
+     * @return fluid id, amount and capacity in mB, or null when the GUI does not show that tank
      */
     public int[] getTank(String name) {
         int index = tankNames.indexOf(name);

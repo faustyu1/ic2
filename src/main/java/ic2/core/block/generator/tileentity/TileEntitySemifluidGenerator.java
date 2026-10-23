@@ -12,12 +12,12 @@ import ic2.core.init.IC2Blocks;
 import ic2.core.init.MainConfig;
 import ic2.core.ref.TeBlock;
 import ic2.core.util.ConfigUtil;
+import ic2.core.util.LiquidUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntitySemifluidGenerator - the generator that burns liquid fuels.
@@ -104,13 +104,13 @@ public class TileEntitySemifluidGenerator extends TileEntityBaseGenerator {
 
     @Override
     public boolean gainFuel() {
-        FluidStack stored = fluidTank.drainInternal(Integer.MAX_VALUE, false);
-        if (stored == null) {
+        if (fluidTank.isEmpty()) {
             return false;
         }
+        long stored = LiquidUtil.toMb(fluidTank.getFluidAmount());
 
         ISemiFluidFuelManager.FuelProperty property = Recipes.semiFluidGenerator == null
-                ? null : Recipes.semiFluidGenerator.getFuelProperty(stored.getFluid());
+                ? null : Recipes.semiFluidGenerator.getFuelProperty(fluidTank.getFluid().getFluid());
         if (property == null) {
             return false;
         }
@@ -118,12 +118,12 @@ public class TileEntitySemifluidGenerator extends TileEntityBaseGenerator {
         // enough millibuckets to cover one tick of output, but never less than one
         int toConsume = property.energyPerMb >= property.energyPerTick
                 ? 1 : (int) Math.ceil((double) property.energyPerTick / property.energyPerMb);
-        toConsume = Math.min(toConsume, stored.amount);
-        if (toConsume <= 0 || stored.amount < toConsume) {
+        toConsume = (int) Math.min(toConsume, stored);
+        if (toConsume <= 0 || stored < toConsume) {
             return false;
         }
 
-        fluidTank.drainInternal(toConsume, true);
+        fluidTank.drainInternal(LiquidUtil.mb(toConsume), true);
         production = property.energyPerTick;
         fuel = (int) (fuel + (long) toConsume * property.energyPerMb);
         return true;

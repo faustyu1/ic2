@@ -7,6 +7,7 @@ import ic2.core.item.IItemFluidTank;
 import ic2.core.item.ItemIC2;
 import ic2.core.item.armor.ItemArmorCFPack;
 import ic2.core.ref.FluidName;
+import ic2.core.util.LiquidUtil;
 import java.util.ArrayDeque;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -18,6 +19,7 @@ import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.NbtComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUsageContext;
@@ -31,7 +33,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 
 /**
  * Fabric port of {@code ic2.core.item.tool.ItemSprayer}: the construction foam sprayer.
@@ -64,8 +65,8 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
     // ---- the tank ----
 
     @Override
-    public int getCapacity(ItemStack stack) {
-        return CAPACITY;
+    public long getCapacity(ItemStack stack) {
+        return LiquidUtil.mb(CAPACITY);
     }
 
     @Override
@@ -145,11 +146,11 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
         }
 
         ItemStack stack = context.getStack();
-        int available = getAmount(stack);
+        int available = (int) LiquidUtil.toMb(getAmount(stack));
         ItemStack pack = player.getEquippedStack(EquipmentSlot.CHEST);
         ItemArmorCFPack cfPack = pack.getItem() instanceof ItemArmorCFPack p && !p.isEmpty(pack) ? p : null;
         if (cfPack != null) {
-            available += cfPack.getAmount(pack);
+            available += (int) LiquidUtil.toMb(cfPack.getAmount(pack));
         }
 
         int maxFoamBlocks = available / FLUID_PER_FOAM;
@@ -177,11 +178,11 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
         }
 
         if (cfPack != null) {
-            var drained = cfPack.drain(pack, amount, true);
-            amount -= drained == null ? 0 : drained.amount;
+            var drained = cfPack.drain(pack, LiquidUtil.mb(amount), true);
+            amount -= drained == null ? 0 : (int) LiquidUtil.toMb(drained.amount());
         }
         if (amount > 0) {
-            drain(stack, amount, true);
+            drain(stack, LiquidUtil.mb(amount), true);
         }
         return ActionResult.SUCCESS;
     }

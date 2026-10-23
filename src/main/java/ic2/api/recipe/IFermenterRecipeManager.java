@@ -1,16 +1,17 @@
 package ic2.api.recipe;
 
+import ic2.core.util.LiquidUtil;
 import java.util.Map;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
+import net.minecraft.fluid.Fluid;
 
 public interface IFermenterRecipeManager extends ILiquidAcceptManager {
     void addRecipe(String inputFluidName, int inputAmount, int heat, String outputFluidName, int outputAmount);
 
     FermentationProperty getFermentationInformation(Fluid fluid);
 
-    FluidStack getOutput(Fluid fluid);
+    ResourceAmount<FluidVariant> getOutput(Fluid fluid);
 
     Map<String, FermentationProperty> getRecipeMap();
 
@@ -27,9 +28,10 @@ public interface IFermenterRecipeManager extends ILiquidAcceptManager {
             this.outputAmount = outputAmount;
         }
 
-        public FluidStack getOutput() {
-            Fluid fluid = FluidRegistry.getFluid(output);
-            return fluid == null ? null : new FluidStack(fluid, outputAmount);
+        /** The output in droplets; the amounts above are millibuckets. */
+        public ResourceAmount<FluidVariant> getOutput() {
+            Fluid fluid = LiquidUtil.getFluid(output);
+            return fluid == null ? null : new ResourceAmount<>(FluidVariant.of(fluid), LiquidUtil.mb(outputAmount));
         }
     }
 }

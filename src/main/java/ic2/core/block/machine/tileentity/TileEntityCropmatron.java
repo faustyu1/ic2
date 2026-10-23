@@ -15,6 +15,7 @@ import ic2.core.crop.TileEntityCrop;
 import ic2.core.init.IC2Blocks;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.EnumSet;
 import java.util.Set;
 import net.minecraft.block.BlockState;
@@ -23,7 +24,6 @@ import net.minecraft.block.FarmlandBlock;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * Fabric port of TileEntityCropmatron - tends the crops around it.
@@ -51,7 +51,7 @@ public class TileEntityCropmatron extends TileEntityElectricMachine implements I
     public TileEntityCropmatron(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type == null ? IC2Blocks.CROPMATRON_BE : type, pos, state, TeBlock.cropmatron, 10000, 1);
 
-        this.waterTank = fluids().addTankInsert("waterTank", 2000, Fluids.fluidPredicate(FluidRegistry.getFluid("water")));
+        this.waterTank = fluids().addTankInsert("waterTank", 2000, Fluids.fluidPredicate(LiquidUtil.getFluid("water")));
         this.exTank = fluids().addTankInsert("exTank", 2000, Fluids.fluidPredicate(FluidName.weed_ex.getInstance()));
 
         // the order is the one the 1.12.2 constructor created them in, which is the inventory order
@@ -119,18 +119,18 @@ public class TileEntityCropmatron extends TileEntityElectricMachine implements I
             }
 
             if (waterTank.getFluidAmount() > 0) {
-                int taken = crop.applyHydration(waterTank.getFluidAmount());
+                int taken = crop.applyHydration(mbIn(waterTank));
                 if (taken > 0) {
-                    waterTank.drainInternal(taken, true);
+                    waterTank.drainInternal(LiquidUtil.mb(taken), true);
                     useEnergy(10.0);
                     changed = true;
                 }
             }
 
             if (exTank.getFluidAmount() > 0) {
-                int taken = crop.applyWeedEx(exTank.getFluidAmount(), false);
+                int taken = crop.applyWeedEx(mbIn(exTank), false);
                 if (taken > 0) {
-                    exTank.drainInternal(taken, true);
+                    exTank.drainInternal(LiquidUtil.mb(taken), true);
                     useEnergy(10.0);
                     changed = true;
                 }
@@ -140,10 +140,15 @@ public class TileEntityCropmatron extends TileEntityElectricMachine implements I
                 crop.markDirty();
                 markDirty();
             }
-        } else if (waterTank.getFluidAmount() > 0 && tryHydrateFarmland(scan)) {
+        } else if (mbIn(waterTank) > 0 && tryHydrateFarmland(scan)) {
             useEnergy(10.0);
             markDirty();
         }
+    }
+
+    /** The whole millibuckets in a tank, the unit the crops take water and Weed-EX in. */
+    private static int mbIn(Fluids.InternalFluidTank tank) {
+        return (int) LiquidUtil.toMb(tank.getFluidAmount());
     }
 
     /** Wets farmland that has dried out, one millibucket per level of moisture missing. */
@@ -158,8 +163,8 @@ public class TileEntityCropmatron extends TileEntityElectricMachine implements I
             return false;
         }
 
-        int drainAmount = Math.min(waterTank.getFluidAmount(), FarmlandBlock.MAX_MOISTURE - hydration);
-        waterTank.drainInternal(drainAmount, true);
+        int drainAmount = Math.min(mbIn(waterTank), FarmlandBlock.MAX_MOISTURE - hydration);
+        waterTank.drainInternal(LiquidUtil.mb(drainAmount), true);
         world.setBlockState(target, state.with(FarmlandBlock.MOISTURE, hydration + drainAmount), 2);
         return true;
     }

@@ -2,8 +2,7 @@ package ic2.core.block.invslot;
 
 import ic2.core.block.IInventorySlotHolder;
 import ic2.core.block.comp.Fluids;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraft.fluid.Fluid;
 
 /**
  * Fabric port of InvSlotConsumableLiquidByTank - a liquid slot that takes whatever its tank
@@ -20,7 +19,6 @@ public class InvSlotConsumableLiquidByTank extends InvSlotConsumableLiquid {
 
     @Override
     protected boolean acceptsLiquid(Fluid fluid) {
-        FluidStack content = tank.getFluid();
-        return tank.acceptsFluid(fluid) && (content == null || content.getFluid().equals(fluid));
+        return tank.acceptsFluid(fluid) && (tank.isEmpty() || tank.getFluid().getFluid().equals(fluid));
     }
 }

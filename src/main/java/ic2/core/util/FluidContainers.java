@@ -3,25 +3,27 @@ package ic2.core.util;
 import ic2.core.init.IC2ItemVariants;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * What an item holds and what is left of it once it is emptied.
  *
- * <p>IC2 knows two kinds of fluid container: the vanilla bucket and its own cell. Forge asked the
- * item for a fluid handler capability; here the two kinds are handled directly, because the
- * flattened cells carry their fluid in the item id ({@code ic2:fluid_cell_lava}) rather than in
- * item data.
+ * <p>IC2 knows two kinds of fluid container: the vanilla bucket and its own cell. The machines
+ * handle the two kinds directly, because the flattened cells carry their fluid in the item id
+ * ({@code ic2:fluid_cell_lava}) rather than in item data; other mods reach the cells through
+ * {@link ic2.core.item.ItemFluidStorages}.
  */
 public final class FluidContainers {
-    /** A bucket holds one bucket, a cell holds a thousandth of nothing else - both in mB. */
-    public static final int BUCKET = 1000;
-    public static final int CELL = 1000;
+    /** A bucket holds one bucket, and so does a cell - both in droplets. */
+    public static final long BUCKET = FluidConstants.BUCKET;
+    public static final long CELL = FluidConstants.BUCKET;
 
     /** Fluid names of the vanilla buckets. */
     private static final Map<Item, String> BUCKETS = new LinkedHashMap<>();
@@ -35,18 +37,18 @@ public final class FluidContainers {
     private FluidContainers() {}
 
     /** @return what the container holds, or null when the item is not a full container */
-    public static FluidStack contentOf(ItemStack stack) {
+    public static ResourceAmount<FluidVariant> contentOf(ItemStack stack) {
         if (stack.isEmpty()) {
             return null;
         }
 
         String bucket = BUCKETS.get(stack.getItem());
         if (bucket != null) {
-            return new FluidStack(fluid(bucket), BUCKET);
+            return new ResourceAmount<>(FluidVariant.of(LiquidUtil.getFluid(bucket)), BUCKET);
         }
 
-        String cell = cellFluidName(stack);
-        return cell == null ? null : new FluidStack(fluid(cell), CELL);
+        Fluid cell = LiquidUtil.getFluid(cellFluidName(stack));
+        return cell == null ? null : new ResourceAmount<>(FluidVariant.of(cell), CELL);
     }
 
     /** @return what is left of the container once it is emptied */
@@ -75,7 +77,7 @@ public final class FluidContainers {
 
         if (empty.isOf(Items.BUCKET)) {
             for (Map.Entry<Item, String> entry : BUCKETS.entrySet()) {
-                if (entry.getValue().equals(fluid.getName())) {
+                if (entry.getValue().equals(LiquidUtil.nameOf(fluid))) {
                     return new ItemStack(entry.getKey());
                 }
             }
@@ -84,15 +86,15 @@ public final class FluidContainers {
 
         Item emptyCell = IC2ItemVariants.get("fluid_cell", null);
         if (emptyCell != null && empty.isOf(emptyCell)) {
-            Item cell = IC2ItemVariants.get("fluid_cell", fluid.getName());
+            Item cell = IC2ItemVariants.get("fluid_cell", LiquidUtil.nameOf(fluid));
             return cell == null ? ItemStack.EMPTY : new ItemStack(cell);
         }
 
         return ItemStack.EMPTY;
     }
 
-    /** How much a container of this kind takes at once. */
-    public static int capacityOf(ItemStack stack) {
+    /** How many droplets a container of this kind takes at once. */
+    public static long capacityOf(ItemStack stack) {
         if (stack.isOf(Items.BUCKET) || BUCKETS.containsKey(stack.getItem())) {
             return BUCKET;
         }
@@ -128,18 +130,6 @@ public final class FluidContainers {
 
     /** The name a player sees for a fluid: the IC2 ones from the language files, the rest as vanilla names its block. */
     public static net.minecraft.text.Text displayName(Fluid fluid) {
-        String name = fluid.getName();
-        return net.minecraft.text.Text.translatable(name.startsWith("ic2") ? name.substring(3) : "block.minecraft." + name);
-    }
-
-    private static Fluid fluid(String name) {
-        Fluid known = FluidRegistry.getRegisteredFluids().get(name);
-        if (known != null) {
-            return known;
-        }
-
-        Fluid fluid = new Fluid(name);
-        FluidRegistry.registerFluid(fluid);
-        return fluid;
+        return FluidVariantAttributes.getName(FluidVariant.of(fluid));
     }
 }

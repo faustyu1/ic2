@@ -20,7 +20,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityFluidRegulator: pushes a set amount of fluid (0-1000 mB) out of its
@@ -99,10 +98,10 @@ public class TileEntityFluidRegulator extends TileEntityElectricMachine {
         BlockEntity te = world.getBlockEntity(pos.offset(dir));
         Direction side = dir.getOpposite();
         if (LiquidUtil.isFluidTile(te, side)) {
-            FluidStack portion = fluidTank.drainInternal(outputmb, false);
-            int amount = LiquidUtil.fillTile(te, side, portion, false);
+            long portion = fluidTank.drainInternal(LiquidUtil.mb(outputmb), false);
+            long amount = LiquidUtil.fillTile(te, side, fluidTank.getFluid(), portion, false);
             if (amount > 0) {
-                fluidTank.drainInternal(outputmb, true);
+                fluidTank.drainInternal(amount, true);
                 useEnergy(10.0);
                 return true;
             }

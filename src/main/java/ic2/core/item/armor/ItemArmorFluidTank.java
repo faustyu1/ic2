@@ -2,15 +2,16 @@ package ic2.core.item.armor;
 
 import ic2.core.item.IItemFluidTank;
 import ic2.core.ref.FluidName;
+import ic2.core.util.LiquidUtil;
 import java.util.List;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ArmorMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipType;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.text.Text;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
 
 /**
  * Fabric port of {@code ic2.core.item.armor.ItemArmorFluidTank}: a chest piece carrying a tank of
@@ -31,8 +32,8 @@ public abstract class ItemArmorFluidTank extends ItemArmorUtility implements IIt
     }
 
     @Override
-    public int getCapacity(ItemStack stack) {
-        return capacity;
+    public long getCapacity(ItemStack stack) {
+        return LiquidUtil.mb(capacity);
     }
 
     @Override
@@ -47,7 +48,7 @@ public abstract class ItemArmorFluidTank extends ItemArmorUtility implements IIt
 
     /** Puts a full tank in the stack, {@code filltank} in 1.12.2. */
     public void fillTank(ItemStack stack) {
-        setFluid(stack, new net.minecraftforge.fluids.FluidStack(allowFluid.getInstance(), capacity));
+        setFluid(stack, allowFluid.getVariant(), getCapacity(stack));
     }
 
     public double getCharge(ItemStack stack) {
@@ -55,7 +56,7 @@ public abstract class ItemArmorFluidTank extends ItemArmorUtility implements IIt
     }
 
     public double getMaxCharge(ItemStack stack) {
-        return capacity;
+        return getCapacity(stack);
     }
 
     @Override

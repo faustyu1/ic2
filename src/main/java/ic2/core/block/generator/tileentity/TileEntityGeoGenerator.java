@@ -9,12 +9,11 @@ import ic2.core.init.IC2Blocks;
 import ic2.core.init.MainConfig;
 import ic2.core.ref.TeBlock;
 import ic2.core.util.ConfigUtil;
+import ic2.core.util.LiquidUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityGeoGenerator - the geothermal generator, which burns lava.
@@ -47,14 +46,7 @@ public class TileEntityGeoGenerator extends TileEntityBaseGenerator {
     }
 
     private static Fluid lava() {
-        Fluid known = FluidRegistry.getRegisteredFluids().get("lava");
-        if (known != null) {
-            return known;
-        }
-
-        Fluid lava = new Fluid("lava").setColor(0xD45A12);
-        FluidRegistry.registerFluid(lava);
-        return lava;
+        return net.minecraft.fluid.Fluids.LAVA;
     }
 
     @Override
@@ -68,12 +60,11 @@ public class TileEntityGeoGenerator extends TileEntityBaseGenerator {
 
     @Override
     public boolean gainFuel() {
-        FluidStack drained = fluidTank.drainInternal(FLUID_PER_TICK, false);
-        if (drained == null || drained.amount < FLUID_PER_TICK) {
+        if (fluidTank.drainInternal(LiquidUtil.mb(FLUID_PER_TICK), false) < LiquidUtil.mb(FLUID_PER_TICK)) {
             return false;
         }
 
-        fluidTank.drainInternal(FLUID_PER_TICK, true);
+        fluidTank.drainInternal(LiquidUtil.mb(FLUID_PER_TICK), true);
         fuel++;
         return true;
     }

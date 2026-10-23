@@ -8,14 +8,16 @@ import ic2.core.init.IC2ScreenHandlers;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.render.fluid.v1.FluidRenderHandlerRegistry;
+import net.fabricmc.fabric.api.client.render.fluid.v1.SimpleFluidRenderHandler;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.client.model.FabricModelPredicateProviderRegistry;
-import net.minecraft.client.render.RenderLayer;
-import net.minecraft.world.biome.FoliageColors;
 import net.minecraft.client.gui.screen.ingame.HandledScreens;
+import net.minecraft.client.render.RenderLayer;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
+import net.minecraft.world.biome.FoliageColors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,6 +45,7 @@ public final class IC2ModClient implements ClientModInitializer {
         GuiOverlayer.register();
         registerChargePredicate();
         registerRenderLayers();
+        registerFluidRendering();
         registerBlockColors();
         registerPipeColors();
         registerModels();
@@ -118,6 +121,20 @@ public final class IC2ModClient implements ClientModInitializer {
         BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.REINFORCED_DOOR, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(IC2ClassicBlocks.SCAFFOLD, RenderLayer.getCutout());
         BlockRenderLayerMap.INSTANCE.putBlock(ic2.core.init.IC2Blocks.CROP_BLOCK, RenderLayer.getCutout());
+    }
+
+    /**
+     * How the IC2 fluids look: their own still and flowing textures, tinted in their 1.12.2
+     * colour, in the world and wherever Fabric's {@code FluidVariantRendering} draws them - the
+     * machine windows and REI.
+     */
+    private static void registerFluidRendering() {
+        for (ic2.core.ref.FluidName name : ic2.core.ref.FluidName.values()) {
+            FluidRenderHandlerRegistry.INSTANCE.register(name.getInstance(), name.getFlowing(),
+                    new SimpleFluidRenderHandler(name.getTextureLocation(false), name.getTextureLocation(true),
+                            0xFF000000 | name.getColor()));
+            BlockRenderLayerMap.INSTANCE.putFluids(RenderLayer.getTranslucent(), name.getInstance(), name.getFlowing());
+        }
     }
 
     /**

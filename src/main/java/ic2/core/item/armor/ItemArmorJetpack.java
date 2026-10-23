@@ -3,10 +3,12 @@ package ic2.core.item.armor;
 import ic2.core.item.armor.jetpack.IJetpack;
 import ic2.core.item.armor.jetpack.JetpackLogic;
 import ic2.core.ref.FluidName;
+import ic2.core.util.LiquidUtil;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of {@code ic2.core.item.armor.ItemArmorJetpack}: the fuel jetpack, a 30 000 mB tank
@@ -31,11 +33,11 @@ public class ItemArmorJetpack extends ItemArmorFluidTank implements IJetpack {
             return false;
         }
 
-        FluidStack drained = drain(pack, amount, false);
-        if (drained == null || drained.amount < amount) {
+        ResourceAmount<FluidVariant> drained = drain(pack, LiquidUtil.mb(amount), false);
+        if (drained == null || drained.amount() < LiquidUtil.mb(amount)) {
             return false;
         }
-        drain(pack, amount, true);
+        drain(pack, LiquidUtil.mb(amount), true);
         return true;
     }
 

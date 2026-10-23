@@ -1,8 +1,8 @@
 package ic2.api.recipe;
 
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
-import net.minecraftforge.fluids.Fluid;
 
 public interface IRecipeInputFactory {
     IRecipeInput forStack(ItemStack stack);

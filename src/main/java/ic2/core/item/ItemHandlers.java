@@ -3,7 +3,6 @@ package ic2.core.item;
 import ic2.core.IC2;
 import ic2.core.util.LogCategory;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric stub of decompiled ic2.core.item.ItemHandlers (1.12.2, 227 lines).
@@ -17,27 +16,13 @@ import net.minecraftforge.fluids.FluidStack;
  * checked isSource, handled WATER/LAVA -> water/lava cells via StackUtil.storeInventoryItem
  * and world.setBlockToAir replacement + StackUtil.consumeOrError.
  * reactorChamberPlace (ITePlaceHandler.canReplace) counted adjacent TileEntityNuclearReactorElectric.
- * Упрощённые порты fillCell / placeReactorComponent ниже — stubs, возвращают false,
+ * Упрощённый порт placeReactorComponent ниже — stub, возвращает false,
  * без логики world/StackUtil, но с корректными сигнатурами для компиляции на 1.21.1.</p>
  */
 public class ItemHandlers {
 
     public static void init() {
         IC2.log.info(LogCategory.Item, "ItemHandlers init (stub) - registering item handlers (CF powder, resin, radioactive, etc. deferred)");
-    }
-
-    /**
-     * Simplified port of emptyCellFill logic.
-     * Original: ray trace -> LiquidData isSource check -> WATER/LAVA cell creation.
-     * Fabric stub: no world interaction, always returns false.
-     *
-     * @param emptyCell пустая ячейка (ItemName.cell)
-     * @param fluid жидкость для заливки (FluidStack, shim Forge)
-     * @param out выходной стек (заполненная ячейка, nullable)
-     * @return false - заполнение не выполнено (stub)
-     */
-    public static boolean fillCell(ItemStack emptyCell, FluidStack fluid, ItemStack out) {
-        return false;
     }
 
     /**

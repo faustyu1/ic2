@@ -30,8 +30,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntitySteamKineticGenerator - the steam turbine.
@@ -66,7 +64,7 @@ public class TileEntitySteamKineticGenerator extends TileEntityInventory impleme
         this.steamTank = fluids().addTankInsert("steamTank", 21000,
                 Fluids.fluidPredicate(FluidName.steam.getInstance(), FluidName.superheated_steam.getInstance()));
         this.distilledWaterTank = fluids().addTank("distilledWaterTank", 1000,
-                fluid -> fluid == FluidName.distilled_water.getInstance() || fluid == FluidRegistry.getFluid("water"));
+                fluid -> fluid == FluidName.distilled_water.getInstance() || fluid == LiquidUtil.getFluid("water"));
     }
 
     public TileEntitySteamKineticGenerator(BlockPos pos, BlockState state) {
@@ -84,11 +82,11 @@ public class TileEntitySteamKineticGenerator extends TileEntityInventory impleme
         }
 
         boolean needsInvUpdate = false;
-        if (distilledWaterTank.getCapacity() - distilledWaterTank.getFluidAmount() >= 1 && isTurbineFilledWithWater) {
+        if (distilledWaterTank.getSpace() >= LiquidUtil.mb(1) && isTurbineFilledWithWater) {
             isTurbineFilledWithWater = false;
         }
 
-        if (steamTank.getFluidAmount() > 0 && !isTurbineFilledWithWater && !turbineSlot.isEmpty()) {
+        if (steamTank.getFluidAmount() >= LiquidUtil.mb(1) && !isTurbineFilledWithWater && !turbineSlot.isEmpty()) {
             if (!getActive()) {
                 setActive(true);
                 needsInvUpdate = true;
@@ -116,8 +114,8 @@ public class TileEntitySteamKineticGenerator extends TileEntityInventory impleme
     }
 
     private int handleSteam(boolean hotSteam) {
-        int amount = steamTank.getFluidAmount();
-        steamTank.drainInternal(amount, true);
+        int amount = (int) LiquidUtil.toMb(steamTank.getFluidAmount());
+        steamTank.drainInternal(LiquidUtil.mb(amount), true);
         int kuWorkBuffer = amount * 2 * (hotSteam ? 2 : 1);
         if (hotSteam) {
             outputSteam(amount, true);
@@ -131,7 +129,7 @@ public class TileEntitySteamKineticGenerator extends TileEntityInventory impleme
 
     private boolean turbineDoWork(boolean hotSteam) {
         int rawOutput = handleSteam(hotSteam);
-        int waterAmount = distilledWaterTank.getFluidAmount();
+        long waterAmount = distilledWaterTank.getFluidAmount();
         float throttle;
         if (waterAmount == 0) {
             throttled = false;
@@ -143,10 +141,9 @@ public class TileEntitySteamKineticGenerator extends TileEntityInventory impleme
 
         kUoutput = (int) (rawOutput * throttle * outputModifier());
         if (condensationProgress >= 100) {
-            FluidStack drop = new FluidStack(FluidName.distilled_water.getInstance(), 1);
-            if (distilledWaterTank.fillInternal(drop, false) == 1) {
+            if (distilledWaterTank.fillInternal(FluidName.distilled_water.getVariant(), LiquidUtil.mb(1), false) == LiquidUtil.mb(1)) {
                 condensationProgress -= 100;
-                distilledWaterTank.fillInternal(drop, true);
+                distilledWaterTank.fillInternal(FluidName.distilled_water.getVariant(), LiquidUtil.mb(1), true);
             } else {
                 isTurbineFilledWithWater = true;
             }
@@ -159,7 +156,7 @@ public class TileEntitySteamKineticGenerator extends TileEntityInventory impleme
         for (Direction dir : Direction.values()) {
             BlockEntity te = world.getBlockEntity(pos.offset(dir));
             if (te instanceof TileEntityCondenser || hotSteam && te instanceof TileEntitySteamKineticGenerator) {
-                int transAmount = LiquidUtil.fillTile(te, dir.getOpposite(), new FluidStack(FluidName.steam.getInstance(), amount), false);
+                int transAmount = (int) LiquidUtil.toMb(LiquidUtil.fillTile(te, dir.getOpposite(), FluidName.steam.getVariant(), LiquidUtil.mb(amount), false));
                 if (transAmount > 0) {
                     amount -= transAmount;
                     if (amount <= 0) {

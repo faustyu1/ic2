@@ -22,7 +22,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityFluidDistributor.
@@ -99,7 +98,7 @@ public class TileEntityFluidDistributor extends TileEntityInventory {
             BlockEntity target = world.getBlockEntity(pos.offset(getFacing()));
             Direction side = getFacing().getOpposite();
             if (LiquidUtil.isFluidTile(target, side)) {
-                int amount = LiquidUtil.fillTile(target, side, fluidTank.getFluid(), false);
+                long amount = LiquidUtil.fillTile(target, side, fluidTank.getFluid(), fluidTank.getFluidAmount(), false);
                 if (amount > 0) {
                     fluidTank.drainInternal(amount, true);
                 }
@@ -108,7 +107,7 @@ public class TileEntityFluidDistributor extends TileEntityInventory {
         }
 
         Map<Direction, BlockEntity> acceptingNeighbors = new EnumMap<>(Direction.class);
-        int acceptedVolume = 0;
+        long acceptedVolume = 0;
         for (Direction dir : Direction.values()) {
             if (dir == getFacing()) {
                 continue;
@@ -116,7 +115,7 @@ public class TileEntityFluidDistributor extends TileEntityInventory {
             BlockEntity target = world.getBlockEntity(pos.offset(dir));
             Direction side = dir.getOpposite();
             if (LiquidUtil.isFluidTile(target, side)) {
-                int amount = LiquidUtil.fillTile(target, side, fluidTank.getFluid(), true);
+                long amount = LiquidUtil.fillTile(target, side, fluidTank.getFluid(), fluidTank.getFluidAmount(), true);
                 if (amount > 0) {
                     acceptingNeighbors.put(dir, target);
                     acceptedVolume += amount;
@@ -125,7 +124,7 @@ public class TileEntityFluidDistributor extends TileEntityInventory {
         }
 
         while (!acceptingNeighbors.isEmpty()) {
-            int amount = Math.min(acceptedVolume, fluidTank.getFluidAmount());
+            long amount = Math.min(acceptedVolume, fluidTank.getFluidAmount());
             if (amount <= 0) {
                 break;
             }
@@ -134,16 +133,11 @@ public class TileEntityFluidDistributor extends TileEntityInventory {
             if (amount <= 0) {
                 // less left than neighbours: hand out what remains in turn
                 for (Map.Entry<Direction, BlockEntity> entry : acceptingNeighbors.entrySet()) {
-                    FluidStack fs = fluidTank.getFluid();
-                    if (fs == null) {
+                    long portion = Math.min(acceptedVolume, fluidTank.getFluidAmount());
+                    if (portion <= 0) {
                         return;
                     }
-                    fs = fs.copy();
-                    fs.amount = Math.min(acceptedVolume, fs.amount);
-                    if (fs.amount <= 0) {
-                        return;
-                    }
-                    int cAmount = LiquidUtil.fillTile(entry.getValue(), entry.getKey().getOpposite(), fs, false);
+                    long cAmount = LiquidUtil.fillTile(entry.getValue(), entry.getKey().getOpposite(), fluidTank.getFluid(), portion, false);
                     fluidTank.drainInternal(cAmount, true);
                     acceptedVolume -= cAmount;
                 }
@@ -153,16 +147,14 @@ public class TileEntityFluidDistributor extends TileEntityInventory {
             Iterator<Map.Entry<Direction, BlockEntity>> it = acceptingNeighbors.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry<Direction, BlockEntity> entry = it.next();
-                FluidStack fs = fluidTank.getFluid();
-                if (fs == null || fs.amount <= 0) {
+                if (fluidTank.isEmpty()) {
                     break;
                 }
-                fs = fs.copy();
-                fs.amount = Math.min(amount, fs.amount);
-                int cAmount = LiquidUtil.fillTile(entry.getValue(), entry.getKey().getOpposite(), fs, false);
+                long portion = Math.min(amount, fluidTank.getFluidAmount());
+                long cAmount = LiquidUtil.fillTile(entry.getValue(), entry.getKey().getOpposite(), fluidTank.getFluid(), portion, false);
                 fluidTank.drainInternal(cAmount, true);
                 acceptedVolume -= cAmount;
-                if (cAmount < fs.amount) {
+                if (cAmount < portion) {
                     it.remove();
                 }
             }

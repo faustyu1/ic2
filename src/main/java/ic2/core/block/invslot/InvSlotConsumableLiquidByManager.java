@@ -2,7 +2,7 @@ package ic2.core.block.invslot;
 
 import ic2.api.recipe.ILiquidAcceptManager;
 import ic2.core.block.IInventorySlotHolder;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.fluid.Fluid;
 
 /**
  * Fabric port of InvSlotConsumableLiquidByManager - a liquid slot that takes whatever a recipe

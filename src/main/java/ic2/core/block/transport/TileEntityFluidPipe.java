@@ -2,7 +2,6 @@ package ic2.core.block.transport;
 
 import ic2.api.transport.IFluidPipe;
 import ic2.core.IC2;
-import ic2.core.block.BlockIC2Fluid;
 import ic2.core.block.comp.Fluids;
 import ic2.core.block.transport.cover.CoverProperty;
 import ic2.core.block.transport.cover.ICoverItem;
@@ -15,13 +14,17 @@ import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import net.minecraft.block.Block;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.FilteringStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
-import net.minecraft.registry.Registries;
 import net.minecraft.server.ServerTask;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
@@ -31,10 +34,6 @@ import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 
 /**
  * The fluid pipe: bronze or steel, in four sizes. Each pipe holds as much fluid as it moves in a
@@ -73,14 +72,14 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
         this(null, pos, state);
     }
 
-    /** How much a pipe holds, which is also what it moves in a second. */
+    /** How many mB a pipe holds, which is also what it moves in a second. */
     public static int getCapacity(PipeType type, PipeSize size) {
         return (int) ((float) type.transferRate * size.multiplier);
     }
 
-    /** What a pipe hands to the blocks that are not pipes in one tick, at most. */
-    public static int getTransferPerTick(PipeType type, PipeSize size) {
-        return (int) ((float) type.transferRate * size.multiplier / 20.0F);
+    /** The droplets a pipe hands to the blocks that are not pipes in one tick, at most. */
+    public static long getTransferPerTick(PipeType type, PipeSize size) {
+        return LiquidUtil.mb((int) ((float) type.transferRate * size.multiplier / 20.0F));
     }
 
     public PipeType getPipeType() {
@@ -102,18 +101,18 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
     }
 
     @Override
-    public FluidTank getTank() {
+    public SingleVariantStorage<FluidVariant> getTank() {
         return tank;
     }
 
     @Override
     public int getCurrentInnerCapacity() {
-        return tank.getFluidAmount();
+        return (int) LiquidUtil.toMb(tank.getFluidAmount());
     }
 
     @Override
     public int getMaxInnerCapacity() {
-        return tank.getCapacity();
+        return (int) LiquidUtil.toMb(tank.getCapacity());
     }
 
     @Override
@@ -129,12 +128,12 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
 
     @Override
     public void updateEntityServer() {
-        if (tank.getFluid() == null || tank.getFluidAmount() <= 0) {
+        if (tank.isEmpty()) {
             return;
         }
-        int before = tank.getFluidAmount();
+        long before = tank.getFluidAmount();
 
-        int availableFluidAmount = tank.getFluidAmount();
+        long availableFluidAmount = tank.getFluidAmount();
         int cPipes = 1;
         List<LiquidUtil.AdjacentFluidHandler> adjacentFluidHandlers = new ArrayList<>();
 
@@ -147,26 +146,26 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
                 continue;
             }
             if (target.handler instanceof IFluidPipe pipe) {
-                int targetAmount = pipe.getTank().getFluidAmount();
+                long targetAmount = pipe.getTank().getAmount();
                 if (tank.getFluidAmount() >= targetAmount) {
                     availableFluidAmount += targetAmount;
                     cPipes++;
                     adjacentFluidHandlers.add(target);
                 }
-            } else if (LiquidUtil.fillTile(target.handler, facing.getOpposite(), tank.getFluid().copy(), true) > 0) {
+            } else if (LiquidUtil.fillTile(target.handler, facing.getOpposite(), tank.getFluid(), tank.getFluidAmount(), true) > 0) {
                 adjacentFluidHandlers.add(target);
             }
         }
 
         // even out with the pipes that hold less
-        int extraFluid = availableFluidAmount % cPipes;
+        long extraFluid = availableFluidAmount % cPipes;
         availableFluidAmount /= cPipes;
         List<LiquidUtil.AdjacentFluidHandler> adjacentPipes = new ArrayList<>();
         Iterator<LiquidUtil.AdjacentFluidHandler> it = adjacentFluidHandlers.iterator();
         while (it.hasNext()) {
             LiquidUtil.AdjacentFluidHandler target = it.next();
             if (target.handler instanceof IFluidPipe pipe) {
-                LiquidUtil.transfer(this, target.dir, target.handler, availableFluidAmount - pipe.getTank().getFluidAmount());
+                LiquidUtil.transfer(this, target.dir, target.handler, availableFluidAmount - pipe.getTank().getAmount());
                 adjacentPipes.add(target);
                 it.remove();
             }
@@ -186,8 +185,8 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
 
         // feed the blocks that are not pipes
         if (!adjacentFluidHandlers.isEmpty()) {
-            int maxTransfer = Math.min(availableFluidAmount, getTransferPerTick(type, size));
-            int maxAmountPerOutput = maxTransfer / adjacentFluidHandlers.size();
+            long maxTransfer = Math.min(availableFluidAmount, getTransferPerTick(type, size));
+            long maxAmountPerOutput = maxTransfer / adjacentFluidHandlers.size();
             if (maxAmountPerOutput <= 0) {
                 while (maxTransfer > 0 && !adjacentFluidHandlers.isEmpty()) {
                     int bullet = IC2.random.nextInt(adjacentFluidHandlers.size());
@@ -212,7 +211,7 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
      * A side gives a handler only while it is connected; a cover on it may refuse what passes.
      */
     @Override
-    public IFluidHandler getFluidHandler(Direction side) {
+    public Storage<FluidVariant> getFluidHandler(Direction side) {
         return side != null && isConnected(side) ? new PipeFluidHandler(side) : null;
     }
 
@@ -238,22 +237,25 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
     @Override
     public void onBlockRemoved() {
         super.onBlockRemoved();
-        if (tank.getFluidAmount() <= 1000 || !(world instanceof ServerWorld serverWorld)) {
+        if (tank.getFluidAmount() <= FluidConstants.BUCKET || !(world instanceof ServerWorld serverWorld)) {
             return;
         }
-        FluidStack fluid = tank.getFluid().copy();
+        FluidVariant fluid = tank.getFluid();
         BlockPos at = pos;
         // the pipe is still being taken out of the world here, so the fluid goes in right after
         serverWorld.getServer().send(new ServerTask(serverWorld.getServer().getTicks(),
                 () -> fillBlock(fluid, serverWorld, at)));
     }
 
-    /** LiquidUtil.fillBlock of 1.12.2: puts a source block of the fluid into an empty space. */
-    static boolean fillBlock(FluidStack fs, World world, BlockPos pos) {
-        if (fs == null || fs.amount < 1000) {
+    /**
+     * LiquidUtil.fillBlock of 1.12.2: puts a source block of the fluid into an empty space, which
+     * takes a bucket of it.
+     */
+    static boolean fillBlock(FluidVariant fluid, World world, BlockPos pos) {
+        if (fluid.isBlank()) {
             return false;
         }
-        BlockState fluidState = sourceBlockOf(fs.getFluid());
+        BlockState fluidState = sourceBlockOf(fluid.getFluid());
         if (fluidState == null) {
             return false;
         }
@@ -279,24 +281,13 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
                 return false;
             }
         }
-        fs.amount -= 1000;
         return true;
     }
 
+    /** The source block of the fluid, or null when it has none that can stand in the world. */
     private static BlockState sourceBlockOf(Fluid fluid) {
-        if (fluid == null) {
-            return null;
-        }
-        net.minecraft.fluid.Fluid mc = fluid.getMinecraftFluid();
-        if (mc != null && mc != net.minecraft.fluid.Fluids.EMPTY) {
-            return mc.getDefaultState().getBlockState();
-        }
-        for (Block block : Registries.BLOCK) {
-            if (block instanceof BlockIC2Fluid ic2Fluid && ic2Fluid.getIc2Fluid() == fluid) {
-                return block.getDefaultState();
-            }
-        }
-        return null;
+        BlockState state = fluid.getDefaultState().getBlockState();
+        return state.isAir() ? null : state;
     }
 
     @Override
@@ -308,54 +299,24 @@ public class TileEntityFluidPipe extends TileEntityPipe implements IFluidPipe {
     }
 
     /** One side of the pipe; the cover on that side has a say in what passes. */
-    private class PipeFluidHandler implements IFluidHandler {
+    private class PipeFluidHandler extends FilteringStorage<FluidVariant> {
         private final Direction side;
 
         PipeFluidHandler(Direction side) {
+            super(tank);
             this.side = side;
         }
 
         @Override
-        public int fill(FluidStack resource, boolean doFill) {
+        protected boolean canInsert(FluidVariant resource) {
             ICoverItem cover = coversComponent.getCoverItem(side);
-            if (cover != null && !cover.allowsInput(resource)) {
-                return 0;
-            }
-            int ret = tank.fill(resource, doFill);
-            if (doFill && ret > 0) {
-                markDirty();
-            }
-            return ret;
+            return cover == null || cover.allowsInput(resource);
         }
 
         @Override
-        public FluidStack drain(FluidStack resource, boolean doDrain) {
+        protected boolean canExtract(FluidVariant resource) {
             ICoverItem cover = coversComponent.getCoverItem(side);
-            if (cover != null && !cover.allowsOutput(resource)) {
-                return null;
-            }
-            // Forge's FluidTank.drain(FluidStack): only the fluid the tank holds
-            if (resource == null || tank.getFluid() == null || !tank.getFluid().isFluidEqual(resource)) {
-                return null;
-            }
-            return drain(resource.amount, doDrain);
-        }
-
-        @Override
-        public FluidStack drain(int maxDrain, boolean doDrain) {
-            FluidStack inTank = tank.getFluid();
-            if (inTank == null || maxDrain <= 0) {
-                return null;
-            }
-            ICoverItem cover = coversComponent.getCoverItem(side);
-            if (cover != null && !cover.allowsOutput(new FluidStack(inTank.getFluid(), maxDrain))) {
-                return null;
-            }
-            FluidStack ret = tank.drain(maxDrain, doDrain);
-            if (doDrain && ret != null && ret.amount > 0) {
-                markDirty();
-            }
-            return ret;
+            return cover == null || cover.allowsOutput(resource);
         }
     }
 }

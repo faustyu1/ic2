@@ -5,10 +5,10 @@ import ic2.api.recipe.IRecipeInputFactory;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.recipe.Ingredient;
-import net.minecraftforge.fluids.Fluid;
 
 /**
  * Fabric port of ic2.core.recipe.RecipeInputFactory, the implementation behind

@@ -9,6 +9,7 @@ import ic2.core.util.LiquidUtil;
 import ic2.core.util.RotationUtil;
 import java.util.List;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -20,7 +21,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * The pump attachment, a cover for a side of a fluid pipe. Every tick it pulls fluid out of the
@@ -87,7 +87,7 @@ public class ItemPumpCover extends ItemIC2 implements IFluidConsumingCover {
         BlockEntity tile = (BlockEntity) holder;
         LiquidUtil.AdjacentFluidHandler target = LiquidUtil.getAdjacentHandler(tile, side);
         if (target != null) {
-            LiquidUtil.transfer(target.handler, target.dir.getOpposite(), tile, type.transferRate / 20);
+            LiquidUtil.transfer(target.handler, target.dir.getOpposite(), tile, LiquidUtil.mb(type.transferRate / 20));
         }
         return false;
     }
@@ -98,7 +98,7 @@ public class ItemPumpCover extends ItemIC2 implements IFluidConsumingCover {
     }
 
     @Override
-    public boolean allowsInput(FluidStack stack) {
+    public boolean allowsInput(FluidVariant fluid) {
         return true;
     }
 
@@ -108,7 +108,7 @@ public class ItemPumpCover extends ItemIC2 implements IFluidConsumingCover {
     }
 
     @Override
-    public boolean allowsOutput(FluidStack stack) {
+    public boolean allowsOutput(FluidVariant fluid) {
         return false;
     }
 }

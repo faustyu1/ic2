@@ -11,11 +11,11 @@ import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.init.IC2Blocks;
 import ic2.core.init.MainConfig;
 import ic2.core.recipe.FluidHeatManager;
+import ic2.core.util.LiquidUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of {@code TileEntityFluidHeatGenerator}: the liquid fuel firebox. It burns what the
@@ -85,7 +85,7 @@ public class TileEntityFluidHeatGenerator extends TileEntityHeatSourceInventory 
         }
 
         if (ticker >= 19) {
-            fluidTank.drainInternal(burnAmount, true);
+            fluidTank.drainInternal(LiquidUtil.mb(burnAmount), true);
             ticker = 0;
         } else {
             ticker++;
@@ -119,16 +119,16 @@ public class TileEntityFluidHeatGenerator extends TileEntityHeatSourceInventory 
     }
 
     public Fluid getFluidFromTank() {
-        FluidStack content = fluidTank.getFluid();
-        return content == null ? null : content.getFluid();
+        return fluidTank.isEmpty() ? null : fluidTank.getFluid().getFluid();
     }
 
+    /** In millibuckets. */
     public int getTankAmount() {
-        return fluidTank.getFluidAmount();
+        return (int) LiquidUtil.toMb(fluidTank.getFluidAmount());
     }
 
     protected boolean gainFuel() {
-        if (fluidTank.getFluid() != null) {
+        if (!fluidTank.isEmpty()) {
             calcHeatProduction();
             calcBurnAmount();
         }

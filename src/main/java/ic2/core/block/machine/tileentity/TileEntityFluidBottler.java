@@ -14,11 +14,12 @@ import ic2.core.ref.TeBlock;
 import ic2.core.util.FluidContainers;
 import java.util.EnumSet;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityFluidBottler: empties the container in its top slot into its 8000 mB
@@ -82,25 +83,28 @@ public class TileEntityFluidBottler extends TileEntityStandardMachine<Void, Runn
 
         IItemFluidTank itemTank = FluidContainers.tankOf(container);
         if (itemTank != null) {
-            FluidStack content = itemTank.getFluid(container);
-            if (content == null || fluidTank.fill(content, false) < content.amount || !outputSlot.canAdd(container.copyWithCount(1))) {
+            ResourceAmount<FluidVariant> content = itemTank.getFluid(container);
+            if (content == null || fluidTank.fill(content.resource(), content.amount(), false) < content.amount()
+                    || !outputSlot.canAdd(container.copyWithCount(1))) {
                 return null;
             }
             return () -> {
                 ItemStack emptied = container.copyWithCount(1);
-                fluidTank.fill(itemTank.drain(emptied, content.amount, true), true);
+                itemTank.drain(emptied, content.amount(), true);
+                fluidTank.fill(content.resource(), content.amount(), true);
                 drainInputSlot.consume(1);
                 outputSlot.add(emptied);
             };
         }
 
-        FluidStack content = FluidContainers.contentOf(container);
+        ResourceAmount<FluidVariant> content = FluidContainers.contentOf(container);
         ItemStack emptied = FluidContainers.emptied(container);
-        if (content == null || fluidTank.fill(content, false) < content.amount || !emptied.isEmpty() && !outputSlot.canAdd(emptied)) {
+        if (content == null || fluidTank.fill(content.resource(), content.amount(), false) < content.amount()
+                || !emptied.isEmpty() && !outputSlot.canAdd(emptied)) {
             return null;
         }
         return () -> {
-            fluidTank.fill(content, true);
+            fluidTank.fill(content.resource(), content.amount(), true);
             drainInputSlot.consume(1);
             if (!emptied.isEmpty()) {
                 outputSlot.add(emptied);
@@ -110,15 +114,15 @@ public class TileEntityFluidBottler extends TileEntityStandardMachine<Void, Runn
 
     private Runnable fillContainer() {
         ItemStack container = fillInputSlot.get();
-        FluidStack stored = fluidTank.getFluid();
-        if (container.isEmpty() || stored == null || stored.amount <= 0) {
+        FluidVariant stored = fluidTank.getFluid();
+        if (container.isEmpty() || fluidTank.isEmpty()) {
             return null;
         }
 
         IItemFluidTank itemTank = FluidContainers.tankOf(container);
         if (itemTank != null) {
             ItemStack filled = container.copyWithCount(1);
-            int amount = itemTank.fill(filled, stored, true);
+            long amount = itemTank.fill(filled, stored, fluidTank.getFluidAmount(), true);
             if (amount <= 0 || !outputSlot.canAdd(filled)) {
                 return null;
             }
@@ -132,9 +136,9 @@ public class TileEntityFluidBottler extends TileEntityStandardMachine<Void, Runn
         if (FluidContainers.contentOf(container) != null) {
             return null;
         }
-        int capacity = FluidContainers.capacityOf(container);
+        long capacity = FluidContainers.capacityOf(container);
         ItemStack filled = FluidContainers.filled(container, stored.getFluid());
-        if (capacity <= 0 || stored.amount < capacity || filled.isEmpty() || !outputSlot.canAdd(filled)) {
+        if (capacity <= 0 || fluidTank.getFluidAmount() < capacity || filled.isEmpty() || !outputSlot.canAdd(filled)) {
             return null;
         }
         return () -> {

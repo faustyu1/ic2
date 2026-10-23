@@ -1,7 +1,9 @@
 package ic2.core.block.comp;
 
 import ic2.api.recipe.ILiquidAcceptManager;
+import ic2.core.block.TileEntityBlock;
 import ic2.core.block.invslot.InvSlot;
+import ic2.core.util.LiquidUtil;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -9,25 +11,35 @@ import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidStorage;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.Storage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.CombinedStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.FilteringStorage;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.SingleVariantStorage;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTank;
-import net.minecraftforge.fluids.capability.IFluidHandler;
 
 /**
  * Fabric port of the Fluids tile entity component: the named tanks a machine owns.
  *
  * <p>A tank is addressed by name, exactly like an {@link InvSlot} group, which is what lets the
  * guidef files place {@code <fluidtank name="input">} without knowing the machine. Each tank says
- * which sides may fill or drain it and which fluids it takes at all.
+ * which sides may fill or drain it and which fluids it takes at all. Tanks are Fabric
+ * {@link SingleVariantStorage}s and count in droplets.
  */
 public class Fluids {
     private final List<InternalFluidTank> tanks = new ArrayList<>();
     private final List<Supplier<Collection<InternalFluidTank>>> unmanagedTankHooks = new ArrayList<>();
+    private final Runnable onChange;
 
+    /** @param onChange called once a transaction changed a tank, to save the block */
+    public Fluids(Runnable onChange) {
+        this.onChange = onChange;
+    }
+
+    /** @param capacity in millibuckets */
     public InternalFluidTank addTank(String name, int capacity) {
         return addTank(name, capacity, InvSlot.Access.IO, InvSlot.InvSide.ANY, fluid -> true);
     }
@@ -54,6 +66,7 @@ public class Fluids {
     }
 
     public InternalFluidTank addTank(InternalFluidTank tank) {
+        tank.onChange = onChange;
         tanks.add(tank);
         return tank;
     }
@@ -102,6 +115,12 @@ public class Fluids {
         return tanks.isEmpty();
     }
 
+    /** Makes the IC2 blocks with tanks visible to Fabric's fluid transfer API. */
+    public static void register() {
+        FluidStorage.SIDED.registerFallback((world, pos, state, be, side) ->
+                be instanceof TileEntityBlock tile ? tile.getFluidHandler(side) : null);
+    }
+
     /** Accepts exactly the fluids listed. */
     public static Predicate<Fluid> fluidPredicate(Fluid... fluids) {
         Collection<Fluid> accepted = List.of(fluids);
@@ -122,7 +141,7 @@ public class Fluids {
             if (nbt.contains(tank.identifier)) {
                 tank.readFromNbt(nbt.getCompound(tank.identifier));
             } else {
-                tank.setFluid(null);
+                tank.setFluid(FluidVariant.blank(), 0);
             }
         }
     }
@@ -136,94 +155,71 @@ public class Fluids {
     }
 
     /**
-     * The fluid handler of a side: filling goes into each tank that side may fill until the fluid
+     * The fluid storage of a side: filling goes into each tank that side may fill until the fluid
      * is used up, draining takes from the tanks that side may drain, as the 1.12.2 component did.
      */
-    public IFluidHandler getHandler(Direction side) {
-        return new FluidHandler(side);
+    public Storage<FluidVariant> getHandler(Direction side) {
+        List<Storage<FluidVariant>> parts = new ArrayList<>();
+        for (InternalFluidTank tank : getAllTanks()) {
+            parts.add(new FilteringStorage<>(tank) {
+                @Override
+                protected boolean canInsert(FluidVariant resource) {
+                    return tank.canFill(side);
+                }
+
+                @Override
+                protected boolean canExtract(FluidVariant resource) {
+                    return tank.canDrain(side);
+                }
+            });
+        }
+        return new CombinedStorage<>(parts);
     }
 
-    private class FluidHandler implements IFluidHandler {
-        private final Direction side;
-
-        FluidHandler(Direction side) {
-            this.side = side;
-        }
-
-        @Override
-        public int fill(FluidStack resource, boolean doFill) {
-            if (resource == null || resource.amount <= 0) {
-                return 0;
-            }
-
-            int total = 0;
-            FluidStack missing = resource.copy();
-            for (InternalFluidTank tank : getAllTanks()) {
-                if (tank.canFill(side)) {
-                    total += tank.fill(missing, doFill);
-                    missing.amount = resource.amount - total;
-                    if (missing.amount <= 0) {
-                        break;
-                    }
-                }
-            }
-            return total;
-        }
-
-        @Override
-        public FluidStack drain(FluidStack resource, boolean doDrain) {
-            if (resource == null || resource.amount <= 0) {
-                return null;
-            }
-
-            FluidStack ret = new FluidStack(resource.getFluid(), 0);
-            for (InternalFluidTank tank : getAllTanks()) {
-                if (tank.canDrain(side)) {
-                    FluidStack inTank = tank.getFluid();
-                    if (inTank != null && inTank.getFluid() == resource.getFluid()) {
-                        FluidStack add = tank.drain(resource.amount - ret.amount, doDrain);
-                        if (add != null) {
-                            ret.amount += add.amount;
-                            if (ret.amount >= resource.amount) {
-                                break;
-                            }
-                        }
-                    }
-                }
-            }
-            return ret.amount == 0 ? null : ret;
-        }
-
-        @Override
-        public FluidStack drain(int maxDrain, boolean doDrain) {
-            for (InternalFluidTank tank : getAllTanks()) {
-                if (tank.canDrain(side)) {
-                    FluidStack stack = tank.drain(maxDrain, false);
-                    if (stack != null && stack.amount > 0) {
-                        stack.amount = maxDrain;
-                        return drain(stack, doDrain);
-                    }
-                }
-            }
-            return null;
-        }
-    }
-
-    /** One named tank of a machine. */
-    public static class InternalFluidTank extends FluidTank {
+    /** One named tank of a machine. Capacity and contents are droplets. */
+    public static class InternalFluidTank extends SingleVariantStorage<FluidVariant> {
         public final String identifier;
+        private final long capacity;
         private final Predicate<Fluid> acceptedFluids;
         private Collection<Direction> inputSides;
         private Collection<Direction> outputSides;
+        private Runnable onChange;
 
+        /** @param capacity in millibuckets */
         public InternalFluidTank(String identifier, int capacity,
                                  Collection<Direction> inputSides, Collection<Direction> outputSides,
                                  Predicate<Fluid> acceptedFluids) {
-            super(capacity);
             this.identifier = identifier;
+            this.capacity = LiquidUtil.mb(capacity);
             this.inputSides = inputSides;
             this.outputSides = outputSides;
             this.acceptedFluids = acceptedFluids;
+        }
+
+        @Override
+        protected FluidVariant getBlankVariant() {
+            return FluidVariant.blank();
+        }
+
+        @Override
+        protected long getCapacity(FluidVariant variant) {
+            return capacity;
+        }
+
+        public long getCapacity() {
+            return capacity;
+        }
+
+        @Override
+        protected boolean canInsert(FluidVariant variant) {
+            return acceptsFluid(variant.getFluid());
+        }
+
+        @Override
+        protected void onFinalCommit() {
+            if (onChange != null) {
+                onChange.run();
+            }
         }
 
         public boolean acceptsFluid(Fluid fluid) {
@@ -243,33 +239,87 @@ public class Fluids {
             this.outputSides = outputSides;
         }
 
-        @Override
-        public int fill(FluidStack resource, boolean doFill) {
-            return resource != null && acceptsFluid(resource.getFluid()) ? super.fill(resource, doFill) : 0;
+        /** The fluid in the tank; blank when it is empty. */
+        public FluidVariant getFluid() {
+            return amount <= 0 ? FluidVariant.blank() : variant;
         }
 
-        /** Fills without asking whether the side may, which is what the machine itself does. */
-        public int fillInternal(FluidStack resource, boolean doFill) {
-            return super.fill(resource, doFill);
+        public long getFluidAmount() {
+            return amount;
         }
 
-        public FluidStack drainInternal(int maxDrain, boolean doDrain) {
-            return super.drain(maxDrain, doDrain);
+        public boolean isEmpty() {
+            return amount <= 0;
+        }
+
+        public long getSpace() {
+            return capacity - amount;
+        }
+
+        /** Replaces the contents, outside of any transaction: the machine's own bookkeeping. */
+        public void setFluid(FluidVariant fluid, long amount) {
+            if (fluid.isBlank() || amount <= 0) {
+                this.variant = FluidVariant.blank();
+                this.amount = 0;
+            } else {
+                this.variant = fluid;
+                this.amount = Math.min(amount, capacity);
+            }
+        }
+
+        /** Whether that fluid could go in at all, ignoring how much room is left. */
+        public boolean canFillFluidType(FluidVariant fluid) {
+            return !fluid.isBlank() && acceptsFluid(fluid.getFluid()) && (isEmpty() || variant.equals(fluid));
+        }
+
+        /**
+         * Fills like a neighbour would, honouring the accepted fluids, but outside of a
+         * transaction: the machine's own bookkeeping.
+         *
+         * @return the droplets that went in, or would have
+         */
+        public long fill(FluidVariant fluid, long amount, boolean doFill) {
+            return fluid.isBlank() || !acceptsFluid(fluid.getFluid()) ? 0 : fillInternal(fluid, amount, doFill);
+        }
+
+        /** Fills without asking whether the tank takes that fluid, which is what the machine itself does. */
+        public long fillInternal(FluidVariant fluid, long amount, boolean doFill) {
+            if (fluid.isBlank() || amount <= 0 || !(isEmpty() || variant.equals(fluid))) {
+                return 0;
+            }
+            long filled = Math.min(amount, capacity - this.amount);
+            if (doFill && filled > 0) {
+                this.variant = fluid;
+                this.amount += filled;
+            }
+            return Math.max(filled, 0);
+        }
+
+        /** @return the droplets that came out, or would have */
+        public long drainInternal(long maxAmount, boolean doDrain) {
+            long drained = Math.min(maxAmount, amount);
+            if (drained <= 0) {
+                return 0;
+            }
+            if (doDrain) {
+                amount -= drained;
+                if (amount <= 0) {
+                    variant = FluidVariant.blank();
+                    amount = 0;
+                }
+            }
+            return drained;
         }
 
         public void readFromNbt(NbtCompound nbt) {
-            String name = nbt.getString("fluid");
-            int amount = nbt.getInt("amount");
-            Fluid fluid = name.isEmpty() ? null : FluidRegistry.getFluid(name);
-
-            setFluid(fluid == null || amount <= 0 ? null : new FluidStack(fluid, amount));
+            Fluid fluid = LiquidUtil.getFluid(nbt.getString("fluid"));
+            setFluid(fluid == null ? FluidVariant.blank() : FluidVariant.of(fluid), nbt.getLong("amount"));
         }
 
         public NbtCompound writeToNbt(NbtCompound nbt) {
-            FluidStack fluid = getFluid();
-            if (fluid != null && fluid.amount > 0) {
-                nbt.putString("fluid", fluid.getFluid().getName());
-                nbt.putInt("amount", fluid.amount);
+            if (!isEmpty()) {
+                nbt.putString("fluid", LiquidUtil.nameOf(variant.getFluid()));
+                nbt.putLong("amount", amount);
             }
             return nbt;
         }

@@ -1,12 +1,13 @@
 package ic2.api.recipe;
 
+import ic2.core.util.LiquidUtil;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 import org.apache.commons.lang3.tuple.Pair;
 
 public interface IElectrolyzerRecipeManager extends ILiquidAcceptManager {
@@ -31,12 +32,13 @@ public interface IElectrolyzerRecipeManager extends ILiquidAcceptManager {
             this.tankDirection = tankDirection;
         }
 
-        public FluidStack getOutput() {
-            Fluid fluid = FluidRegistry.getFluid(fluidName);
-            return fluid == null ? null : new FluidStack(fluid, fluidAmount);
+        /** The output in droplets; {@link #fluidAmount} is millibuckets. */
+        public ResourceAmount<FluidVariant> getOutput() {
+            Fluid fluid = LiquidUtil.getFluid(fluidName);
+            return fluid == null ? null : new ResourceAmount<>(FluidVariant.of(fluid), LiquidUtil.mb(fluidAmount));
         }
 
-        public Pair<FluidStack, Direction> getFullOutput() {
+        public Pair<ResourceAmount<FluidVariant>, Direction> getFullOutput() {
             return Pair.of(getOutput(), tankDirection);
         }
     }

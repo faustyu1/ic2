@@ -47,12 +47,12 @@ public class TileEntityWeightedFluidDistributor extends TileEntityFluidDistribut
 
     @Override
     protected void moveFluid() {
-        int tankAmount = fluidTank.getFluidAmount();
+        long tankAmount = fluidTank.getFluidAmount();
         for (Direction dir : priority.get()) {
             BlockEntity target = world.getBlockEntity(pos.offset(dir));
             Direction side = dir.getOpposite();
             if (LiquidUtil.isFluidTile(target, side)) {
-                int amount = LiquidUtil.fillTile(target, side, fluidTank.getFluid(), false);
+                long amount = LiquidUtil.fillTile(target, side, fluidTank.getFluid(), tankAmount, false);
                 if (amount > 0) {
                     tankAmount -= amount;
                     fluidTank.drainInternal(amount, true);

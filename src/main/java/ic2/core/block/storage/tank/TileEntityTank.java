@@ -3,13 +3,15 @@ package ic2.core.block.storage.tank;
 import ic2.core.block.TileEntityInventory;
 import ic2.core.block.comp.Fluids;
 import ic2.core.util.FluidContainers;
+import ic2.core.util.LiquidUtil;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityTank - a block that holds one fluid and nothing else.
@@ -50,14 +52,14 @@ public class TileEntityTank extends TileEntityInventory {
 
     @Override
     public void addInformation(ItemStack stack, java.util.List<net.minecraft.text.Text> tooltip) {
-        tooltip.add(net.minecraft.text.Text.literal("Capacity: " + contents.getCapacity() + " mB"));
+        tooltip.add(net.minecraft.text.Text.literal("Capacity: " + LiquidUtil.toMb(contents.getCapacity()) + " mB"));
         net.minecraft.nbt.NbtCompound nbt = dropData(stack);
         String fluid = nbt.getString("fluid");
         if (fluid.isEmpty()) {
             tooltip.add(net.minecraft.text.Text.literal("Empty"));
         } else {
             tooltip.add(net.minecraft.text.Text.literal(fluid));
-            tooltip.add(net.minecraft.text.Text.literal("Amount: " + nbt.getInt("amount") + " mB"));
+            tooltip.add(net.minecraft.text.Text.literal("Amount: " + LiquidUtil.toMb(nbt.getLong("amount")) + " mB"));
         }
     }
 
@@ -87,21 +89,21 @@ public class TileEntityTank extends TileEntityInventory {
             return exchangeWithItemTank(itemTank, held);
         }
 
-        FluidStack content = FluidContainers.contentOf(held);
+        ResourceAmount<FluidVariant> content = FluidContainers.contentOf(held);
         if (content != null) {
-            if (contents.fillInternal(content, false) < content.amount) {
+            if (contents.fillInternal(content.resource(), content.amount(), false) < content.amount()) {
                 return false;
             }
 
-            contents.fillInternal(content, true);
+            contents.fillInternal(content.resource(), content.amount(), true);
             give(player, hand, held, FluidContainers.emptied(held));
             markDirty();
             return true;
         }
 
-        FluidStack stored = contents.getFluid();
-        int capacity = FluidContainers.capacityOf(held);
-        if (stored == null || stored.amount < capacity) {
+        FluidVariant stored = contents.getFluid();
+        long capacity = FluidContainers.capacityOf(held);
+        if (contents.isEmpty() || contents.getFluidAmount() < capacity) {
             return false;
         }
 
@@ -121,22 +123,23 @@ public class TileEntityTank extends TileEntityInventory {
      * from - empty, or of another fluid than the tank's - is topped up from it instead.
      */
     private boolean exchangeWithItemTank(ic2.core.item.IItemFluidTank itemTank, ItemStack held) {
-        FluidStack content = itemTank.getFluid(held);
+        ResourceAmount<FluidVariant> content = itemTank.getFluid(held);
         if (content != null) {
-            int amount = contents.fillInternal(content, false);
+            long amount = contents.fillInternal(content.resource(), content.amount(), false);
             if (amount > 0) {
-                contents.fillInternal(itemTank.drain(held, amount, true), true);
+                itemTank.drain(held, amount, true);
+                contents.fillInternal(content.resource(), amount, true);
                 markDirty();
                 return true;
             }
         }
 
-        FluidStack stored = contents.getFluid();
-        int amount = stored == null ? 0 : itemTank.fill(held, stored, false);
+        FluidVariant stored = contents.getFluid();
+        long amount = contents.isEmpty() ? 0 : itemTank.fill(held, stored, contents.getFluidAmount(), false);
         if (amount <= 0) {
             return false;
         }
-        itemTank.fill(held, contents.drainInternal(amount, true), true);
+        itemTank.fill(held, stored, contents.drainInternal(amount, true), true);
         markDirty();
         return true;
     }

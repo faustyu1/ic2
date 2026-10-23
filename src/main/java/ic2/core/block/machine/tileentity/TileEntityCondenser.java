@@ -14,6 +14,7 @@ import ic2.core.block.invslot.InvSlotUpgrade;
 import ic2.core.init.IC2Blocks;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.EnumSet;
 import java.util.Set;
 import net.minecraft.block.BlockState;
@@ -24,7 +25,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityCondenser - turns steam back into distilled water.
@@ -99,12 +99,12 @@ public class TileEntityCondenser extends TileEntityElectricMachine implements IU
     }
 
     private void work() {
-        if (outputTank.getCapacity() - outputTank.getFluidAmount() < 100) {
+        if (outputTank.getSpace() < LiquidUtil.mb(100)) {
             return;
         }
 
         if (progress >= MAX_PROGRESS) {
-            outputTank.fillInternal(new FluidStack(FluidName.distilled_water.getInstance(), 100), true);
+            outputTank.fillInternal(FluidName.distilled_water.getVariant(), LiquidUtil.mb(100), true);
             progress -= MAX_PROGRESS;
         }
 
@@ -112,8 +112,7 @@ public class TileEntityCondenser extends TileEntityElectricMachine implements IU
             int vents = getVents();
             int drain = PASSIVE_COOLING + vents * COOLING_PER_VENT;
             if (useEnergy(vents * VENT_EU_COST)) {
-                FluidStack drained = inputTank.drainInternal(drain, true);
-                progress += drained == null ? 0 : drained.amount;
+                progress += (int) LiquidUtil.toMb(inputTank.drainInternal(LiquidUtil.mb(drain), true));
                 markDirty();
             }
         }

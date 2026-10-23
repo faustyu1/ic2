@@ -1,9 +1,20 @@
 package ic2.core.ref;
 
+import ic2.core.fluid.Ic2Fluid;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributeHandler;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.registry.Registries;
+import net.minecraft.registry.Registry;
+import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
+/**
+ * The IC2 fluids. Each is registered as a still and a flowing Minecraft fluid,
+ * {@code ic2:<name>} and {@code ic2:flowing_<name>}, with its temperature and gas flag as Fabric
+ * fluid variant attributes.
+ */
 public enum FluidName {
     air(false),
     biogas(false),
@@ -36,31 +47,37 @@ public enum FluidName {
     milk;
 
     private final boolean hasFlowTexture;
-    private Fluid instance;
+    private Ic2Fluid still;
+    private Ic2Fluid flowing;
 
     FluidName(){ this(true); }
     FluidName(boolean hasFlow){ this.hasFlowTexture=hasFlow; }
 
+    /** The name 1.12.2 registered the fluid under, which the config files and cell variants still use. */
     public String getName(){ return "ic2"+name(); }
+    public Identifier getId(){ return Identifier.of("ic2", name()); }
     public Identifier getTextureLocation(boolean flowing){
         if(name().startsWith("molten_")) return Identifier.of("ic2","block/fluid/molten_metal");
         String type = flowing && hasFlowTexture ? "flow" : "still";
         return Identifier.of("ic2","block/fluid/"+name()+"_"+type);
     }
-    public boolean hasInstance(){ return instance!=null; }
+    /** The still fluid, the one tanks and cells hold. */
     public Fluid getInstance(){
-        if(instance==null){
-            Fluid f = FluidRegistry.getFluid(getName());
-            if(f!=null) instance=f;
-            else {
-                instance=new Fluid(getName())
-                        .setColor(getColor())
-                        .setTemperature(getTemperature())
-                        .setStillTexture(getTextureLocation(false));
-                FluidRegistry.registerFluid(instance);
-            }
-        }
-        return instance;
+        if(still==null) throw new IllegalStateException("IC2 fluids are not registered yet");
+        return still;
+    }
+    public Fluid getFlowing(){
+        if(flowing==null) throw new IllegalStateException("IC2 fluids are not registered yet");
+        return flowing;
+    }
+    public FluidVariant getVariant(){ return FluidVariant.of(getInstance()); }
+
+    /** Gases rise in the world and in a tank's rendering; Fabric reads that off this flag. */
+    public boolean isGaseous(){
+        return switch(this){
+            case air, biogas, steam, superheated_steam, oxygen, hydrogen, deuterium -> true;
+            default -> false;
+        };
     }
 
     /**
@@ -105,10 +122,27 @@ public enum FluidName {
         };
     }
 
-    /** Registers every IC2 fluid plus the vanilla ones IC2 handles, on both sides alike. */
+    /** Registers every IC2 fluid, on both sides alike, before the blocks and items that use them. */
     public static void registerAll(){
-        FluidRegistry.registerDefaults();
-        for(FluidName name : values()) name.getInstance();
+        for(FluidName name : values()){
+            if(name.still!=null) continue;
+            name.still=Registry.register(Registries.FLUID, name.getId(), new Ic2Fluid.Still(name));
+            name.flowing=Registry.register(Registries.FLUID, Identifier.of("ic2", "flowing_"+name.name()), new Ic2Fluid.Flowing(name));
+            FluidVariantAttributeHandler attributes = new FluidVariantAttributeHandler(){
+                @Override
+                public Text getName(FluidVariant variant){ return Text.translatable(name.name()); }
+                @Override
+                public int getTemperature(FluidVariant variant){ return name.getTemperature(); }
+                @Override
+                public boolean isLighterThanAir(FluidVariant variant){ return name.isGaseous(); }
+            };
+            FluidVariantAttributes.register(name.still, attributes);
+            FluidVariantAttributes.register(name.flowing, attributes);
+        }
     }
-    public void setInstance(Fluid f){ if(instance!=null) throw new IllegalStateException("conflicting"); instance=f; }
+
+    /** @return the IC2 fluid that Minecraft fluid is, still or flowing, or null for any other */
+    public static FluidName of(Fluid fluid){
+        return fluid instanceof Ic2Fluid ic2 ? ic2.getFluidName() : null;
+    }
 }

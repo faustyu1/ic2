@@ -15,17 +15,17 @@ import ic2.core.init.IC2Blocks;
 import ic2.core.init.MainConfig;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.EnumSet;
 import java.util.Set;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of {@code ic2.core.block.machine.tileentity.TileEntityFermenter}: turns biomass into
@@ -123,23 +123,22 @@ public class TileEntityFermenter extends TileEntityInventory implements IUpgrada
         }
 
         Direction dir = getFacing();
-        FluidStack input = inputTank.getFluid();
-        if (!(world.getBlockEntity(pos.offset(dir)) instanceof IHeatSource heatSource) || input == null
-                || !input.getFluid().equals(FluidName.biomass.getInstance())) {
+        if (!(world.getBlockEntity(pos.offset(dir)) instanceof IHeatSource heatSource)
+                || !inputTank.getFluid().isOf(FluidName.biomass.getInstance())) {
             return false;
         }
 
         int inputAmount = biomassPerRun();
         int outputAmount = biogasPerRun();
-        if (inputTank.getFluidAmount() < inputAmount || outputAmount > outputTank.getCapacity() - outputTank.getFluidAmount()) {
+        if (inputTank.getFluidAmount() < LiquidUtil.mb(inputAmount) || LiquidUtil.mb(outputAmount) > outputTank.getSpace()) {
             return false;
         }
 
         heatBuffer += heatSource.drawHeat(dir.getOpposite(), 100, false);
         if (heatBuffer >= heatPerRun()) {
             heatBuffer -= heatPerRun();
-            inputTank.drainInternal(inputAmount, true);
-            outputTank.fillInternal(new FluidStack(FluidName.biogas.getInstance(), outputAmount), true);
+            inputTank.drainInternal(LiquidUtil.mb(inputAmount), true);
+            outputTank.fillInternal(FluidName.biogas.getVariant(), LiquidUtil.mb(outputAmount), true);
             progress += inputAmount;
         }
         return true;

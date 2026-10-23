@@ -11,6 +11,7 @@ import ic2.core.block.invslot.InvSlotConsumableLiquidByTank;
 import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.init.IC2Blocks;
 import ic2.core.recipe.BasicMachineRecipeManager;
+import ic2.core.util.LiquidUtil;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
@@ -19,7 +20,6 @@ import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * The ore washing plant: crushed ore and water in, purified ore and by-products out.
@@ -37,7 +37,7 @@ public class TileEntityOreWashing extends TileEntityStandardMachine<IRecipeInput
 
     public TileEntityOreWashing(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state, 16, 500, 3, 1);
-        this.fluidTank = fluids().addTankInsert("fluid", TANK_CAPACITY, Fluids.fluidPredicate(FluidRegistry.getFluid("water")));
+        this.fluidTank = fluids().addTankInsert("fluid", TANK_CAPACITY, Fluids.fluidPredicate(LiquidUtil.getFluid("water")));
         this.fluidSlot = new InvSlotConsumableLiquidByTank(this, "fluid", InvSlot.Access.I, 1,
                 InvSlot.InvSide.ANY, InvSlotConsumableLiquid.OpType.Drain, fluidTank);
         this.cellSlot = new InvSlotOutput(this, "cell", 1);
@@ -67,7 +67,7 @@ public class TileEntityOreWashing extends TileEntityStandardMachine<IRecipeInput
     protected MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> getOutput() {
         MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> ret = super.getOutput();
         // a recipe without metadata names no water, which 1.12.2 refused as well
-        if (ret != null && (ret.getRecipe().getMetaData() == null || waterOf(ret) > fluidTank.getFluidAmount())) {
+        if (ret != null && (ret.getRecipe().getMetaData() == null || LiquidUtil.mb(waterOf(ret)) > fluidTank.getFluidAmount())) {
             return null;
         }
         return ret;
@@ -79,7 +79,7 @@ public class TileEntityOreWashing extends TileEntityStandardMachine<IRecipeInput
             return;
         }
         super.operate(result);
-        fluidTank.drainInternal(waterOf(result), true);
+        fluidTank.drainInternal(LiquidUtil.mb(waterOf(result)), true);
     }
 
     @Override

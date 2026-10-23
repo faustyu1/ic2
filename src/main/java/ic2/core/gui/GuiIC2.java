@@ -5,23 +5,23 @@ import ic2.core.gui.dynamic.GuiElementNode;
 import ic2.core.gui.dynamic.SlotGridLayout;
 import ic2.core.gui.dynamic.SlotStyle;
 import ic2.core.util.ConfigUtil;
+import ic2.core.util.LiquidUtil;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import net.minecraft.client.MinecraftClient;
+import net.fabricmc.fabric.api.transfer.v1.client.fluid.FluidVariantRendering;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.texture.MissingSprite;
 import net.minecraft.client.texture.Sprite;
-import net.minecraft.client.texture.SpriteAtlasTexture;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * The screen for every guidef-driven machine GUI.
@@ -262,10 +262,9 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             return java.util.List.of(translation("ic2.generic.text.empty"));
         }
 
-        Fluid fluid = FluidRegistry.byId(tank[0]);
-        String name = fluid == null ? "?" : fluid.getName();
+        Fluid fluid = LiquidUtil.bySyncId(tank[0]);
         return java.util.List.of(
-                Text.literal(name),
+                fluid == null ? Text.literal("?") : ic2.core.util.FluidContainers.displayName(fluid),
                 Text.literal(tank[1] + " / " + tank[2] + " mB"));
     }
 
@@ -446,11 +445,11 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
 
     /**
      * Fills the lower part of a rectangle with a fluid, drawing its own texture tinted with its
-     * colour, exactly as the original did. A fluid whose texture is not in the block atlas is
-     * drawn as a flat surface of its colour instead.
+     * colour, exactly as the original did. A fluid without a texture is drawn as a flat surface of
+     * its colour instead.
      */
     private void fillFluid(DrawContext context, int x, int y, int width, int height, int fluidId, double ratio) {
-        drawFluid(context, x, y, width, height, FluidRegistry.byId(fluidId), ratio);
+        drawFluid(context, x, y, width, height, LiquidUtil.bySyncId(fluidId), ratio);
     }
 
     /**
@@ -463,8 +462,12 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             return;
         }
 
-        int color = fluid == null ? 0x808080 : fluid.getColor();
-        Sprite sprite = fluid == null ? null : spriteOf(fluid);
+        FluidVariant variant = fluid == null ? FluidVariant.blank() : FluidVariant.of(fluid);
+        int color = fluid == null ? 0x808080 : FluidVariantRendering.getColor(variant) & 0xFFFFFF;
+        Sprite sprite = fluid == null ? null : FluidVariantRendering.getSprite(variant);
+        if (sprite != null && sprite.getContents().getId().equals(MissingSprite.getMissingSpriteId())) {
+            sprite = null;
+        }
 
         if (sprite == null) {
             context.fill(x, y + height - filled, x + width, y + height, 0xFF000000 | color);
@@ -485,17 +488,6 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             }
         }
         context.disableScissor();
-    }
-
-    /** The fluid's still texture as stitched into the block atlas, or null when it is not there. */
-    private static Sprite spriteOf(Fluid fluid) {
-        MinecraftClient client = MinecraftClient.getInstance();
-        if (client == null) {
-            return null;
-        }
-
-        Sprite sprite = client.getSpriteAtlas(SpriteAtlasTexture.BLOCK_ATLAS_TEXTURE).apply(fluid.getStillTexture());
-        return sprite == null || sprite.getContents().getId().equals(MissingSprite.getMissingSpriteId()) ? null : sprite;
     }
 
     private void drawSlotBackground(DrawContext context, int left, int top, GuiElementNode element) {

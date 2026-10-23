@@ -17,16 +17,17 @@ import ic2.core.block.invslot.InvSlotUpgrade;
 import ic2.core.init.IC2Blocks;
 import ic2.core.init.IC2ItemVariants;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.EnumSet;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityLiquidHeatExchanger: cools hot fluid (hot coolant, lava) into its cold
@@ -93,8 +94,8 @@ public class TileEntityLiquidHeatExchanger extends TileEntityHeatSourceInventory
         if (bufferspace <= 0) {
             return 0;
         }
-        int amountHot = inputTank.getFluidAmount();
-        int outputFree = outputTank.getCapacity() - outputTank.getFluidAmount();
+        int amountHot = (int) LiquidUtil.toMb(inputTank.getFluidAmount());
+        int outputFree = (int) LiquidUtil.toMb(outputTank.getSpace());
         if (outputFree == 0 || amountHot == 0 || Recipes.liquidCooldownManager == null) {
             return 0;
         }
@@ -106,19 +107,18 @@ public class TileEntityLiquidHeatExchanger extends TileEntityHeatSourceInventory
         ILiquidHeatExchangerManager.HeatExchangeProperty hep = Recipes.liquidCooldownManager.getHeatExchangeProperty(input);
         Fluid fluidOutput = hep.outputFluid;
         int huPerMb = hep.huPerMB;
-        if (fluidOutput == null || outputTank.getFluidAmount() > 0 && outputTank.getFluid().getFluid() != fluidOutput) {
+        if (fluidOutput == null || !outputTank.isEmpty() && outputTank.getFluid().getFluid() != fluidOutput) {
             return 0;
         }
 
         // 1.12.2 drained twenty times the free space when the output was the limit, losing the rest
         int mb = Math.min(bufferspace / huPerMb, Math.min(amountHot, outputFree));
-        FluidStack drained = inputTank.drainInternal(mb, false);
-        if (drained == null || drained.amount <= 0) {
+        if (mb <= 0) {
             return 0;
         }
-        inputTank.drainInternal(drained.amount, true);
-        outputTank.fillInternal(new FluidStack(fluidOutput, drained.amount), true);
-        return drained.amount * huPerMb;
+        inputTank.drainInternal(LiquidUtil.mb(mb), true);
+        outputTank.fillInternal(FluidVariant.of(fluidOutput), LiquidUtil.mb(mb), true);
+        return mb * huPerMb;
     }
 
     public Fluids.InternalFluidTank getInputTank() {

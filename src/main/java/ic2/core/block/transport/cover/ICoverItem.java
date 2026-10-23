@@ -1,9 +1,9 @@
 package ic2.core.block.transport.cover;
 
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * An item that sits on the side of a cover holder once placed, ticks with it and decides what may
@@ -20,9 +20,9 @@ public interface ICoverItem {
 
     boolean allowsInput(ItemStack stack);
 
-    boolean allowsInput(FluidStack stack);
+    boolean allowsInput(FluidVariant fluid);
 
     boolean allowsOutput(ItemStack stack);
 
-    boolean allowsOutput(FluidStack stack);
+    boolean allowsOutput(FluidVariant fluid);
 }

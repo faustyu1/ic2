@@ -18,6 +18,7 @@ import ic2.core.init.IC2Blocks;
 import ic2.core.recipe.BasicMachineRecipeManager;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.Collection;
 import java.util.EnumSet;
 import java.util.Set;
@@ -95,9 +96,9 @@ public class TileEntityBlastFurnace extends TileEntityInventory implements IUpgr
             setActive(true);
             NbtCompound meta = result.getRecipe().getMetaData();
             int air = meta.getInt("fluid");
-            if (air <= fluidTank.getFluidAmount()) {
+            if (LiquidUtil.mb(air) <= fluidTank.getFluidAmount()) {
                 progress++;
-                fluidTank.drainInternal(air, true);
+                fluidTank.drainInternal(LiquidUtil.mb(air), true);
             }
 
             progressNeeded = meta.getInt("duration");

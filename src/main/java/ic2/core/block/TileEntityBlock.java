@@ -5,7 +5,6 @@ import ic2.api.energy.tile.IEnergyTile;
 import ic2.api.network.INetworkDataProvider;
 import ic2.api.network.INetworkUpdateListener;
 import ic2.core.ref.TeBlock;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import net.minecraft.block.BlockState;
@@ -121,17 +120,17 @@ public abstract class TileEntityBlock extends BlockEntity implements INetworkDat
      */
     protected ic2.core.block.comp.Fluids fluids() {
         if (fluids == null) {
-            fluids = new ic2.core.block.comp.Fluids();
+            fluids = new ic2.core.block.comp.Fluids(this::markDirty);
         }
         return fluids;
     }
 
     /**
      * What a side offers to pipes and neighbouring machines: by default the tanks of the block
-     * that side may fill or drain, null for a block without tanks. Forge asked the fluid handler
-     * capability for this.
+     * that side may fill or drain, null for a block without tanks. Fabric finds it through
+     * {@code FluidStorage.SIDED} (see {@link ic2.core.block.comp.Fluids#register}).
      */
-    public net.minecraftforge.fluids.capability.IFluidHandler getFluidHandler(net.minecraft.util.math.Direction side) {
+    public net.fabricmc.fabric.api.transfer.v1.storage.Storage<net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant> getFluidHandler(net.minecraft.util.math.Direction side) {
         return fluids == null ? null : fluids.getHandler(side);
     }
 

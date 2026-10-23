@@ -14,6 +14,9 @@ import ic2.core.util.LiquidUtil;
 import ic2.core.util.PumpUtil;
 import java.util.EnumSet;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidConstants;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -21,7 +24,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityPump.
@@ -107,7 +109,7 @@ public class TileEntityPump extends TileEntityElectricMachine implements IUpgrad
             }
         }
 
-        FluidStack liquid = null;
+        ResourceAmount<FluidVariant> liquid = null;
         if (miner != null) {
             if (miner.canProvideLiquid) {
                 liquid = pump(miner.liquidPos, sim, miner);
@@ -116,9 +118,9 @@ public class TileEntityPump extends TileEntityElectricMachine implements IUpgrad
             liquid = pump(pos.offset(getFacing()), sim, null);
         }
 
-        if (liquid != null && fluidTank.fillInternal(liquid, false) > 0) {
+        if (liquid != null && fluidTank.fillInternal(liquid.resource(), liquid.amount(), false) > 0) {
             if (!sim) {
-                fluidTank.fillInternal(liquid, true);
+                fluidTank.fillInternal(liquid.resource(), liquid.amount(), true);
                 markDirty();
             }
             return true;
@@ -126,17 +128,17 @@ public class TileEntityPump extends TileEntityElectricMachine implements IUpgrad
         return false;
     }
 
-    public FluidStack pump(BlockPos startPos, boolean sim, TileEntityMiner miner) {
-        int freeSpace = fluidTank.getCapacity() - fluidTank.getFluidAmount();
+    public ResourceAmount<FluidVariant> pump(BlockPos startPos, boolean sim, TileEntityMiner miner) {
+        long freeSpace = fluidTank.getSpace();
         if (miner == null && freeSpace > 0) {
             BlockEntity te = world.getBlockEntity(startPos);
             Direction side = getFacing().getOpposite();
             if (te != null && LiquidUtil.isFluidTile(te, side)) {
-                return LiquidUtil.drainTile(te, side, Math.min(freeSpace, 1000), sim);
+                return LiquidUtil.drainTile(te, side, Math.min(freeSpace, FluidConstants.BUCKET), sim);
             }
         }
 
-        if (freeSpace >= 1000) {
+        if (freeSpace >= FluidConstants.BUCKET) {
             BlockPos cPos = miner != null && miner.canProvideLiquid ? miner.liquidPos : PumpUtil.searchFluidSource(world, startPos);
             if (cPos != null) {
                 return LiquidUtil.drainBlock(world, cPos, sim);

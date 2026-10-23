@@ -17,8 +17,10 @@ import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.block.invslot.InvSlotUpgrade;
 import ic2.core.init.IC2Blocks;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.EnumSet;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -26,7 +28,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityStirlingKineticGenerator - turns heat into kinetic energy.
@@ -92,16 +93,16 @@ public class TileEntityStirlingKineticGenerator extends TileEntityInventory impl
         }
 
         boolean newActive = false;
-        FluidStack input = inputTank.getFluid();
+        FluidVariant input = inputTank.getFluid();
         ILiquidAcceptManager heatable = heatable();
-        if (input != null && input.amount > 0 && outputTank.getFluidAmount() < outputTank.getCapacity()
+        if (!inputTank.isEmpty() && outputTank.getSpace() > 0
                 && heatable != null && heatable.acceptsFluid(input.getFluid()) && kUBuffer < maxkUBuffer) {
             ILiquidHeatExchangerManager.HeatExchangeProperty property = Recipes.liquidHeatupManager.getHeatExchangeProperty(input.getFluid());
-            FluidStack output = outputTank.getFluid();
-            if (output == null || output.getFluid() == property.outputFluid) {
+            if (outputTank.isEmpty() || outputTank.getFluid().getFluid() == property.outputFluid) {
                 int heatbufferToUse = heatbuffer / PARTS_TOTAL;
+                int convertibleMb = (int) LiquidUtil.toMb(Math.min(outputTank.getSpace(), inputTank.getFluidAmount()));
                 heatbufferToUse = Math.min(heatbufferToUse,
-                        (Math.min(outputTank.getCapacity() - outputTank.getFluidAmount(), inputTank.getFluidAmount()) * property.huPerMB
+                        (convertibleMb * property.huPerMB
                                 - liquidHeatStored) / PARTS_LIQUID);
                 heatbufferToUse = Math.min(heatbufferToUse, (maxkUBuffer - kUBuffer) / PARTS_KU);
                 if (heatbufferToUse > 0) {
@@ -113,12 +114,12 @@ public class TileEntityStirlingKineticGenerator extends TileEntityInventory impl
 
                 if (liquidHeatStored >= property.huPerMB) {
                     int mbToConvert = liquidHeatStored / property.huPerMB;
-                    FluidStack drained = inputTank.drainInternal(mbToConvert, false);
-                    mbToConvert = drained == null ? 0 : drained.amount;
-                    mbToConvert = outputTank.fillInternal(new FluidStack(property.outputFluid, mbToConvert), false);
+                    FluidVariant output = FluidVariant.of(property.outputFluid);
+                    mbToConvert = (int) LiquidUtil.toMb(inputTank.drainInternal(LiquidUtil.mb(mbToConvert), false));
+                    mbToConvert = (int) LiquidUtil.toMb(outputTank.fillInternal(output, LiquidUtil.mb(mbToConvert), false));
                     liquidHeatStored -= mbToConvert * property.huPerMB;
-                    inputTank.drainInternal(mbToConvert, true);
-                    outputTank.fillInternal(new FluidStack(property.outputFluid, mbToConvert), true);
+                    inputTank.drainInternal(LiquidUtil.mb(mbToConvert), true);
+                    outputTank.fillInternal(output, LiquidUtil.mb(mbToConvert), true);
                 }
             }
         }

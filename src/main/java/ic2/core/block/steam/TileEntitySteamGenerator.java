@@ -9,17 +9,16 @@ import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
 import ic2.core.util.BiomeUtil;
 import ic2.core.util.LiquidUtil;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntitySteamGenerator - the steam boiler.
@@ -68,7 +67,7 @@ public class TileEntitySteamGenerator extends TileEntityInventory {
     public TileEntitySteamGenerator(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type == null ? IC2Blocks.STEAM_GENERATOR_BE : type, pos, state, TeBlock.steam_generator);
         this.waterTank = fluids().addTankInsert("waterTank", 10000,
-                fluid -> fluid == FluidRegistry.getFluid("water") || fluid == FluidName.distilled_water.getInstance());
+                fluid -> fluid == LiquidUtil.getFluid("water") || fluid == FluidName.distilled_water.getInstance());
     }
 
     public TileEntitySteamGenerator(BlockPos pos, BlockState state) {
@@ -104,14 +103,14 @@ public class TileEntitySteamGenerator extends TileEntityInventory {
 
         outputMB = 0;
         outputFluid = OutputType.NONE;
-        if (waterTank.getFluid() == null || waterTank.getFluidAmount() <= 0 || inputMB <= 0) {
+        if (waterTank.getFluidAmount() < LiquidUtil.mb(1) || inputMB <= 0) {
             heatup(heatInput);
             return true;
         }
 
         Fluid inputFluid = waterTank.getFluid().getFluid();
         boolean hasDistilledWater = inputFluid == FluidName.distilled_water.getInstance();
-        int maxAmount = Math.min(inputMB, waterTank.getFluidAmount());
+        int maxAmount = (int) Math.min(inputMB, LiquidUtil.toMb(waterTank.getFluidAmount()));
         float hUneeded = 100.0F + pressure / 220.0F * 100.0F;
         float targetTemp = 100.0F + pressure / 220.0F * 100.0F * 2.74F;
         float reqHeat = targetTemp - systemHeat;
@@ -124,7 +123,7 @@ public class TileEntitySteamGenerator extends TileEntityInventory {
                     // not boiling yet: the water just passes through
                     outputMB = maxAmount;
                     outputFluid = hasDistilledWater ? OutputType.DISTILLEDWATER : OutputType.WATER;
-                    int transferred = LiquidUtil.distribute(this, new FluidStack(inputFluid, maxAmount), false);
+                    long transferred = LiquidUtil.distribute(this, FluidVariant.of(inputFluid), LiquidUtil.mb(maxAmount), false);
                     if (transferred > 0) {
                         waterTank.drainInternal(transferred, true);
                     }
@@ -163,7 +162,7 @@ public class TileEntitySteamGenerator extends TileEntityInventory {
         if (!hasDistilledWater) {
             calcification += totalAmount;
         }
-        waterTank.drainInternal(totalAmount, true);
+        waterTank.drainInternal(LiquidUtil.mb(totalAmount), true);
         if (activeAmount <= 0) {
             return true;
         }
@@ -178,13 +177,13 @@ public class TileEntitySteamGenerator extends TileEntityInventory {
             outputFluid = OutputType.STEAM;
         }
 
-        int transferred = LiquidUtil.distribute(this, new FluidStack(output, outputMB), false);
+        int transferred = (int) LiquidUtil.toMb(LiquidUtil.distribute(this, FluidVariant.of(output), LiquidUtil.mb(outputMB), false));
         int remaining = outputMB - transferred;
         if (remaining > 0) {
             if (world.random.nextInt(10) == 0) {
                 new ExplosionIC2(world, null, pos, 1, 1.0F, ExplosionIC2.Type.Heat).doExplosion();
             } else if (remaining >= STEAM_EXPANSION) {
-                waterTank.fillInternal(new FluidStack(inputFluid, remaining / STEAM_EXPANSION), true);
+                waterTank.fillInternal(FluidVariant.of(inputFluid), LiquidUtil.mb(remaining / STEAM_EXPANSION), true);
             }
         }
         return true;

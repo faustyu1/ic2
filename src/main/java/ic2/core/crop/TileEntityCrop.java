@@ -12,9 +12,12 @@ import ic2.core.init.IC2Items;
 import ic2.core.item.ItemCropSeed;
 import ic2.core.recipe.OreDictionaryCompat;
 import ic2.core.util.FluidContainers;
+import ic2.core.util.LiquidUtil;
 import java.util.ArrayList;
 import java.util.List;
 import net.fabricmc.fabric.api.blockview.v2.RenderDataBlockEntity;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -36,7 +39,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fluids.FluidStack;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -535,12 +537,12 @@ public class TileEntityCrop extends TileEntityBlock implements ICropTile, Render
         }
 
         ItemStack held = player.getStackInHand(hand);
-        FluidStack content = FluidContainers.contentOf(held);
-        if (content == null || content.getFluid() == null || !fluidName.equals(content.getFluid().getName()) || content.amount <= 0) {
+        ResourceAmount<FluidVariant> content = FluidContainers.contentOf(held);
+        if (content == null || !fluidName.equals(LiquidUtil.nameOf(content.resource().getFluid())) || content.amount() <= 0) {
             return false;
         }
 
-        int taken = Math.min(content.amount, limit - stored);
+        int taken = (int) Math.min(LiquidUtil.toMb(content.amount()), limit - stored);
         if (water) {
             storageWater = (short) (storageWater + taken);
         } else {

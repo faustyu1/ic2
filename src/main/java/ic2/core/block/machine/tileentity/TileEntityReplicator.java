@@ -13,6 +13,7 @@ import ic2.core.block.invslot.InvSlotUpgrade;
 import ic2.core.init.IC2Blocks;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import ic2.core.uu.UuGraph;
 import java.util.EnumSet;
 import java.util.List;
@@ -26,7 +27,6 @@ import net.minecraft.registry.Registries;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityReplicator.
@@ -147,13 +147,12 @@ public class TileEntityReplicator extends TileEntityElectricMachine implements I
             return true;
         }
         amount -= extraUuStored;
-        int toDrain = (int) Math.ceil(amount * 1000.0);
-        FluidStack drained = fluidTank.drainInternal(toDrain, false);
-        if (drained == null || drained.getFluid() != FluidName.uu_matter.getInstance() || drained.amount != toDrain) {
+        long toDrain = LiquidUtil.mb((long) Math.ceil(amount * 1000.0));
+        if (!fluidTank.getFluid().isOf(FluidName.uu_matter.getInstance()) || fluidTank.drainInternal(toDrain, false) != toDrain) {
             return false;
         }
         fluidTank.drainInternal(toDrain, true);
-        amount -= drained.amount / 1000.0;
+        amount -= LiquidUtil.toMb(toDrain) / 1000.0;
         extraUuStored = amount < 0.0 ? -amount : 0.0;
         return true;
     }

@@ -220,9 +220,9 @@ public class ItemUpgradeModule extends ItemIC2 implements IFullUpgrade {
                 continue;
             }
             if (eject) {
-                ic2.core.util.LiquidUtil.transfer(te, dir, other, amount);
+                ic2.core.util.LiquidUtil.transfer(te, dir, other, ic2.core.util.LiquidUtil.mb(amount));
             } else {
-                ic2.core.util.LiquidUtil.transfer(other, dir.getOpposite(), te, amount);
+                ic2.core.util.LiquidUtil.transfer(other, dir.getOpposite(), te, ic2.core.util.LiquidUtil.mb(amount));
             }
         }
         return false;

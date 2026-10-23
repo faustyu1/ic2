@@ -1,7 +1,7 @@
 package ic2.api.recipe;
 
 import java.util.Map;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.fluid.Fluid;
 
 public interface ILiquidHeatExchangerManager extends ILiquidAcceptManager {
     void addFluid(String inputFluidName, String outputFluidName, int huPerMB);

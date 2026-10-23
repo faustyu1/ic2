@@ -1,7 +1,7 @@
 package ic2.api.recipe;
 
 import java.util.Map;
-import net.minecraftforge.fluids.Fluid;
+import net.minecraft.fluid.Fluid;
 
 public interface ISemiFluidFuelManager extends ILiquidAcceptManager {
     void addFluid(String fluidName, long energyPerMb, long energyPerTick);

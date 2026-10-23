@@ -15,6 +15,8 @@ import ic2.core.util.LiquidUtil;
 import java.util.Collections;
 import java.util.EnumSet;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -22,7 +24,6 @@ import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityElectrolyzer - splits fluids into their parts.
@@ -89,11 +90,11 @@ public class TileEntityElectrolyzer extends TileEntityElectricMachine implements
     }
 
     protected boolean canOperate() {
-        if (input.getFluid() == null || Recipes.electrolyzer == null) {
+        if (input.isEmpty() || Recipes.electrolyzer == null) {
             return false;
         }
         recipe = Recipes.electrolyzer.getElectrolysisInformation(input.getFluid().getFluid());
-        if (recipe == null || getEnergy() < recipe.EUaTick || input.getFluidAmount() < recipe.inputAmount) {
+        if (recipe == null || getEnergy() < recipe.EUaTick || input.getFluidAmount() < LiquidUtil.mb(recipe.inputAmount)) {
             return false;
         }
         for (IElectrolyzerRecipeManager.ElectrolyzerOutput output : recipe.outputs) {
@@ -105,21 +106,22 @@ public class TileEntityElectrolyzer extends TileEntityElectricMachine implements
     }
 
     protected void operate() {
-        input.drainInternal(recipe.inputAmount, true);
+        input.drainInternal(LiquidUtil.mb(recipe.inputAmount), true);
         for (IElectrolyzerRecipeManager.ElectrolyzerOutput output : recipe.outputs) {
             fillTank(output.tankDirection, output.getOutput());
         }
     }
 
-    protected boolean canFillTank(Direction facing, FluidStack fluid) {
+    protected boolean canFillTank(Direction facing, ResourceAmount<FluidVariant> fluid) {
         BlockEntity te = world.getBlockEntity(pos.offset(facing));
-        return fluid != null && te instanceof TileEntityTank && LiquidUtil.fillTile(te, facing, fluid, true) == fluid.amount;
+        return fluid != null && te instanceof TileEntityTank
+                && LiquidUtil.fillTile(te, facing, fluid.resource(), fluid.amount(), true) == fluid.amount();
     }
 
-    protected void fillTank(Direction facing, FluidStack fluid) {
+    protected void fillTank(Direction facing, ResourceAmount<FluidVariant> fluid) {
         BlockEntity te = world.getBlockEntity(pos.offset(facing));
         if (te instanceof TileEntityTank) {
-            LiquidUtil.fillTile(te, facing, fluid, false);
+            LiquidUtil.fillTile(te, facing, fluid.resource(), fluid.amount(), false);
         }
     }
 
@@ -137,7 +139,7 @@ public class TileEntityElectrolyzer extends TileEntityElectricMachine implements
 
     /** The recipe of the fluid in the tank, for the window even while the machine is idle. */
     private IElectrolyzerRecipeManager.ElectrolyzerRecipe shownRecipe() {
-        if (input.getFluid() == null || Recipes.electrolyzer == null) {
+        if (input.isEmpty() || Recipes.electrolyzer == null) {
             return null;
         }
         return Recipes.electrolyzer.getElectrolysisInformation(input.getFluid().getFluid());
@@ -154,9 +156,9 @@ public class TileEntityElectrolyzer extends TileEntityElectricMachine implements
             int index = name.charAt(3) - '0';
             Fluids.InternalFluidTank view = new Fluids.InternalFluidTank(name, 1000, Collections.emptySet(), Collections.emptySet(), fluid -> false);
             if (shown != null && index >= 0 && index < shown.outputs.length) {
-                FluidStack output = shown.outputs[index].getOutput();
+                ResourceAmount<FluidVariant> output = shown.outputs[index].getOutput();
                 if (output != null) {
-                    view.setFluid(output);
+                    view.setFluid(output.resource(), output.amount());
                 }
             }
             return view;

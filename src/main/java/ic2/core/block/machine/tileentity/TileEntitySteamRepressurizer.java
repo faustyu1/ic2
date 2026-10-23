@@ -8,16 +8,16 @@ import ic2.core.init.MainConfig;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
 import ic2.core.util.ConfigUtil;
+import ic2.core.util.LiquidUtil;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntitySteamRepressurizer: turns IC2 steam into the plain {@code steam} fluid
@@ -47,7 +47,7 @@ public class TileEntitySteamRepressurizer extends TileEntityInventory {
 
     /** The other mods' steam, looked up when needed since it may be registered after IC2. */
     public static Fluid steam() {
-        return FluidRegistry.getFluid("steam");
+        return LiquidUtil.getFluid("steam");
     }
 
     public static boolean hasSteam() {
@@ -56,24 +56,24 @@ public class TileEntitySteamRepressurizer extends TileEntityInventory {
 
     @Override
     public void tick() {
-        if (world == null || world.isClient || !hasSteam() || input.getFluidAmount() < CONSUMPTION) {
+        if (world == null || world.isClient || !hasSteam() || input.getFluidAmount() < LiquidUtil.mb(CONSUMPTION)) {
             return;
         }
 
-        if (currentHeat < input.getFluidAmount() / CONSUMPTION) {
+        if (currentHeat < input.getFluidAmount() / LiquidUtil.mb(CONSUMPTION)) {
             getHeat();
         }
         int amount = getOutput();
-        while (currentHeat > 0 && input.getFluidAmount() >= CONSUMPTION && canOutput(amount)) {
+        while (currentHeat > 0 && input.getFluidAmount() >= LiquidUtil.mb(CONSUMPTION) && canOutput(amount)) {
             currentHeat--;
-            input.drainInternal(CONSUMPTION, true);
-            output.fillInternal(new FluidStack(steam(), amount), true);
+            input.drainInternal(LiquidUtil.mb(CONSUMPTION), true);
+            output.fillInternal(FluidVariant.of(steam()), LiquidUtil.mb(amount), true);
         }
         markDirty();
     }
 
     protected void getHeat() {
-        int aim = input.getFluidAmount() / CONSUMPTION;
+        int aim = (int) (input.getFluidAmount() / LiquidUtil.mb(CONSUMPTION));
         if (aim <= 0) {
             return;
         }
@@ -105,7 +105,7 @@ public class TileEntitySteamRepressurizer extends TileEntityInventory {
     }
 
     protected boolean canOutput(int amount) {
-        return output.fillInternal(new FluidStack(steam(), amount), false) == amount;
+        return output.fillInternal(FluidVariant.of(steam()), LiquidUtil.mb(amount), false) == LiquidUtil.mb(amount);
     }
 
     @Override

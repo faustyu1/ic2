@@ -5,7 +5,7 @@ import ic2.core.block.state.IIdProvider;
 /**
  * Fabric port of ic2.core.item.type.CellType.
  * The original carried Forge FluidStack/IFluidHandlerItem plumbing; on Fabric the fluid
- * binding lives in ItemIC2FluidContainer, so this enum keeps only the identity/meta data
+ * binding lives in FluidContainers (the cell variants), so this enum keeps only the identity/meta data
  * (name, meta id, stack size, crop interaction flag) that recipes and registration need.
  */
 public enum CellType implements IIdProvider {

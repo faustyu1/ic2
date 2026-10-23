@@ -18,9 +18,9 @@ import ic2.core.block.invslot.InvSlotOutput;
 import ic2.core.block.invslot.InvSlotReactor;
 import ic2.core.init.MainConfig;
 import ic2.core.util.ConfigUtil;
+import ic2.core.util.LiquidUtil;
 import ic2.core.util.WorldSearchUtil;
-import net.minecraft.util.ItemScatterer;
-import net.minecraftforge.fluids.FluidStack;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
@@ -29,6 +29,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
+import net.minecraft.util.ItemScatterer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Direction;
@@ -154,30 +155,29 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
     private void convertHeatToCoolant() {
         float modifier = huOutputModifier();
         int huOutput = (int) (modifier * emitHeatBuffer);
-        int outputRoom = outputTank.getCapacity() - outputTank.getFluidAmount();
+        int outputRoom = (int) LiquidUtil.toMb(outputTank.getSpace());
         emitHeatBuffer = 0;
 
-        FluidStack inputFluid = inputTank.getFluid();
         ILiquidHeatExchangerManager manager = Recipes.liquidHeatupManager;
         ILiquidHeatExchangerManager.HeatExchangeProperty prop =
-                inputFluid == null || manager == null ? null : manager.getHeatExchangeProperty(inputFluid.getFluid());
+                inputTank.isEmpty() || manager == null ? null : manager.getHeatExchangeProperty(inputTank.getFluid().getFluid());
 
         if (outputRoom > 0 && prop != null && prop.huPerMB > 0) {
             int fluidOutput = huOutput / prop.huPerMB;
-            if (outputTank.canFillFluidType(new FluidStack(prop.outputFluid, fluidOutput))) {
-                FluidStack drained;
+            if (outputTank.canFillFluidType(FluidVariant.of(prop.outputFluid))) {
+                int drained;
                 if (fluidOutput < outputRoom) {
                     // the heat that did not add up to a whole millibucket waits for the next cycle
                     emitHeatBuffer = (int) ((huOutput % prop.huPerMB) / modifier);
-                    drained = inputTank.drainInternal(fluidOutput, false);
+                    drained = (int) LiquidUtil.toMb(inputTank.drainInternal(LiquidUtil.mb(fluidOutput), false));
                 } else {
-                    drained = inputTank.drainInternal(outputRoom, false);
+                    drained = (int) LiquidUtil.toMb(inputTank.drainInternal(LiquidUtil.mb(outputRoom), false));
                 }
 
-                if (drained != null && drained.amount > 0) {
-                    emitHeat = drained.amount * prop.huPerMB;
-                    huOutput -= inputTank.drainInternal(drained.amount, true).amount * prop.huPerMB;
-                    outputTank.fillInternal(new FluidStack(prop.outputFluid, drained.amount), true);
+                if (drained > 0) {
+                    emitHeat = drained * prop.huPerMB;
+                    huOutput -= (int) LiquidUtil.toMb(inputTank.drainInternal(LiquidUtil.mb(drained), true)) * prop.huPerMB;
+                    outputTank.fillInternal(FluidVariant.of(prop.outputFluid), LiquidUtil.mb(drained), true);
                 } else {
                     emitHeat = 0;
                 }

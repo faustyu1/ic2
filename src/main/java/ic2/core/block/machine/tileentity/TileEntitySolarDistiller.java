@@ -15,15 +15,14 @@ import ic2.core.block.invslot.InvSlotUpgrade;
 import ic2.core.init.IC2Blocks;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.EnumSet;
 import java.util.Set;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntitySolarDestiller - the solar distiller.
@@ -72,7 +71,7 @@ public class TileEntitySolarDistiller extends TileEntityInventory implements IUp
     }
 
     private static Fluid water() {
-        return FluidRegistry.getFluid("water");
+        return LiquidUtil.getFluid("water");
     }
 
     @Override
@@ -89,8 +88,8 @@ public class TileEntitySolarDistiller extends TileEntityInventory implements IUp
         if (++updateTicker >= tickrate) {
             updateSunVisibility();
             if (canWork()) {
-                inputTank.drainInternal(1, true);
-                outputTank.fillInternal(new FluidStack(FluidName.distilled_water.getInstance(), 1), true);
+                inputTank.drainInternal(LiquidUtil.mb(1), true);
+                outputTank.fillInternal(FluidName.distilled_water.getVariant(), LiquidUtil.mb(1), true);
                 markDirty();
             }
             updateTicker = 0;
@@ -112,7 +111,7 @@ public class TileEntitySolarDistiller extends TileEntityInventory implements IUp
     }
 
     public boolean canWork() {
-        return inputTank.getFluidAmount() > 0 && outputTank.getFluidAmount() < outputTank.getCapacity() && skyLight > 0.5;
+        return inputTank.getFluidAmount() >= LiquidUtil.mb(1) && outputTank.getFluidAmount() < outputTank.getCapacity() && skyLight > 0.5;
     }
 
     @Override

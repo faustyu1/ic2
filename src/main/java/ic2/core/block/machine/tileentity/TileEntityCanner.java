@@ -12,13 +12,17 @@ import ic2.core.item.IItemFluidTank;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
 import ic2.core.util.FluidContainers;
+import ic2.core.util.LiquidUtil;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.storage.base.ResourceAmount;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -30,9 +34,6 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.registry.tag.TagKey;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of {@code ic2.core.block.machine.tileentity.TileEntityCanner}: the fluid/solid canning
@@ -73,11 +74,11 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
     /** Fluid and an additive that turn into another fluid. */
     public record EnrichRecipe(String input, int inputAmount, Ingredient additive, int additiveAmount, String output, int outputAmount) {
         Fluid inputFluid() {
-            return FluidRegistry.getFluid(input);
+            return LiquidUtil.getFluid(input);
         }
 
         Fluid outputFluid() {
-            return FluidRegistry.getFluid(output);
+            return LiquidUtil.getFluid(output);
         }
     }
 
@@ -184,11 +185,12 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
         return null;
     }
 
-    private static EnrichRecipe findEnrichRecipe(FluidStack fluid, ItemStack additive, boolean checkAmounts) {
+    /** The recipe the tank's fluid and the additive make, when there is enough of both. */
+    private static EnrichRecipe findEnrichRecipe(Fluids.InternalFluidTank tank, ItemStack additive) {
         for (EnrichRecipe recipe : ENRICH_RECIPES) {
             Fluid input = recipe.inputFluid();
-            if (recipe.additive().test(additive) && (fluid == null || fluid.getFluid().equals(input))
-                    && (!checkAmounts || fluid != null && fluid.amount >= recipe.inputAmount() && additive.getCount() >= recipe.additiveAmount())) {
+            if (recipe.additive().test(additive) && !tank.isEmpty() && tank.getFluid().isOf(input)
+                    && tank.getFluidAmount() >= LiquidUtil.mb(recipe.inputAmount()) && additive.getCount() >= recipe.additiveAmount()) {
                 return recipe;
             }
         }
@@ -281,27 +283,29 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
 
         IItemFluidTank itemTank = FluidContainers.tankOf(container);
         if (itemTank != null) {
-            FluidStack content = itemTank.getFluid(container);
-            if (content == null || outputTank.fillInternal(content, false) < content.amount || !outputSlot.canAdd(container)) {
+            ResourceAmount<FluidVariant> content = itemTank.getFluid(container);
+            if (content == null || outputTank.fillInternal(content.resource(), content.amount(), false) < content.amount()
+                    || !outputSlot.canAdd(container)) {
                 return null;
             }
             return () -> {
                 ItemStack emptied = container.copy();
-                outputTank.fillInternal(itemTank.drain(emptied, content.amount, true), true);
+                itemTank.drain(emptied, content.amount(), true);
+                outputTank.fillInternal(content.resource(), content.amount(), true);
                 canInputSlot.consume(1);
                 outputSlot.add(emptied);
             };
         }
 
-        FluidStack content = FluidContainers.contentOf(container);
+        ResourceAmount<FluidVariant> content = FluidContainers.contentOf(container);
         ItemStack emptied = FluidContainers.emptied(container);
-        if (content == null || outputTank.fillInternal(content, false) < content.amount
+        if (content == null || outputTank.fillInternal(content.resource(), content.amount(), false) < content.amount()
                 || !emptied.isEmpty() && !outputSlot.canAdd(emptied)) {
             return null;
         }
 
         return () -> {
-            outputTank.fillInternal(content, true);
+            outputTank.fillInternal(content.resource(), content.amount(), true);
             canInputSlot.consume(1);
             if (!emptied.isEmpty()) {
                 outputSlot.add(emptied);
@@ -311,15 +315,15 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
 
     private Operation bottleLiquid() {
         ItemStack container = canInputSlot.get();
-        FluidStack stored = inputTank.getFluid();
-        if (container.isEmpty() || stored == null || stored.amount <= 0) {
+        FluidVariant stored = inputTank.getFluid();
+        if (container.isEmpty() || inputTank.isEmpty()) {
             return null;
         }
 
         IItemFluidTank itemTank = FluidContainers.tankOf(container);
         if (itemTank != null) {
             ItemStack filled = container.copyWithCount(1);
-            int amount = itemTank.fill(filled, stored, true);
+            long amount = itemTank.fill(filled, stored, inputTank.getFluidAmount(), true);
             if (amount <= 0 || !outputSlot.canAdd(filled)) {
                 return null;
             }
@@ -333,9 +337,9 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
         if (FluidContainers.contentOf(container) != null) {
             return null;
         }
-        int capacity = FluidContainers.capacityOf(container);
+        long capacity = FluidContainers.capacityOf(container);
         ItemStack filled = FluidContainers.filled(container, stored.getFluid());
-        if (capacity <= 0 || stored.amount < capacity || filled.isEmpty() || !outputSlot.canAdd(filled)) {
+        if (capacity <= 0 || inputTank.getFluidAmount() < capacity || filled.isEmpty() || !outputSlot.canAdd(filled)) {
             return null;
         }
 
@@ -352,25 +356,26 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
             return null;
         }
 
-        EnrichRecipe recipe = findEnrichRecipe(inputTank.getFluid(), additive, true);
+        EnrichRecipe recipe = findEnrichRecipe(inputTank, additive);
         if (recipe == null || recipe.outputFluid() == null) {
             return null;
         }
 
         // the container in the can slot is filled first, the tank takes the rest
-        FluidStack output = new FluidStack(recipe.outputFluid(), recipe.outputAmount());
+        FluidVariant output = FluidVariant.of(recipe.outputFluid());
+        long outputAmount = LiquidUtil.mb(recipe.outputAmount());
         ItemStack container = canInputSlot.get();
         IItemFluidTank itemTank = FluidContainers.tankOf(container);
         ItemStack filledContainer = ItemStack.EMPTY;
-        int intoContainer = 0;
+        long intoContainer = 0;
         boolean containerToOutput = false;
 
         if (itemTank != null) {
             filledContainer = container.copyWithCount(1);
-            intoContainer = itemTank.fill(filledContainer, output, true);
+            intoContainer = itemTank.fill(filledContainer, output, outputAmount, true);
             containerToOutput = itemTank.getAmount(filledContainer) >= itemTank.getCapacity(filledContainer);
         } else if (!container.isEmpty() && FluidContainers.contentOf(container) == null
-                && output.amount >= FluidContainers.capacityOf(container) && FluidContainers.capacityOf(container) > 0) {
+                && outputAmount >= FluidContainers.capacityOf(container) && FluidContainers.capacityOf(container) > 0) {
             ItemStack filled = FluidContainers.filled(container, output.getFluid());
             if (!filled.isEmpty() && outputSlot.canAdd(filled)) {
                 filledContainer = filled;
@@ -384,17 +389,17 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
             containerToOutput = false;
         }
 
-        FluidStack rest = new FluidStack(output.getFluid(), output.amount - intoContainer);
-        if (rest.amount > 0 && outputTank.fillInternal(rest, false) < rest.amount) {
+        long rest = outputAmount - intoContainer;
+        if (rest > 0 && outputTank.fillInternal(output, rest, false) < rest) {
             return null;
         }
 
         ItemStack finalContainer = filledContainer;
-        int finalIntoContainer = intoContainer;
+        long finalIntoContainer = intoContainer;
         boolean finalToOutput = containerToOutput;
         return () -> {
             inputSlot.consume(recipe.additiveAmount());
-            inputTank.drainInternal(recipe.inputAmount(), true);
+            inputTank.drainInternal(LiquidUtil.mb(recipe.inputAmount()), true);
             if (finalIntoContainer > 0) {
                 if (finalToOutput) {
                     canInputSlot.consume(1);
@@ -403,8 +408,8 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
                     canInputSlot.put(finalContainer);
                 }
             }
-            if (rest.amount > 0) {
-                outputTank.fillInternal(rest, true);
+            if (rest > 0) {
+                outputTank.fillInternal(output, rest, true);
             }
         };
     }
@@ -428,9 +433,10 @@ public class TileEntityCanner extends TileEntityElectricMachine implements IUpgr
         if (progress != 0) {
             return false;
         }
-        FluidStack input = inputTank.getFluid();
-        inputTank.setFluid(outputTank.getFluid());
-        outputTank.setFluid(input);
+        FluidVariant input = inputTank.getFluid();
+        long inputAmount = inputTank.getFluidAmount();
+        inputTank.setFluid(outputTank.getFluid(), outputTank.getFluidAmount());
+        outputTank.setFluid(input, inputAmount);
         markDirty();
         return true;
     }

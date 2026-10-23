@@ -9,10 +9,10 @@ import ic2.core.init.IC2ClassicBlocks;
 import ic2.core.init.IC2Items;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
+import ic2.core.util.LiquidUtil;
 import java.util.List;
 import java.util.function.Predicate;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -23,7 +23,6 @@ import net.minecraft.registry.tag.ItemTags;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityCokeKiln - the controller of the coke kiln multiblock.
@@ -37,8 +36,9 @@ import net.minecraftforge.fluids.FluidStack;
 public class TileEntityCokeKiln extends TileEntityInventory {
     /** One thing the kiln bakes: what goes in, what comes out and how long it takes. */
     public record Recipe(Predicate<ItemStack> input, ItemStack output, FluidName fluid, int fluidAmount, int duration) {
-        public FluidStack fluidOutput() {
-            return new FluidStack(fluid.getInstance(), fluidAmount);
+        /** The creosote in droplets; {@code fluidAmount} is millibuckets. */
+        public long fluidOutputAmount() {
+            return LiquidUtil.mb(fluidAmount);
         }
     }
 
@@ -171,7 +171,7 @@ public class TileEntityCokeKiln extends TileEntityInventory {
             return false;
         }
         TileEntityCokeKilnGrate grate = grate();
-        return grate != null && grate.fluidTank.fillInternal(recipe.fluidOutput(), false) >= recipe.fluidAmount();
+        return grate != null && grate.fluidTank.fillInternal(recipe.fluid().getVariant(), recipe.fluidOutputAmount(), false) >= recipe.fluidOutputAmount();
     }
 
     protected void finishWork() {
@@ -185,7 +185,7 @@ public class TileEntityCokeKiln extends TileEntityInventory {
         outputSlot.add(recipe.output().copy());
         TileEntityCokeKilnGrate grate = grate();
         if (grate != null) {
-            grate.fluidTank.fillInternal(recipe.fluidOutput(), true);
+            grate.fluidTank.fillInternal(recipe.fluid().getVariant(), recipe.fluidOutputAmount(), true);
             grate.markDirty();
         }
         progress = 0;

@@ -7,14 +7,15 @@ import ic2.core.init.IC2Blocks;
 import ic2.core.init.MainConfig;
 import ic2.core.ref.TeBlock;
 import ic2.core.util.ConfigUtil;
+import ic2.core.util.LiquidUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.Fluid;
 
 /**
  * Fabric port of TileEntityWaterGenerator - the water mill.
@@ -46,7 +47,7 @@ public class TileEntityWaterGenerator extends TileEntityBaseRotorGenerator {
                 InvSlot.InvSide.TOP, InvSlotConsumableLiquid.OpType.Drain) {
             @Override
             protected boolean acceptsLiquid(Fluid fluid) {
-                return fluid != null && "water".equals(fluid.getName());
+                return fluid != null && "water".equals(LiquidUtil.nameOf(fluid));
             }
         };
     }

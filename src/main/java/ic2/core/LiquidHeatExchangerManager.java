@@ -3,12 +3,14 @@ package ic2.core;
 import ic2.api.recipe.ILiquidAcceptManager;
 import ic2.api.recipe.ILiquidHeatExchangerManager;
 import ic2.api.recipe.Recipes;
+import ic2.core.util.LiquidUtil;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant;
+import net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariantAttributes;
+import net.minecraft.fluid.Fluid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,14 +36,14 @@ public class LiquidHeatExchangerManager implements ILiquidHeatExchangerManager {
 
     @Override
     public boolean acceptsFluid(Fluid fluid) {
-        return fluid != null && map.containsKey(fluid.getName());
+        return fluid != null && map.containsKey(LiquidUtil.nameOf(fluid));
     }
 
     @Override
     public Set<Fluid> getAcceptedFluids() {
         Set<Fluid> fluids = new HashSet<>();
         for (String fluidName : map.keySet()) {
-            Fluid fluid = FluidRegistry.getFluid(fluidName);
+            Fluid fluid = LiquidUtil.getFluid(fluidName);
             if (fluid != null) {
                 fluids.add(fluid);
             }
@@ -60,19 +62,19 @@ public class LiquidHeatExchangerManager implements ILiquidHeatExchangerManager {
             return;
         }
 
-        Fluid input = FluidRegistry.getFluid(fluidName);
-        Fluid output = FluidRegistry.getFluid(fluidOutput);
+        Fluid input = LiquidUtil.getFluid(fluidName);
+        Fluid output = LiquidUtil.getFluid(fluidOutput);
         if (input == null || output == null) {
             displayError("Could not get both fluids for " + fluidName + " and " + fluidOutput + ".");
             return;
         }
 
         if (heatup) {
-            if (input.getTemperature() >= output.getTemperature()) {
+            if (FluidVariantAttributes.getTemperature(FluidVariant.of(input)) >= FluidVariantAttributes.getTemperature(FluidVariant.of(output))) {
                 displayError("Cannot heat up a warm liquid into a cold one. " + fluidName + " -> " + fluidOutput);
                 return;
             }
-        } else if (input.getTemperature() <= output.getTemperature()) {
+        } else if (FluidVariantAttributes.getTemperature(FluidVariant.of(input)) <= FluidVariantAttributes.getTemperature(FluidVariant.of(output))) {
             displayError("Cannot cool down a cold liquid into a warm one. " + fluidName + " -> " + fluidOutput);
             return;
         }
@@ -82,7 +84,7 @@ public class LiquidHeatExchangerManager implements ILiquidHeatExchangerManager {
 
     @Override
     public HeatExchangeProperty getHeatExchangeProperty(Fluid fluid) {
-        return fluid == null ? null : map.get(fluid.getName());
+        return fluid == null ? null : map.get(LiquidUtil.nameOf(fluid));
     }
 
     @Override
@@ -131,7 +133,7 @@ public class LiquidHeatExchangerManager implements ILiquidHeatExchangerManager {
 
             for (Map.Entry<String, HeatExchangeProperty> entry : map.entrySet()) {
                 if (opposite == null || !opposite.acceptsFluid(entry.getValue().outputFluid)) {
-                    Fluid fluid = FluidRegistry.getFluid(entry.getKey());
+                    Fluid fluid = LiquidUtil.getFluid(entry.getKey());
                     if (fluid != null) {
                         ret.add(fluid);
                     }

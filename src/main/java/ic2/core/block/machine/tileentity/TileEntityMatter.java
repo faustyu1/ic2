@@ -20,6 +20,7 @@ import ic2.core.recipe.MatterAmplifierRecipeManager;
 import ic2.core.ref.FluidName;
 import ic2.core.ref.TeBlock;
 import ic2.core.util.ConfigUtil;
+import ic2.core.util.LiquidUtil;
 import java.util.EnumSet;
 import java.util.Set;
 import net.minecraft.block.BlockState;
@@ -28,7 +29,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fluids.FluidStack;
 
 /**
  * Fabric port of TileEntityMatter - the matter fabricator.
@@ -137,10 +137,10 @@ public class TileEntityMatter extends TileEntityElectricMachine implements IUpgr
     }
 
     public boolean attemptGeneration() {
-        if (fluidTank.getFluidAmount() + 1 > fluidTank.getCapacity()) {
+        if (fluidTank.getFluidAmount() + LiquidUtil.mb(1) > fluidTank.getCapacity()) {
             return false;
         }
-        fluidTank.fillInternal(new FluidStack(FluidName.uu_matter.getInstance(), 1), true);
+        fluidTank.fillInternal(FluidName.uu_matter.getVariant(), LiquidUtil.mb(1), true);
         useEnergy(maxEnergy);
         return true;
     }

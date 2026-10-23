@@ -32,7 +32,7 @@ public final class IC2Mod implements ModInitializer {
         // Register blocks and block entities for Fabric
         ic2.core.init.IC2Blocks.registerAll();
         ic2.core.init.IC2ClassicBlocks.registerAll();
-        ic2.core.block.comp.FabricFluidStorage.register();
+        ic2.core.block.comp.Fluids.register();
         ic2.core.block.wiring.TileEntityCable.registerFoamBreaking();
         ic2.core.item.tool.ItemObscurator.registerNetworking();
         ic2.core.network.RecipeTransferPayload.register();
@@ -58,6 +58,7 @@ public final class IC2Mod implements ModInitializer {
         // Register items - flattened metadata variants first, the singletons bind to them
         ic2.core.init.IC2ItemVariants.registerAll();
         ic2.core.init.IC2Items.registerAll();
+        ic2.core.item.ItemFluidStorages.register();
         ic2.core.init.IC2Entities.registerAll();
         // the canner's recipes name items, so they wait for the items
         ic2.core.block.machine.tileentity.TileEntityCanner.init();

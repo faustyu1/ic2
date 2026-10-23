@@ -1,13 +1,13 @@
 package ic2.core.recipe;
 
 import ic2.api.recipe.IElectrolyzerRecipeManager;
+import ic2.core.util.LiquidUtil;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraft.fluid.Fluid;
 
 /** Fabric port of ic2.core.recipe.ElectrolyzerRecipeManager: one recipe per input fluid, 200 ticks unless given. */
 public class ElectrolyzerRecipeManager implements IElectrolyzerRecipeManager {
@@ -28,7 +28,7 @@ public class ElectrolyzerRecipeManager implements IElectrolyzerRecipeManager {
 
     @Override
     public ElectrolyzerRecipe getElectrolysisInformation(Fluid fluid) {
-        return fluid == null ? null : fluidMap.get(fluid.getName());
+        return fluid == null ? null : fluidMap.get(LiquidUtil.nameOf(fluid));
     }
 
     @Override
@@ -39,14 +39,14 @@ public class ElectrolyzerRecipeManager implements IElectrolyzerRecipeManager {
 
     @Override
     public boolean acceptsFluid(Fluid fluid) {
-        return fluid != null && fluidMap.containsKey(fluid.getName());
+        return fluid != null && fluidMap.containsKey(LiquidUtil.nameOf(fluid));
     }
 
     @Override
     public Set<Fluid> getAcceptedFluids() {
         Set<Fluid> ret = new HashSet<>();
         for (String fluidName : fluidMap.keySet()) {
-            Fluid fluid = FluidRegistry.getFluid(fluidName);
+            Fluid fluid = LiquidUtil.getFluid(fluidName);
             if (fluid != null) {
                 ret.add(fluid);
             }

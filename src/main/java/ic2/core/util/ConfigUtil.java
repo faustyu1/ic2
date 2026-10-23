@@ -14,7 +14,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
-import net.minecraftforge.fluids.FluidRegistry;
 
 /**
  * Fabric port of ic2.core.util.ConfigUtil - parses the item references used in
@@ -133,7 +132,7 @@ public class ConfigUtil {
             String fluid = ref.name.substring("Fluid:".length());
             // fluid entries default to a full bucket/cell rather than a single item
             int amount = ref.amountSpecified ? ref.amount : 1000;
-            return Recipes.inputFactory.forFluidContainer(FluidRegistry.getFluid(fluid), amount);
+            return Recipes.inputFactory.forFluidContainer(LiquidUtil.getFluid(fluid), amount);
         }
 
         ItemStack stack = asStack(str, checkAmount);
