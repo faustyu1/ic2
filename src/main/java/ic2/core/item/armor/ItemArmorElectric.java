@@ -7,6 +7,8 @@ import ic2.api.item.ElectricItem;
 import ic2.api.item.IElectricItem;
 import ic2.api.item.IItemHudInfo;
 import ic2.api.item.ISpecialArmor;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -39,7 +41,10 @@ public abstract class ItemArmorElectric extends ItemArmorIC2
 
     protected ItemArmorElectric(String itemName, RegistryEntry<ArmorMaterial> material, Type type,
                                 double maxCharge, double transferLimit, int tier, Rarity rarity) {
-        super(itemName, material, type, new Settings().maxCount(1).maxDamage(27).rarity(rarity));
+        // the suit protects by spending EU and has no armour points, so the vanilla "When on ..."
+        // heading would stand there empty; the charge line takes its place
+        super(itemName, material, type, new Settings().maxCount(1).maxDamage(27).rarity(rarity)
+                .component(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT.withShowInTooltip(false)));
         this.maxCharge = maxCharge;
         this.transferLimit = transferLimit;
         this.tier = tier;

@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "ic2",
   "version": "${version}",
-  "name": "IndustrialCraft 2 Community Edition",
+  "name": "IC2 Community Edition",
   "description": "Unofficial community port of IndustrialCraft 2 to Fabric. Not affiliated with the original IC2 team.",
   "authors": [
     {

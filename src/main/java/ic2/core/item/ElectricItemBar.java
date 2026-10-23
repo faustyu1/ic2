@@ -32,9 +32,11 @@ public final class ElectricItemBar {
         return MathHelper.clamp((int) Math.round(fraction(stack) * 13.0), 0, 13);
     }
 
-    /** Red when nearly empty through green when full, as the vanilla durability bar does. */
+    /** Light blue whatever the charge, so a charge bar never reads as wear. */
+    private static final int COLOR = 0x4FC3F7;
+
     public static int color(ItemStack stack) {
-        return MathHelper.hsvToRgb((float) fraction(stack) / 3.0f, 1.0f, 1.0f);
+        return COLOR;
     }
 
     private static double fraction(ItemStack stack) {

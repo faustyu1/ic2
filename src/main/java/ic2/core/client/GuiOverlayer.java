@@ -46,6 +46,13 @@ public final class GuiOverlayer {
     public static void register() {
         HudRenderCallback.EVENT.register((context, tickCounter) -> render(context));
         ItemTooltipCallback.EVENT.register((stack, tooltipContext, type, lines) -> {
+            // an electric item shows its charge right under its name
+            if (stack.getItem() instanceof IElectricItem && ElectricItem.manager != null && !lines.isEmpty()) {
+                String charge = ElectricItem.manager.getToolTip(stack);
+                if (charge != null) {
+                    lines.add(1, Text.literal(charge).formatted(Formatting.GRAY));
+                }
+            }
             if (JetpackHandler.hasJetpackAttached(stack)) {
                 lines.add(Text.translatable("jetpackAttached").formatted(Formatting.YELLOW));
                 if (!(stack.getItem() instanceof IElectricItem)) {
