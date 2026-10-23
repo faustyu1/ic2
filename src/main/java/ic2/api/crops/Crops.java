@@ -8,7 +8,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.common.eventhandler.Event;
 
 public abstract class Crops {
     public static Crops instance;
@@ -25,9 +24,4 @@ public abstract class Crops {
     public abstract void registerCropTextures(Map<Identifier, Sprite> textures);
     public abstract boolean registerBaseSeed(ItemStack stack, CropCard crop, int size, int growth, int gain, int resistance);
     public abstract BaseSeed getBaseSeed(ItemStack stack);
-
-    public static class CropRegisterEvent extends Event {
-        public void register(CropCard crop) { Crops.instance.registerCrop(crop); }
-        public void register(CropCard... crops) { for (CropCard c : crops) register(c); }
-    }
 }
