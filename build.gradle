@@ -4,7 +4,12 @@ plugins {
     id 'me.modmuss50.mod-publish-plugin' version '2.2.1'
 }
 
-version = project.mod_version
+if (!(project.mod_version ==~ /\d+\.\d+\.\d+(-(alpha|beta|rc)\.\d+)?/)) {
+    throw new GradleException("mod_version '${project.mod_version}' is not MAJOR.MINOR.PATCH[-alpha.N|-beta.N|-rc.N]")
+}
+// the part after + is SemVer build metadata: Fabric ignores it when comparing versions, so one mod
+// version built for several Minecraft versions still compares equal
+version = "${project.mod_version}+mc${project.minecraft_version}"
 group = project.maven_group
 
 base {
@@ -81,15 +86,28 @@ java {
     targetCompatibility = JavaVersion.VERSION_21
 }
 
+// The release notes of mod_version: its "## [<mod_version>]" section of CHANGELOG.md
+def releaseNotes = providers.provider {
+    def lines = file("CHANGELOG.md").readLines()
+    def start = lines.findIndexOf { it.startsWith("## [${project.mod_version}]") }
+    if (start < 0) {
+        throw new GradleException("CHANGELOG.md has no section for ${project.mod_version}")
+    }
+    def end = lines.findIndexOf(start + 1) { it.startsWith("## [") }
+    lines.subList(start + 1, end < 0 ? lines.size() : end).join("\n").trim()
+}
+
 // Release uploads (./gradlew publishModrinth / publishCurseforge / publishMods). Tokens come from the
 // environment and are never committed; -PdryRun builds and checks everything without uploading.
 publishMods {
     file = remapJar.archiveFile
     additionalFiles.from(remapSourcesJar.archiveFile)
-    displayName = "IC2 Community Edition ${project.version} (Fabric ${project.minecraft_version})"
+    displayName = "IC2 Community Edition ${project.mod_version} (Fabric ${project.minecraft_version})"
     version = project.version
-    changelog = providers.environmentVariable("CHANGELOG").orElse("See https://github.com/faustyu1/ic2 for changes.")
-    type = ALPHA
+    changelog = releaseNotes
+    // the release channel follows the pre-release label: -alpha -> alpha, -beta / -rc -> beta
+    type = project.mod_version.contains("-alpha") ? ALPHA
+            : project.mod_version ==~ /.*-(beta|rc)\..*/ ? BETA : STABLE
     modLoaders.add("fabric")
     dryRun = providers.gradleProperty("dryRun").isPresent()
 

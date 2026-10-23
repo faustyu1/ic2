@@ -66,8 +66,24 @@ CURSEFORGE_TOKEN=... scripts/publish-curseforge.sh
 The Modrinth project page (summary, description, links, icon) lives in `scripts/modrinth/` and is
 pushed with `python3 scripts/modrinth/setup_project.py`.
 
-`--dry-run` builds and checks the upload without sending it. Release notes can be passed in the
-`CHANGELOG` environment variable. Tokens are read from the environment only; never commit them.
+`--dry-run` builds and checks the upload without sending it. Tokens are read from the environment
+only; never commit them.
+
+### Versioning
+
+Versions follow [Semantic Versioning](https://semver.org/):
+`MAJOR.MINOR.PATCH[-alpha.N|-beta.N|-rc.N]`, set as `mod_version` in `gradle.properties`.
+
+- The jar and `fabric.mod.json` carry `<version>+mc<Minecraft version>`, e.g.
+  `0.1.0-alpha.1+mc1.21.1`; the same version built for another Minecraft version only changes the
+  suffix.
+- While the version is `0.x`, a MINOR bump may add content or break existing worlds (noted in the
+  changelog); a PATCH bump only fixes bugs. `1.0.0` marks full parity with the original and a stable
+  world format.
+- `-alpha.N` is published as an alpha, `-beta.N` and `-rc.N` as a beta, no suffix as a release.
+- Release notes are the version's section in [CHANGELOG.md](CHANGELOG.md); publishing fails without
+  one.
+- Each published release is tagged `v<version>` (e.g. `v0.1.0-alpha.1`) by the publish scripts.
 
 ## License
 
