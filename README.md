@@ -63,9 +63,6 @@ MODRINTH_TOKEN=... scripts/publish-modrinth.sh
 CURSEFORGE_TOKEN=... scripts/publish-curseforge.sh
 ```
 
-The Modrinth project page (summary, description, links, icon) lives in `scripts/modrinth/` and is
-pushed with `python3 scripts/modrinth/setup_project.py`.
-
 `--dry-run` builds and checks the upload without sending it. Tokens are read from the environment
 only; never commit them.
 
