@@ -10,6 +10,8 @@ Add new entries under a section for the next version as they land.
 
 ## [Unreleased]
 
+## [0.1.0-alpha.2]
+
 ### Added
 
 - Optional [Jade](https://modrinth.com/mod/jade) integration: the EU in a block's buffer as Jade's
@@ -21,6 +23,20 @@ Add new entries under a section for the next version as they land.
 - Fluid cells scoop up and pour out water, lava and the IC2 fluids that have a block, like buckets
 - Liquid construction foam as a block; wading through it slows, and the foam sprayer sucks it up
 - The cropnalyzer takes single-use batteries
+- The personal safe's door swings open while the safe is in use
+- The magnetizer's boots slot
+
+### Changed
+
+- Machine recipes are datapack recipes, one IC2 recipe type per machine (`ic2:macerator`,
+  `ic2:thermal_centrifuge`, ...) under `data/ic2/recipe/<machine>/`: datapacks can change them,
+  `/reload` picks the changes up and clients of a server receive them. The machine recipe ini
+  files are gone from the jar
+- Text that does not fit a machine's display is centred on it or drawn smaller, so translations
+  no longer run off it; long names in the scanner's results are cut short
+- An empty fluid gauge shows only its frame instead of a dark slot
+- No radiation for players in creative or spectator mode
+- The remaining Russian names are translated
 
 ### Fixed
 
@@ -29,8 +45,16 @@ Add new entries under a section for the next version as they land.
   so there was no way to tin ingots early on
 - Two machine recipes the port could not read: compressing air into an empty fluid cell and
   extracting rubber from a rubber sapling (which also has its UU-matter value again)
+- Recipes taking rubber wood (extractor, block cutter) never matched
 - Worlds with bare cables crashed on load: a cable not yet in the energy net asked it for its
   current
+- Pouring a bucket into a machine (the liquid heat exchanger, for one) gave back two empty buckets
+- The jetpack's engine sound kept playing after switching worlds
+- The solar helmet did not charge a battery pack on the back under a plain chestplate
+- A broken wind or water kinetic generator left its rotor hanging in the air
+- The rubber tree's leaves were white
+- The steam generator laid the player's inventory over its window
+- Short window titles sat off centre next to the upgrade slots
 
 ## [0.1.0-alpha.1]
 
