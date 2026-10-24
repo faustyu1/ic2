@@ -1714,5 +1714,6 @@
   "ic2.config.title": "IC2 Community Edition Settings",
   "config.jade.plugin_ic2.energy": "IC2 energy",
   "config.jade.plugin_ic2.progress": "IC2 machine progress",
-  "block.ic2.construction_foam": "Construction Foam"
+  "block.ic2.construction_foam": "Construction Foam",
+  "ic2.teleporter.no_energy": "Not enough energy to teleport: %s EU needed, %s EU in the storage blocks next to it"
 }

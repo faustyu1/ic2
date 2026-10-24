@@ -160,7 +160,13 @@ public class TileEntityTeleporter extends TileEntityBlock {
         }
 
         int energyCost = getEnergyCost(weight, distance);
-        if (energyCost > getAvailableEnergy()) {
+        int available = getAvailableEnergy();
+        if (energyCost > available) {
+            // 1.12.2 just did nothing; a player standing on it is told what the trip takes, once a second
+            if (user instanceof PlayerEntity player && world.getTime() % 20 == 0) {
+                player.sendMessage(net.minecraft.text.Text.translatable("ic2.teleporter.no_energy",
+                        energyCost, available), true);
+            }
             return;
         }
 

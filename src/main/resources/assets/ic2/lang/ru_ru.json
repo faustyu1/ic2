@@ -1851,5 +1851,6 @@
   "crop.spidernip": "Паучник",
   "crop.tearstalks": "Слёзостебель",
   "crop.withereed": "Иссушник",
-  "milk": "Молоко"
+  "milk": "Молоко",
+  "ic2.teleporter.no_energy": "Не хватает энергии для телепортации: нужно %s EU, в соседних хранилищах %s EU"
 }
