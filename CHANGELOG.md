@@ -8,6 +8,13 @@ as `<version>+mc<Minecraft version>` and tagged `v<version>`.
 The section of the version being released becomes the release notes on Modrinth and CurseForge.
 Add new entries under a section for the next version as they land.
 
+## [Unreleased]
+
+### Fixed
+
+- Worlds with bare cables crashed on load: a cable not yet in the energy net asked it for its
+  current
+
 ## [0.1.0-alpha.1]
 
 First public alpha: a port of IndustrialCraft 2 `2.8.222-ex112` (Minecraft 1.12.2 / Forge) to

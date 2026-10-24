@@ -305,7 +305,12 @@ public class TileEntityCable extends TileEntityBlock implements IEnergyConductor
         if (absorption == Double.MAX_VALUE) {
             return;
         }
-        double flow = ic2.api.energy.EnergyNet.instance.getNodeStats(this).getEnergyIn();
+        // no stats while the cable is not (or not yet) part of the energy net
+        ic2.api.energy.NodeStats stats = ic2.api.energy.EnergyNet.instance.getNodeStats(this);
+        if (stats == null) {
+            return;
+        }
+        double flow = stats.getEnergyIn();
         int damage = (int) Math.ceil((flow - absorption) / 64.0);
         if (damage <= 0) {
             return;
