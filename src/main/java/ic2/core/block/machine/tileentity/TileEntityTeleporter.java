@@ -101,7 +101,8 @@ public class TileEntityTeleporter extends TileEntityBlock {
             cooldown--;
         }
 
-        if (world.isReceivingRedstonePower(pos) && target != null) {
+        // it only counts as on, and shows it, while it has a partner, a signal and energy to draw on
+        if (world.isReceivingRedstonePower(pos) && target != null && (hasCreativeSource() || getAvailableEnergy() > 0)) {
             setActive(true);
             // only what stands on the teleporter itself; 1.12.2 took anything within a block around it
             List<Entity> entitiesNearby = coolingDown ? List.of()
@@ -147,11 +148,7 @@ public class TileEntityTeleporter extends TileEntityBlock {
         }
 
         if (getActive() && world instanceof ServerWorld serverWorld) {
-            if (cooldown > 0) {
-                spawnParticles(serverWorld, 2, pos, GREEN);
-            } else {
-                spawnParticles(serverWorld, 2, pos, BLUE);
-            }
+            spawnParticles(serverWorld, 1, pos, cooldown > 0 ? GREEN : BLUE);
         }
     }
 
@@ -194,8 +191,8 @@ public class TileEntityTeleporter extends TileEntityBlock {
         world.playSound(null, pos, IC2Sounds.MACHINES_TELEPORTER_TELE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
         world.playSound(null, target, IC2Sounds.MACHINES_TELEPORTER_TELE_USE, SoundCategory.BLOCKS, 1.0F, 1.0F);
         if (world instanceof ServerWorld serverWorld) {
-            spawnParticles(serverWorld, 20, pos, BLUE);
-            spawnParticles(serverWorld, 20, target, BLUE);
+            spawnParticles(serverWorld, 10, pos, BLUE);
+            spawnParticles(serverWorld, 10, target, BLUE);
         }
     }
 
@@ -215,12 +212,13 @@ public class TileEntityTeleporter extends TileEntityBlock {
     private static final DustParticleEffect BLUE = new DustParticleEffect(new Vector3f(0.0F, 0.0F, 1.0F), 1.0F);
     private static final DustParticleEffect GREEN = new DustParticleEffect(new Vector3f(0.0F, 1.0F, 0.0F), 1.0F);
 
-    /** The redstone dust swirl above a teleporter, at one and two blocks above it. */
+    /**
+     * The redstone dust swirl in the block above a teleporter; 1.12.2 drew twice as much, in the
+     * two blocks above it.
+     */
     private static void spawnParticles(ServerWorld world, int n, BlockPos pos, DustParticleEffect color) {
         for (int i = 0; i < n; i++) {
             world.spawnParticles(color, pos.getX() + world.random.nextFloat(), pos.getY() + 1 + world.random.nextFloat(),
-                    pos.getZ() + world.random.nextFloat(), 1, 0.0, 0.0, 0.0, 0.0);
-            world.spawnParticles(color, pos.getX() + world.random.nextFloat(), pos.getY() + 2 + world.random.nextFloat(),
                     pos.getZ() + world.random.nextFloat(), 1, 0.0, 0.0, 0.0, 0.0);
         }
     }
