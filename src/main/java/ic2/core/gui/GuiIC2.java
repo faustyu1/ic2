@@ -409,9 +409,6 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
      * tank, {@code plain} is the bare surface the guidef sizes itself, {@code borderless} draws the
      * gauge frame around a 12x47 surface.
      */
-    /** The grey of the window background: an empty tank shows as see-through. */
-    private static final int EMPTY_TANK_COLOR = 0xFFC6C6C6;
-
     private void drawFluidTank(DrawContext context, int left, int top, GuiElementNode element) {
         String type = element.get("type", "normal").toLowerCase(java.util.Locale.ROOT);
         boolean withBorder = type.equals("normal");
@@ -427,14 +424,9 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
         int capacity = tank == null ? 0 : tank[2];
 
         if (amount <= 0 || capacity <= 0) {
-            // an empty tank is see-through, the window showing behind it, rather than the dark sprite of the original
-            if (withBorder) {
-                drawCommon(context, x, y, 6, 100, width, height);
-                context.fill(x + 4, y + 4, x + 16, y + 51, EMPTY_TANK_COLOR);
-                drawCommon(context, x, y, 38, 100, 20, 55);
-            } else if (withGauge) {
-                context.fill(x, y, x + width, y + height, EMPTY_TANK_COLOR);
-                drawCommon(context, x - 4, y - 4, 38, 100, 20, 55);
+            // an empty tank is only its gauge frame over the window, rather than the dark sprite of the original
+            if (withGauge) {
+                drawCommon(context, withBorder ? x : x - 4, withBorder ? y : y - 4, 38, 100, 20, 55);
             }
             return;
         }
@@ -815,6 +807,12 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
         }
 
         int width = textRenderer.getWidth(text);
+        // a title that fits in the middle of the window clear of the slots stays in the middle
+        int middle = (backgroundWidth - width) / 2;
+        if (middle >= left && middle + width <= right) {
+            context.drawText(textRenderer, text, middle, y, color, false);
+            return;
+        }
         int span = right - left;
         if (width <= span) {
             context.drawText(textRenderer, text, left + (span - width) / 2, y, color, false);
