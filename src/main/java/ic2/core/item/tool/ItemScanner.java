@@ -85,6 +85,7 @@ public class ItemScanner extends ItemElectric implements IBoxable {
         }
 
         if (!world.isClient) {
+            ic2.core.init.IC2Sounds.play(world, null, player.getX(), player.getY(), player.getZ(), ic2.core.init.IC2Sounds.TOOLS_OD_SCANNER);
             List<ScannerScreenHandler.ScanEntry> results = scan(world, player.getBlockPos(), scanRange);
             player.openHandledScreen(new ScannerFactory(stack, results));
         }

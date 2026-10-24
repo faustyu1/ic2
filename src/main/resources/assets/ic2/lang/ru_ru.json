@@ -1810,5 +1810,6 @@
   "modmenu.ic2.source_mod": "Оригинальный мод",
   "ic2.config.title": "Настройки IC2 Community Edition",
   "config.jade.plugin_ic2.energy": "Энергия IC2",
-  "config.jade.plugin_ic2.progress": "Прогресс машин IC2"
+  "config.jade.plugin_ic2.progress": "Прогресс машин IC2",
+  "block.ic2.construction_foam": "Жидкая строительная пена"
 }

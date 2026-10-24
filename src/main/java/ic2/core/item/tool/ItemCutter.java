@@ -61,6 +61,7 @@ public class ItemCutter extends ItemGradualInt {
         }
 
         if (!world.isClient) {
+            ic2.core.init.IC2Sounds.play(world, null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ic2.core.init.IC2Sounds.TOOLS_INSULATION_CUTTERS);
             world.setBlockState(pos, copyConnections(state, target.getDefaultState()));
             damage(tool, player, 1);
         }

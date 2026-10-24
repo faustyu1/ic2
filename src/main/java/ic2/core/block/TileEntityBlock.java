@@ -286,6 +286,14 @@ public abstract class TileEntityBlock extends BlockEntity implements INetworkDat
         return 0.0;
     }
 
+    /**
+     * The second running sound to play in place of the machine's usual one, e.g. the reactor's
+     * Geiger counter, which ticks faster with the output; null keeps the usual one.
+     */
+    public net.minecraft.sound.SoundEvent getExtraLoopSound() {
+        return null;
+    }
+
     /** The EU in the block's buffer, as overlays such as Jade show it. */
     public double getEnergyForDisplay() {
         return 0.0;

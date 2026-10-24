@@ -71,6 +71,7 @@ public final class IC2ClassicBlocks {
     public static Block HOT_COOLANT;
     public static Block COOLANT;
     public static Block UU_FLUID;
+    public static Block CONSTRUCTION_FOAM_FLUID;
 
     private IC2ClassicBlocks() {}
 
@@ -152,6 +153,7 @@ public final class IC2ClassicBlocks {
         HOT_COOLANT = register("hot_coolant", new BlockIC2Fluid(FluidName.hot_coolant.getInstance(), AbstractBlock.Settings.copy(Blocks.WATER)));
         COOLANT = register("coolant", new BlockIC2Fluid(FluidName.coolant.getInstance(), AbstractBlock.Settings.copy(Blocks.WATER)));
         UU_FLUID = register("uu_matter", new BlockIC2Fluid(FluidName.uu_matter.getInstance(), AbstractBlock.Settings.copy(Blocks.WATER)));
+        CONSTRUCTION_FOAM_FLUID = register("construction_foam", new BlockIC2Fluid(FluidName.construction_foam.getInstance(), AbstractBlock.Settings.copy(Blocks.WATER)));
     }
 
     private static Block registerOre(String name, BlockOre.OreType type) {

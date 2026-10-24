@@ -10,7 +10,9 @@
     "ServerPlayNetworkHandlerAccessor"
   ],
   "client": [
-    "client.ArmorFeatureRendererJetpackMixin"
+    "client.ArmorFeatureRendererJetpackMixin",
+    "client.ClientPlayerInteractionManagerDrillMixin",
+    "client.WorldBreakSoundMixin"
   ],
   "injectors": {
     "defaultRequire": 1

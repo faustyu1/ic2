@@ -72,7 +72,7 @@ public record MachineSound(SoundEvent loop, @Nullable SoundEvent start, @Nullabl
                 IC2Sounds.GENERATORS_MASS_FABRICATOR_MASS_FAB_SCRAP_SOLO, SCRAP_PERIOD));
         BY_BLOCK.put(TeBlock.matter_generator, loop(IC2Sounds.GENERATORS_MASS_FABRICATOR_MASS_FAB_LOOP));
         // 1.12.2 picked the Geiger counter by the EU output (low under 40, medium under 80);
-        // the client only sees whether the reactor is active, so it gets the low one
+        // the low Geiger counter by default; the reactor swaps in a faster one as its output rises
         BY_BLOCK.put(TeBlock.nuclear_reactor, new MachineSound(IC2Sounds.GENERATORS_NUCLEAR_REACTOR_NUCLEAR_REACTOR_LOOP, null, null, false,
                 IC2Sounds.GENERATORS_NUCLEAR_REACTOR_GEIGER_LOW_EU, 0));
     }

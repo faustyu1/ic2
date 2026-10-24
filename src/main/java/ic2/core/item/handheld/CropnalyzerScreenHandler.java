@@ -23,9 +23,8 @@ import net.minecraft.screen.slot.Slot;
  * runs in {@link #sendContentUpdates()}, which the server calls once a tick for exactly as long as
  * the screen is open, so the lifetime is the same without the callback bookkeeping.
  *
- * <p>Not ported: feeding a single-use battery in as fuel. That read the stack's energy value
- * through {@code Info.itemInfo}, which the port does not have, so only rechargeable batteries
- * work - they discharge into the cropnalyzer as before.
+ * <p>A rechargeable battery discharges into the cropnalyzer; a single-use battery is used up
+ * whole, one at a time, as 1.12.2 burnt it through {@code Info.itemInfo}.
  */
 public class CropnalyzerScreenHandler extends ScreenHandler {
 
@@ -88,16 +87,23 @@ public class CropnalyzerScreenHandler extends ScreenHandler {
         super.sendContentUpdates();
     }
 
-    /** Moves EU out of a rechargeable battery in the third slot into the cropnalyzer itself. */
+    /** Moves EU out of the battery in the third slot into the cropnalyzer itself. */
     private void chargeFromBattery() {
         ItemStack battery = inventory.getStack(SLOT_BATTERY);
-        if (battery.isEmpty() || !(battery.getItem() instanceof IElectricItem)) return;
+        if (battery.isEmpty() || !isBattery(battery)) return;
 
         ItemStack cropnalyzer = handHeld.containerStack();
         double need = ElectricItem.manager.charge(cropnalyzer, Double.POSITIVE_INFINITY, Integer.MAX_VALUE, true, true);
         if (need <= 0.0) return;
 
-        double got = ElectricItem.manager.discharge(battery, need, Integer.MAX_VALUE, false, true, false);
+        double got;
+        if (battery.getItem() instanceof ic2.core.item.ItemBatterySU singleUse) {
+            got = singleUse.getCapacity();
+            battery.decrement(1);
+            inventory.markDirty();
+        } else {
+            got = ElectricItem.manager.discharge(battery, need, Integer.MAX_VALUE, false, true, false);
+        }
         if (got > 0.0) {
             ElectricItem.manager.charge(cropnalyzer, got, 3, true, false);
             handHeld.save();
@@ -200,7 +206,11 @@ public class CropnalyzerScreenHandler extends ScreenHandler {
         }
     }
 
-    /** Only something that holds EU goes in the battery slot. */
+    private static boolean isBattery(ItemStack stack) {
+        return stack.getItem() instanceof IElectricItem || stack.getItem() instanceof ic2.core.item.ItemBatterySU;
+    }
+
+    /** Only something that holds EU goes in the battery slot, a single-use battery included. */
     private static final class BatterySlot extends Slot {
         private BatterySlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);
@@ -208,7 +218,7 @@ public class CropnalyzerScreenHandler extends ScreenHandler {
 
         @Override
         public boolean canInsert(ItemStack stack) {
-            return stack.getItem() instanceof IElectricItem;
+            return isBattery(stack);
         }
     }
 }

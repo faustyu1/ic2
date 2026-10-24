@@ -41,8 +41,7 @@ import net.minecraft.world.World;
  * the fire out, the leggings' sprint boost and the boots' high jump.
  *
  * <p>The chestplate is also a jetpack, as in 1.12.2 - the flight runs through
- * {@link JetpackLogic}. Not ported: eating from a filled tin can, which needs
- * {@code ItemTinCan}.
+ * {@link JetpackLogic}.
  */
 public class ItemArmorQuantumSuit extends ItemArmorElectric implements IJetpack, IHazmatLike, IItemHudProvider {
 

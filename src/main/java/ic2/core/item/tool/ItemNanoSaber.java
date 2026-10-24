@@ -30,7 +30,27 @@ import net.minecraft.world.World;
  * are not here - the port has no {@code AudioSource} and no mesh definition yet - so an active
  * saber looks like an idle one.
  */
-public class ItemNanoSaber extends ItemElectricTool {
+public class ItemNanoSaber extends ItemElectricTool implements ic2.core.item.IHeldToolSounds {
+    /** It hums and powers up only while switched on, as the 1.12.2 saber did. */
+    @Override
+    public net.minecraft.sound.SoundEvent getIdleSound(ItemStack stack) {
+        return isActive(stack) ? ic2.core.init.IC2Sounds.TOOLS_NANOSABRE_NANOSABRE_IDLE : null;
+    }
+
+    @Override
+    public net.minecraft.sound.SoundEvent getStartSound(ItemStack stack) {
+        return ic2.core.init.IC2Sounds.TOOLS_NANOSABRE_NANOSABRE_POWERUP;
+    }
+
+    /** One of the three swings, played when the switched on saber is swung. */
+    public static net.minecraft.sound.SoundEvent randomSwingSound(net.minecraft.util.math.random.Random random) {
+        return switch (random.nextInt(3)) {
+            case 1 -> ic2.core.init.IC2Sounds.TOOLS_NANOSABRE_NANOSABRE_SWING_2;
+            case 2 -> ic2.core.init.IC2Sounds.TOOLS_NANOSABRE_NANOSABRE_SWING_3;
+            default -> ic2.core.init.IC2Sounds.TOOLS_NANOSABRE_NANOSABRE_SWING_1;
+        };
+    }
+
     /** Charge a hit costs. */
     private static final double HIT_COST = 400.0;
     /** Charge drained out of each piece of the victim's nano armour. */

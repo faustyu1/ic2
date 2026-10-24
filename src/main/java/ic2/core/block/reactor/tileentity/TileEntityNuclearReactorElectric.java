@@ -62,6 +62,7 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
     private boolean fluidCooled = false;
 
     private float output = 0.0f;
+    private int syncedGeiger = -1;
     private int heat = 0;
     private int maxHeat = 10000;
     private float hem = 1.0f;
@@ -138,7 +139,38 @@ public class TileEntityNuclearReactorElectric extends TileEntityInventory implem
         }
 
         setActive(heat >= 1000 || output > 0.0f);
+        int geiger = geigerLevel(output);
+        if (geiger != syncedGeiger) {
+            // the clients pick the Geiger counter's loop from the output, so they need it when it changes
+            syncedGeiger = geiger;
+            world.updateListeners(pos, getCachedState(), getCachedState(), net.minecraft.block.Block.NOTIFY_LISTENERS);
+        }
         markDirty();
+    }
+
+    /** The Geiger counter's pace: 0 under 40 output, 1 under 80, 2 above, as 1.12.2 switched it. */
+    private static int geigerLevel(float output) {
+        return output < 40.0f ? 0 : output < 80.0f ? 1 : 2;
+    }
+
+    /** The Geiger counter ticking faster the more the reactor puts out. */
+    @Override
+    public net.minecraft.sound.SoundEvent getExtraLoopSound() {
+        return switch (geigerLevel(output)) {
+            case 0 -> ic2.core.init.IC2Sounds.GENERATORS_NUCLEAR_REACTOR_GEIGER_LOW_EU;
+            case 1 -> ic2.core.init.IC2Sounds.GENERATORS_NUCLEAR_REACTOR_GEIGER_MED_EU;
+            default -> ic2.core.init.IC2Sounds.GENERATORS_NUCLEAR_REACTOR_GEIGER_HIGH_EU;
+        };
+    }
+
+    @Override
+    public NbtCompound toInitialChunkDataNbt(RegistryWrapper.WrapperLookup registries) {
+        return createNbt(registries);
+    }
+
+    @Override
+    public net.minecraft.network.packet.Packet<net.minecraft.network.listener.ClientPlayPacketListener> toUpdatePacket() {
+        return net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket.create(this);
     }
 
     private void processFluidSlots() {

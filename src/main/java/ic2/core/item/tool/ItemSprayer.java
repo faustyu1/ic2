@@ -40,10 +40,10 @@ import net.minecraft.world.World;
  * pack first. Used on a block it sprays soft foam over up to ten free blocks next to the face it
  * hit (one in single mode, the mode key and right click switch), spreading away from the player;
  * a cable it is used on is buried in foam together with the cables joined to it that are not
- * foamed yet. Every foam block costs 100 mB. The canner or a tank fills it.
+ * foamed yet. Every foam block costs 100 mB. The canner or a tank fills it, and pointed at a
+ * pool of liquid construction foam it sucks up a bucket of it a click.
  *
- * <p>Not ported: filling in scaffolds (the port has none), and sucking up placed construction
- * foam fluid, which the port has no block of.
+ * <p>Not ported: filling in scaffolds (the port has none).
  */
 public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
     public static final int CAPACITY = 8000;
@@ -125,7 +125,39 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
                     Text.translatable(mode == 0 ? "tooltip.mode.normal" : "tooltip.mode.single")), true);
             return TypedActionResult.success(stack);
         }
+        if (!IC2.keyboard.isModeSwitchKeyDown(player) && suckUpFoam(world, player, stack, null)) {
+            return TypedActionResult.success(stack, world.isClient);
+        }
         return TypedActionResult.pass(stack);
+    }
+
+    /**
+     * Takes a source block of liquid construction foam the player points at into the tank, as the
+     * 1.12.2 sprayer drained the fluid block in front of the block it was used on.
+     *
+     * @param clicked the block the sprayer was used on, which a pool must be in front of; null when
+     *                used in the air
+     */
+    private boolean suckUpFoam(World world, PlayerEntity player, ItemStack stack, BlockPos clicked) {
+        Vec3d eye = player.getEyePos();
+        Vec3d end = eye.add(player.getRotationVector().multiply(player.getBlockInteractionRange()));
+        net.minecraft.util.hit.BlockHitResult hit = world.raycast(new net.minecraft.world.RaycastContext(eye, end,
+                net.minecraft.world.RaycastContext.ShapeType.OUTLINE, net.minecraft.world.RaycastContext.FluidHandling.SOURCE_ONLY, player));
+        if (hit.getType() != net.minecraft.util.hit.HitResult.Type.BLOCK || hit.getBlockPos().equals(clicked)) {
+            return false;
+        }
+        BlockPos pos = hit.getBlockPos();
+        net.minecraft.fluid.FluidState fluid = world.getFluidState(pos);
+        if (!fluid.isStill() || !fluid.getFluid().matchesType(FluidName.construction_foam.getInstance())
+                || getCapacity(stack) - getAmount(stack) < LiquidUtil.mb(1000)) {
+            return false;
+        }
+        if (!world.isClient) {
+            world.setBlockState(pos, net.minecraft.block.Blocks.AIR.getDefaultState());
+            fill(stack, net.fabricmc.fabric.api.transfer.v1.fluid.FluidVariant.of(FluidName.construction_foam.getInstance()), LiquidUtil.mb(1000), true);
+            world.playSound(null, pos, net.minecraft.sound.SoundEvents.ITEM_BUCKET_FILL, net.minecraft.sound.SoundCategory.BLOCKS, 1.0F, 1.0F);
+        }
+        return true;
     }
 
     // ---- spraying ----
@@ -137,11 +169,14 @@ public class ItemSprayer extends ItemIC2 implements IItemFluidTank, IBoxable {
             return ActionResult.PASS;
         }
         World world = context.getWorld();
+        ItemStack stack = context.getStack();
+        if (suckUpFoam(world, player, stack, context.getBlockPos())) {
+            return ActionResult.success(world.isClient);
+        }
         if (world.isClient) {
             return ActionResult.SUCCESS;
         }
 
-        ItemStack stack = context.getStack();
         int available = (int) LiquidUtil.toMb(getAmount(stack));
         ItemStack pack = player.getEquippedStack(EquipmentSlot.CHEST);
         if (!(pack.getItem() instanceof ItemArmorCFPack)) {

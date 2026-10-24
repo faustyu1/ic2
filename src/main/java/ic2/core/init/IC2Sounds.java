@@ -88,6 +88,36 @@ public final class IC2Sounds {
 
     private IC2Sounds() {}
 
+    /**
+     * The volume IC2 plays its one-off sounds at: {@code audio/volume} of the IC2 config times the
+     * 1.2 the 1.12.2 audio manager used, or 0 when {@code audio/enabled} is false.
+     */
+    public static float volume() {
+        ic2.core.util.Config config = ic2.core.init.MainConfig.get();
+        if (!ic2.core.util.ConfigUtil.getBool(config, "audio/enabled")) {
+            return 0.0F;
+        }
+        return (float) ic2.core.util.ConfigUtil.getDouble(config, "audio/volume") * 1.2F;
+    }
+
+    /**
+     * Plays a sound at a spot for everyone near it. Called on the server it reaches every client;
+     * called on the client it only plays there, which is what the 1.12.2 playOnce did.
+     */
+    public static void play(net.minecraft.world.World world, @org.jetbrains.annotations.Nullable net.minecraft.entity.player.PlayerEntity except,
+                            double x, double y, double z, SoundEvent event) {
+        float volume = volume();
+        if (volume <= 0.0F) {
+            return;
+        }
+        if (world.isClient) {
+            // the client's playSound with a source only plays for the local player as that source
+            world.playSound(x, y, z, event, net.minecraft.sound.SoundCategory.PLAYERS, volume, 1.0F, false);
+        } else {
+            world.playSound(except, x, y, z, event, net.minecraft.sound.SoundCategory.PLAYERS, volume, 1.0F);
+        }
+    }
+
     /** Forces class initialisation so every sound event lands in the registry. */
     public static void registerAll() {}
 

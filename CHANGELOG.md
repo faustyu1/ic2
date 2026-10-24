@@ -15,6 +15,12 @@ Add new entries under a section for the next version as they land.
 - Optional [Jade](https://modrinth.com/mod/jade) integration: the EU in a block's buffer as Jade's
   energy bar and the progress of a working machine
 - The metal former's mode button: extruding, rolling and cutting
+- The missing sounds: the chainsaw and the switched on nano saber in hand, the saber's swing, the
+  jetpack's engine, the drill breaking blocks, the treetap, the insulation cutters, the OD scanner
+  and the reactor's Geiger counter speeding up with its output
+- Fluid cells scoop up and pour out water, lava and the IC2 fluids that have a block, like buckets
+- Liquid construction foam as a block; wading through it slows, and the foam sprayer sucks it up
+- The cropnalyzer takes single-use batteries
 
 ### Fixed
 

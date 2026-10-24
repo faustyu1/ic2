@@ -102,6 +102,7 @@ public class BlockRubWood extends Block {
         }
 
         if (!world.isClient) {
+            ic2.core.init.IC2Sounds.play(world, null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, ic2.core.init.IC2Sounds.TOOLS_TREETAP);
             world.setBlockState(pos, state.with(STATE, woodState.getDry()));
             ItemStack resin = resin();
             if (!resin.isEmpty()) {

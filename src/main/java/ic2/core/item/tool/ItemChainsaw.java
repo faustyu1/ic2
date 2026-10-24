@@ -28,7 +28,17 @@ import net.minecraft.world.World;
  * anything vanilla calls {@link Shearable}, which is the 1.21.1 equivalent of Forge's
  * {@code IShearable}.
  */
-public class ItemChainsaw extends ItemElectricTool {
+public class ItemChainsaw extends ItemElectricTool implements ic2.core.item.IHeldToolSounds {
+    @Override
+    public net.minecraft.sound.SoundEvent getIdleSound(ItemStack stack) {
+        return ic2.core.init.IC2Sounds.TOOLS_CHAINSAW_CHAINSAW_IDLE;
+    }
+
+    @Override
+    public net.minecraft.sound.SoundEvent getStopSound(ItemStack stack) {
+        return ic2.core.init.IC2Sounds.TOOLS_CHAINSAW_CHAINSAW_STOP;
+    }
+
 
     public ItemChainsaw() {
         super("chainsaw", 100, 30000, 100, 1, 12.0f, BlockTags.INCORRECT_FOR_IRON_TOOL,

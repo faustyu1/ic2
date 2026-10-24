@@ -108,6 +108,7 @@ public final class MachineSoundHandler {
         Instance start;
         Instance loop;
         Instance extraLoop;
+        SoundEvent extraLoopEvent;
         int ticksActive;
 
         Source(TileEntityBlock tile, MachineSound sound) {
@@ -142,6 +143,12 @@ public final class MachineSoundHandler {
                 stop(manager, loop);
                 loop = play(manager, sound.loop(), false);
             }
+            if (sound.extra() != null && sound.extraPeriod() == 0 && extraLoopEvent() != extraLoopEvent) {
+                // the block asks for another loop now, e.g. a faster Geiger counter
+                stop(manager, extraLoop);
+                extraLoopEvent = extraLoopEvent();
+                extraLoop = play(manager, extraLoopEvent, true);
+            }
             if (sound.extra() != null && sound.extraPeriod() > 0 && ticksActive % sound.extraPeriod() == 0) {
                 play(manager, sound.extra(), false);
             }
@@ -155,7 +162,8 @@ public final class MachineSoundHandler {
                 loop = play(manager, sound.loop(), !sound.perOperation());
             }
             if (sound.extra() != null && sound.extraPeriod() == 0) {
-                extraLoop = play(manager, sound.extra(), true);
+                extraLoopEvent = extraLoopEvent();
+                extraLoop = play(manager, extraLoopEvent, true);
             }
         }
 
@@ -164,6 +172,11 @@ public final class MachineSoundHandler {
             if (sound.stop() != null && (!sound.perOperation() || cutShort())) {
                 play(manager, sound.stop(), false);
             }
+        }
+
+        private SoundEvent extraLoopEvent() {
+            SoundEvent event = tile.getExtraLoopSound();
+            return event != null ? event : sound.extra();
         }
 
         /** Whether the machine stopped in the middle of an operation rather than at its end. */

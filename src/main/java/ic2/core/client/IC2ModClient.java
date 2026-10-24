@@ -57,6 +57,7 @@ public final class IC2ModClient implements ClientModInitializer {
         net.minecraft.client.render.block.entity.BlockEntityRendererFactories.register(ic2.core.init.IC2Blocks.WATER_KINETIC_BE,
                 ic2.core.client.render.KineticRotorRenderer::new);
         ic2.core.client.audio.MachineSoundHandler.register();
+        ic2.core.client.audio.ToolSoundHandler.register();
         ic2.core.item.tool.ItemObscurator.clientScanner = ic2.core.client.model.ObscuredFaces::scan;
     }
 

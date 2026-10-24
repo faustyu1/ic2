@@ -18,11 +18,14 @@ import net.minecraft.world.World;
  * jump and sneak set the ceiling and floor the pack holds. Everything above the world height
  * divided by the pack's divisor fades the thrust out over the last 25 blocks.
  *
- * <p>The engine loop sound is not ported - the port has no {@code AudioSource} yet.
+ * <p>The client notes when it last fired the pack ({@link #lastClientThrust}); the engine loop
+ * plays while it keeps doing so.
  */
 public final class JetpackLogic {
     /** Ticks a hover toggle locks out the keys for. */
     private static final int TOGGLE_LOCKOUT = 10;
+    /** The world tick the client last fired a jetpack on, which the client's jetpack loop follows. */
+    public static long lastClientThrust = Long.MIN_VALUE;
 
     private JetpackLogic() {}
 
@@ -139,7 +142,9 @@ public final class JetpackLogic {
         }
 
         if (IC2.keyboard.isJumpKeyDown(player) || hoverMode) {
-            useJetpack(player, hoverMode, jetpack, stack);
+            if (useJetpack(player, hoverMode, jetpack, stack) && world.isClient) {
+                lastClientThrust = world.getTime();
+            }
 
             // landing in hover mode switches it back off, so the pack does not idle on the ground
             if (player.isOnGround() && hoverMode && !world.isClient) {

@@ -59,6 +59,7 @@ public final class IC2Mod implements ModInitializer {
         ic2.core.init.IC2ItemVariants.registerAll();
         ic2.core.init.IC2Items.registerAll();
         ic2.core.item.ItemFluidStorages.register();
+        ic2.core.item.CellWorldInteraction.register();
         ic2.core.init.IC2Entities.registerAll();
         // the canner's recipes name items, so they wait for the items
         ic2.core.block.machine.tileentity.TileEntityCanner.init();
