@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.9-SNAPSHOT'
+    id 'fabric-loom' version '1.17.21'
     id 'maven-publish'
     id 'me.modmuss50.mod-publish-plugin' version '2.2.1'
 }
@@ -32,15 +32,15 @@ repositories {
     // will be added here during the port.
     mavenCentral()
     // Roughly Enough Items and its libraries (cloth-config, architectury)
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.architectury.dev/" }
+    maven { url = "https://maven.shedaniel.me/" }
+    maven { url = "https://maven.architectury.dev/" }
     // Mod Menu
-    maven { url "https://maven.terraformersmc.com/releases/" }
+    maven { url = "https://maven.terraformersmc.com/releases/" }
     // Cardinal Components, which Trinkets' API is built on
-    maven { url "https://maven.ladysnake.org/releases" }
+    maven { url = "https://maven.ladysnake.org/releases" }
     // Trinkets, published on Modrinth's maven
     exclusiveContent {
-        forRepository { maven { url "https://api.modrinth.com/maven" } }
+        forRepository { maven { url = "https://api.modrinth.com/maven" } }
         filter { includeGroup "maven.modrinth" }
     }
 }
@@ -85,9 +85,11 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version
+    // read while configuring: a task may not reach the project when it runs
+    def modVersion = project.version.toString()
+    inputs.property "version", modVersion
     filesMatching("fabric.mod.json") {
-        expand "version": project.version
+        expand "version": modVersion
     }
 }
 
