@@ -210,8 +210,9 @@ public final class IC2ModClient implements ClientModInitializer {
         ColorProviderRegistry.BLOCK.register(
                 (state, view, pos, tintIndex) -> FoliageColors.getBirchColor(),
                 IC2ClassicBlocks.RUBBER_LEAVES);
+        // items draw the tint's alpha since 1.21, so it has to be opaque
         ColorProviderRegistry.ITEM.register(
-                (stack, tintIndex) -> FoliageColors.getBirchColor(),
+                (stack, tintIndex) -> 0xFF000000 | FoliageColors.getBirchColor(),
                 IC2ClassicBlocks.RUBBER_LEAVES);
     }
 
