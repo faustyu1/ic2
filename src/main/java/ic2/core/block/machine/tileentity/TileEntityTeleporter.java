@@ -160,13 +160,7 @@ public class TileEntityTeleporter extends TileEntityBlock {
         }
 
         int energyCost = getEnergyCost(weight, distance);
-        int available = getAvailableEnergy();
-        if (energyCost > available) {
-            // 1.12.2 just did nothing; a player standing on it is told what the trip takes, once a second
-            if (user instanceof PlayerEntity player && world.getTime() % 20 == 0) {
-                player.sendMessage(net.minecraft.text.Text.translatable("ic2.teleporter.no_energy",
-                        energyCost, available), true);
-            }
+        if (energyCost > getAvailableEnergy()) {
             return;
         }
 
@@ -211,8 +205,29 @@ public class TileEntityTeleporter extends TileEntityBlock {
         }
     }
 
+    /** The EU a trip of this entity to the linked teleporter costs, or -1 without a link. */
+    public int getTripCost(Entity user) {
+        return target == null ? -1 : getEnergyCost(getWeightOf(user), Math.sqrt(pos.getSquaredDistance(target)));
+    }
+
+    /**
+     * Whether a creative generator touches the teleporter. It pays for any trip without running
+     * dry, so a teleporter can be tried out in creative without charging storage blocks first.
+     */
+    public boolean hasCreativeSource() {
+        for (Direction dir : Direction.values()) {
+            if (world.getBlockEntity(pos.offset(dir)) instanceof TileEntityCreativeGenerator) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /** Draws the energy from the neighbouring storage blocks, an equal share from each. */
     public void consumeEnergy(int energy) {
+        if (hasCreativeSource()) {
+            return;
+        }
         List<IEnergyStorage> energySources = new LinkedList<>();
         for (Direction dir : Direction.values()) {
             BlockEntity neighbour = world.getBlockEntity(pos.offset(dir));
@@ -243,8 +258,11 @@ public class TileEntityTeleporter extends TileEntityBlock {
         }
     }
 
-    /** EU held by the storage blocks next to the teleporter. */
+    /** EU held by the storage blocks next to the teleporter, unlimited beside a creative generator. */
     public int getAvailableEnergy() {
+        if (hasCreativeSource()) {
+            return Integer.MAX_VALUE;
+        }
         int energy = 0;
         for (Direction dir : Direction.values()) {
             BlockEntity neighbour = world.getBlockEntity(pos.offset(dir));

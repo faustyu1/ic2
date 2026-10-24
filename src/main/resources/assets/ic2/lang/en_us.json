@@ -1715,5 +1715,11 @@
   "config.jade.plugin_ic2.energy": "IC2 energy",
   "config.jade.plugin_ic2.progress": "IC2 machine progress",
   "block.ic2.construction_foam": "Construction Foam",
-  "ic2.teleporter.no_energy": "Not enough energy to teleport: %s EU needed, %s EU in the storage blocks next to it"
+  "ic2.jade.teleporter.target": "Linked to %s, %s, %s",
+  "ic2.jade.teleporter.unlinked": "Not linked",
+  "ic2.jade.teleporter.cost": "A trip for you: %s EU",
+  "ic2.jade.teleporter.energy": "In the storage next to it: %s EU",
+  "ic2.jade.teleporter.creative": "Powered by a creative generator",
+  "ic2.jade.teleporter.short": "Not enough energy for your trip",
+  "config.jade.plugin_ic2.teleporter": "IC2 teleporter link and trip cost"
 }

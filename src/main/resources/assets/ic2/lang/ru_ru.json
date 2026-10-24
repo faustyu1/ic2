@@ -1852,5 +1852,11 @@
   "crop.tearstalks": "Слёзостебель",
   "crop.withereed": "Иссушник",
   "milk": "Молоко",
-  "ic2.teleporter.no_energy": "Не хватает энергии для телепортации: нужно %s EU, в соседних хранилищах %s EU"
+  "ic2.jade.teleporter.target": "Связан с %s, %s, %s",
+  "ic2.jade.teleporter.unlinked": "Не связан",
+  "ic2.jade.teleporter.cost": "Твоя телепортация: %s EU",
+  "ic2.jade.teleporter.energy": "В соседних хранилищах: %s EU",
+  "ic2.jade.teleporter.creative": "Питается от творческого генератора",
+  "ic2.jade.teleporter.short": "Энергии на твою телепортацию не хватает",
+  "config.jade.plugin_ic2.teleporter": "Связь и стоимость телепортера IC2"
 }
