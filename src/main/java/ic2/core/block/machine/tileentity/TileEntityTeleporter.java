@@ -40,19 +40,27 @@ import org.joml.Vector3f;
  * Fabric port of TileEntityTeleporter.
  *
  * <p>Two teleporters are linked with the frequency transmitter. While a teleporter gets a
- * redstone signal it sends the nearest entity standing in the 3x3 area above it (up to three
- * blocks high) to its partner. The trip costs {@code weight * (distance + 10)^0.7 * 5} EU, drawn
+ * redstone signal it sends what stands on top of it to its partner once it has stood there for a
+ * second and a half; 1.12.2 sent the nearest entity in the 3x3 area above it at once, which
+ * caught players walking past and gave no time to step off. The trip costs {@code weight * (distance + 10)^0.7 * 5} EU, drawn
  * from the energy storage blocks touching the teleporter, evenly from each of them; it has no
  * buffer of its own. A player weighs 1000, a ghast 2500, a wither 5000, the ender dragon 10 000,
  * an animal, minecart or boat 100, any other creature 500, a dropped stack 100 for a full stack;
- * with {@code teleporterUseInventoryWeight} every carried stack adds 100 for a full stack. After
- * an arrival the target teleporter rests for 20 ticks so nothing bounces back at once. A
+ * with {@code teleporterUseInventoryWeight} every carried stack adds 100 for a full stack. What
+ * arrives is not sent back before it has stepped off the target teleporter. A
  * comparator reads 15 from a linked teleporter.
  */
 public class TileEntityTeleporter extends TileEntityBlock {
     private BlockPos target;
     private int targetCheckTicker = IC2.random.nextInt(1024);
     private int cooldown = 0;
+    /** Who stands on the teleporter waiting to go, and for how many ticks so far. */
+    private java.util.UUID waiting;
+    private int waitTicks;
+    /** Who just came in here; it is not sent back until it has stepped off. */
+    private java.util.UUID arrived;
+    /** Ticks an entity has to stand on the teleporter before it goes, time enough to step off. */
+    public static final int SEND_DELAY = 30;
 
     public TileEntityTeleporter(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type == null ? IC2Blocks.TELEPORTER_BE : type, pos, state, TeBlock.teleporter);
@@ -95,9 +103,14 @@ public class TileEntityTeleporter extends TileEntityBlock {
 
         if (world.isReceivingRedstonePower(pos) && target != null) {
             setActive(true);
+            // only what stands on the teleporter itself; 1.12.2 took anything within a block around it
             List<Entity> entitiesNearby = coolingDown ? List.of()
-                    : world.getEntitiesByClass(Entity.class, new Box(pos.getX() - 1, pos.getY(), pos.getZ() - 1,
-                            pos.getX() + 2, pos.getY() + 3, pos.getZ() + 2), entity -> true);
+                    : world.getEntitiesByClass(Entity.class, new Box(pos.getX(), pos.getY() + 1, pos.getZ(),
+                            pos.getX() + 1, pos.getY() + 3, pos.getZ() + 1), entity -> true);
+            if (arrived != null && entitiesNearby.stream().noneMatch(entity -> entity.getUuid().equals(arrived))) {
+                arrived = null;
+            }
+            entitiesNearby = entitiesNearby.stream().filter(entity -> !entity.getUuid().equals(arrived)).toList();
 
             if (!entitiesNearby.isEmpty() && verifyTarget()) {
                 double minDistanceSquared = Double.MAX_VALUE;
@@ -116,11 +129,18 @@ public class TileEntityTeleporter extends TileEntityBlock {
                     }
                 }
 
-                if (closestEntity != null) {
+                if (closestEntity != null && !closestEntity.getUuid().equals(waiting)) {
+                    waiting = closestEntity.getUuid();
+                    waitTicks = 0;
+                } else if (closestEntity != null && ++waitTicks >= SEND_DELAY) {
+                    waiting = null;
                     teleport(closestEntity, Math.sqrt(pos.getSquaredDistance(target)));
                 }
-            } else if (++targetCheckTicker % 1024 == 0) {
-                verifyTarget();
+            } else {
+                waiting = null;
+                if (++targetCheckTicker % 1024 == 0) {
+                    verifyTarget();
+                }
             }
         } else {
             setActive(false);
@@ -323,6 +343,7 @@ public class TileEntityTeleporter extends TileEntityBlock {
 
     private void onTeleportTo(TileEntityTeleporter from, Entity entity) {
         cooldown = 20;
+        arrived = entity.getUuid();
         markDirty();
     }
 
