@@ -1,7 +1,9 @@
-# Builds the mod and publishes it to Modrinth when a release tag v<mod_version> is pushed, then
-# submits the Modrinth project for review while it is still a draft.
+# Builds the mod and publishes it to Modrinth and CurseForge when a release tag v<mod_version> is
+# pushed, then submits the Modrinth project for review while it is still a draft. Run by hand, it
+# publishes the checked out commit to the sites picked.
 #
-# Needs the repository secret MODRINTH_TOKEN (scopes: create versions, write projects).
+# Needs the repository secrets MODRINTH_TOKEN (scopes: create versions, write projects) and
+# CURSEFORGE_TOKEN.
 name: Publish
 
 on:
@@ -9,6 +11,15 @@ on:
     tags:
       - "v*"
   workflow_dispatch:
+    inputs:
+      targets:
+        description: Where to publish
+        type: choice
+        options:
+          - both
+          - modrinth
+          - curseforge
+        default: both
 
 permissions:
   contents: read
@@ -35,14 +46,22 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@v4
 
-      - name: Build and upload to Modrinth
+      - name: Build and upload
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
+          CURSEFORGE_TOKEN: ${{ secrets.CURSEFORGE_TOKEN }}
+          TARGETS: ${{ inputs.targets || 'both' }}
         run: |
+          case "${TARGETS}" in
+            modrinth) tasks=publishModrinth ;;
+            curseforge) tasks=publishCurseforge ;;
+            *) tasks="publishModrinth publishCurseforge" ;;
+          esac
           chmod +x gradlew
-          ./gradlew build publishModrinth
+          ./gradlew build ${tasks}
 
       - name: Submit the Modrinth project for review
+        if: ${{ inputs.targets != 'curseforge' }}
         env:
           MODRINTH_TOKEN: ${{ secrets.MODRINTH_TOKEN }}
         run: |
