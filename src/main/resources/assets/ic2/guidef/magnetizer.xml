@@ -7,6 +7,8 @@
 	<energygauge x="11" y="28"/>
 	<slot name="discharge" x="8" y="44" style="plain"/>
 	<slotgrid name="upgrade" x="152" y="8" cols="1" spacing="2" style="plain"/>
+	<!-- the boots slot: magnetic iron fences lift the player wearing metal boots -->
+	<armorslot slot="feet" x="45" y="26" style="plain"/>
 
 	<playerInventory x="7" y="83" background="false"/>
 </gui>

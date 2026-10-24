@@ -693,7 +693,88 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
             textY += (element.getHeight(0) - textRenderer.fontHeight) / 2 + 1;
         }
 
+        // the positions were set for the English text: a longer translation is kept on the dark
+        // display it is written on, moved to its middle or drawn smaller
+        int width = textRenderer.getWidth(text);
+        int[] panel = darkPanelAt(textX + 1, textY + textRenderer.fontHeight / 2);
+        if (panel != null && (textX < panel[0] || textX + width > panel[1])) {
+            int left = panel[0] + 2;
+            int span = panel[1] - panel[0] - 4;
+            if (width <= span) {
+                textX = left + (span - width) / 2;
+            } else {
+                float scale = (float) span / width;
+                context.getMatrices().push();
+                context.getMatrices().translate(left, textY + textRenderer.fontHeight * (1 - scale) / 2, 0);
+                context.getMatrices().scale(scale, scale, 1);
+                context.drawText(textRenderer, text, 0, 0, textColor(element), false);
+                context.getMatrices().pop();
+                return;
+            }
+        }
+
         context.drawText(textRenderer, text, textX, textY, textColor(element), false);
+    }
+
+    private static final java.util.Map<Identifier, java.util.Optional<net.minecraft.client.texture.NativeImage>> TEXTURE_PIXELS = new java.util.HashMap<>();
+
+    /**
+     * The dark display panel of the window background under a point, as its left and right edge in
+     * window coordinates, or null when the point is not on one.
+     */
+    private int @org.jetbrains.annotations.Nullable [] darkPanelAt(int x, int y) {
+        for (GuiElementNode image : definition.getElements("image")) {
+            Identifier texture = GuiTextures.of(image.get("src", ""));
+            int[] size = textureSize(texture);
+            int width = image.getInt("width", size[0]);
+            int height = image.getInt("height", size[1]);
+            if (x < image.getX() || y < image.getY() || x >= image.getX() + width || y >= image.getY() + height) {
+                continue;
+            }
+            net.minecraft.client.texture.NativeImage pixels = texturePixels(texture);
+            if (pixels == null) {
+                continue;
+            }
+            int baseWidth = image.getInt("basewidth", image.getInt("basesize", size[0]));
+            int baseHeight = image.getInt("baseheight", image.getInt("basesize", size[1]));
+            int u = image.getInt("u", 0) - image.getX();
+            int ty = (image.getInt("v", 0) + y - image.getY()) * pixels.getHeight() / baseHeight;
+            java.util.function.IntPredicate dark = px -> {
+                int tx = (u + px) * pixels.getWidth() / baseWidth;
+                if (tx < 0 || tx >= pixels.getWidth() || ty < 0 || ty >= pixels.getHeight()) {
+                    return false;
+                }
+                int abgr = pixels.getColor(tx, ty);
+                return (abgr >>> 24) > 200 && (abgr & 0xFF) < 48 && (abgr >> 8 & 0xFF) < 48 && (abgr >> 16 & 0xFF) < 48;
+            };
+            if (!dark.test(x)) {
+                return null;
+            }
+            int left = x;
+            while (left > image.getX() && dark.test(left - 1)) {
+                left--;
+            }
+            int right = x;
+            while (right < image.getX() + width && dark.test(right)) {
+                right++;
+            }
+            return new int[] {left, right};
+        }
+        return null;
+    }
+
+    private static net.minecraft.client.texture.@org.jetbrains.annotations.Nullable NativeImage texturePixels(Identifier texture) {
+        return TEXTURE_PIXELS.computeIfAbsent(texture, id -> {
+            var resource = net.minecraft.client.MinecraftClient.getInstance().getResourceManager().getResource(id);
+            if (resource.isPresent()) {
+                try (java.io.InputStream in = resource.get().getInputStream()) {
+                    return java.util.Optional.of(net.minecraft.client.texture.NativeImage.read(in));
+                } catch (java.io.IOException ignored) {
+                    // no panel detection for this window
+                }
+            }
+            return java.util.Optional.empty();
+        }).orElse(null);
     }
 
     private static int textColor(GuiElementNode element) {
