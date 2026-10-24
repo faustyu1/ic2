@@ -39,6 +39,8 @@ public class IC2Potion {
      */
     public static void applyTo(LivingEntity entity, int duration, int amplifier) {
         if (radiationEntry == null) return;
+        // nothing hurts a creative or spectating player, radiation included
+        if (entity instanceof net.minecraft.entity.player.PlayerEntity player && player.getAbilities().invulnerable) return;
         entity.addStatusEffect(new StatusEffectInstance(radiationEntry, duration, amplifier));
     }
 
