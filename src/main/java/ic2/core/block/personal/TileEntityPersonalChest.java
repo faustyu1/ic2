@@ -24,6 +24,17 @@ public class TileEntityPersonalChest extends TileEntityInventory implements IPer
     private UUID ownerId;
     private String ownerName;
 
+    /** The players with the safe's window open, on the server. */
+    private final java.util.Set<PlayerEntity> viewers = java.util.Collections.newSetFromMap(new java.util.WeakHashMap<>());
+    /** How open the door is, 0 to 1, and when it started moving: the client animates from these. */
+    private boolean open;
+    private float doorFrom;
+    private long doorChanged = Long.MIN_VALUE;
+    /** Block event: the number of players looking into the safe, as a chest sends it. */
+    private static final int VIEWERS_EVENT = 1;
+    /** Ticks the door takes to swing fully open or shut, the ten steps of the 1.12.2 lid. */
+    private static final float DOOR_TICKS = 10.0F;
+
     public TileEntityPersonalChest(BlockEntityType<?> type, BlockPos pos, BlockState state) {
         super(type, pos, state);
         this.contentSlot = new InvSlot(this, "content", InvSlot.Access.NONE, 54);
@@ -71,6 +82,51 @@ public class TileEntityPersonalChest extends TileEntityInventory implements IPer
         // operators keep access, which is what the player list check did
         return player instanceof ServerPlayerEntity serverPlayer
                 && serverPlayer.server.getPlayerManager().isOperator(serverPlayer.getGameProfile());
+    }
+
+    @Override
+    public void onGuiOpened(PlayerEntity player) {
+        viewers.add(player);
+        sendViewers();
+    }
+
+    @Override
+    public void onGuiClosed(PlayerEntity player) {
+        viewers.remove(player);
+        sendViewers();
+    }
+
+    private void sendViewers() {
+        if (world != null && !world.isClient) {
+            world.addSyncedBlockEvent(pos, getCachedState().getBlock(), VIEWERS_EVENT, viewers.size());
+        }
+    }
+
+    /** The client swings the door and plays the chest sounds as the first player opens it and the last closes it. */
+    @Override
+    public boolean onSyncedBlockEvent(int type, int data) {
+        if (type != VIEWERS_EVENT) {
+            return super.onSyncedBlockEvent(type, data);
+        }
+        if (world != null && world.isClient && open != data > 0) {
+            doorFrom = getDoorOpening(0.0F);
+            doorChanged = world.getTime();
+            open = data > 0;
+            world.playSound(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5,
+                    open ? net.minecraft.sound.SoundEvents.BLOCK_CHEST_OPEN : net.minecraft.sound.SoundEvents.BLOCK_CHEST_CLOSE,
+                    net.minecraft.sound.SoundCategory.BLOCKS, 0.5F, world.random.nextFloat() * 0.1F + 0.9F, false);
+        }
+        return true;
+    }
+
+    /** How far the door has swung open, 0 shut to 1 open, on the client. */
+    public float getDoorOpening(float tickDelta) {
+        if (world == null || doorChanged == Long.MIN_VALUE) {
+            return open ? 1.0F : 0.0F;
+        }
+        float step = (world.getTime() - doorChanged + tickDelta) / DOOR_TICKS;
+        float ret = open ? doorFrom + step : doorFrom - step;
+        return net.minecraft.util.math.MathHelper.clamp(ret, 0.0F, 1.0F);
     }
 
     @Override

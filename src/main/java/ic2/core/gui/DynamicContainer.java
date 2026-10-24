@@ -98,6 +98,9 @@ public class DynamicContainer extends ScreenHandler {
                 + conditionNames.size()
                 + tankNames.size() * TANK_VALUES];
         addProperties(new ValueDelegate());
+        if (tile != null && !playerInventory.player.getWorld().isClient) {
+            tile.onGuiOpened(playerInventory.player);
+        }
     }
 
     /**
@@ -448,11 +451,13 @@ public class DynamicContainer extends ScreenHandler {
         int y = 84;
 
         if (definition != null) {
-            for (GuiElementNode element : definition.getElements("playerInventory")) {
-                x = element.getX() + 1;
-                y = element.getY() + 1;
-                break;
+            List<GuiElementNode> inventory = definition.getElements("playerInventory");
+            if (inventory.isEmpty()) {
+                // a window without the player's inventory, the steam generator's: none to lay out
+                return;
             }
+            x = inventory.get(0).getX() + 1;
+            y = inventory.get(0).getY() + 1;
         }
 
         for (int row = 0; row < 3; row++) {
@@ -585,6 +590,14 @@ public class DynamicContainer extends ScreenHandler {
 
     public GuiDefinition getDefinition() {
         return definition;
+    }
+
+    @Override
+    public void onClosed(PlayerEntity player) {
+        super.onClosed(player);
+        if (tile != null && !player.getWorld().isClient) {
+            tile.onGuiClosed(player);
+        }
     }
 
     @Override

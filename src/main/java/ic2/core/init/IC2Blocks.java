@@ -746,6 +746,10 @@ public final class IC2Blocks {
             // a lit luminator is a light source of 15, as getLightValue gave it in 1.12.2
             settings.luminance(state -> state.contains(BlockTileEntity.ACTIVE) && state.get(BlockTileEntity.ACTIVE) ? 15 : 0).nonOpaque();
         }
+        if (teBlock == TeBlock.personal_chest) {
+            // an open case with the door drawn by its renderer: the blocks around it stay visible
+            settings.nonOpaque();
+        }
         Block block = new BlockTileEntity(settings, teBlock);
         Identifier id = Identifier.of("ic2", teBlock.getName());
         Registry.register(Registries.BLOCK, id, block);

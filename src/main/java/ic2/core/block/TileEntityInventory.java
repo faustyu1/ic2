@@ -395,4 +395,12 @@ public abstract class TileEntityInventory extends TileEntityBlock
         }
         return true;
     }
+
+    /** A player opened this block's window, on the server. */
+    public void onGuiOpened(PlayerEntity player) {
+    }
+
+    /** A player closed this block's window, on the server. */
+    public void onGuiClosed(PlayerEntity player) {
+    }
 }

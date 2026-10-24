@@ -334,6 +334,9 @@ public class BlockTileEntity extends BlockWithEntity {
         if (teBlock == TeBlock.luminator_flat && state.contains(FACING)) {
             return luminatorShape(state.get(FACING));
         }
+        if (teBlock == TeBlock.personal_chest) {
+            return SAFE_SHAPE;
+        }
         return teBlock.getName().startsWith("chargepad") ? CHARGEPAD_SHAPE : super.getOutlineShape(state, world, pos, context);
     }
 
@@ -346,6 +349,8 @@ public class BlockTileEntity extends BlockWithEntity {
         return Block.createCuboidShape(x0, y0, z0, x1, y1, z1);
     }
 
+    /** The safe's case, a pixel in from each side as its 1.12.2 bounding box was. */
+    private static final net.minecraft.util.shape.VoxelShape SAFE_SHAPE = Block.createCuboidShape(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
     private static final net.minecraft.util.shape.VoxelShape CHARGEPAD_SHAPE = Block.createCuboidShape(0.0, 0.0, 0.0, 16.0, 15.0, 16.0);
 
     public ItemStack getItemStack(TeBlock teBlock) {
