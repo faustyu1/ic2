@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "ic2:dust_lead"
+  },
+  "result": {
+    "id": "ic2:ingot_lead"
+  },
+  "experience": 0.0,
+  "cookingtime": 100
+}

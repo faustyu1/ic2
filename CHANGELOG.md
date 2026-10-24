@@ -24,6 +24,10 @@ Add new entries under a section for the next version as they land.
 
 ### Fixed
 
+- Tin and lead ore, crushed and purified ores and metal dusts smelt in the vanilla furnace and blast
+  furnace, and resin into rubber in the furnace; they only smelted in IC2's own furnaces before,
+  so there was no way to tin ingots early on
+
 - Worlds with bare cables crashed on load: a cable not yet in the energy net asked it for its
   current
 

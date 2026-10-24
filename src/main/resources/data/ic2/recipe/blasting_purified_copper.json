@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:blasting",
+  "category": "misc",
+  "ingredient": {
+    "item": "ic2:purified_copper"
+  },
+  "result": {
+    "id": "minecraft:copper_ingot"
+  },
+  "experience": 0.0,
+  "cookingtime": 100
+}
