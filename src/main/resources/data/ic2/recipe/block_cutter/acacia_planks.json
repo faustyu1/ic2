@@ -1,0 +1,15 @@
+{
+  "type": "ic2:block_cutter",
+  "ingredient": {
+    "item": "minecraft:acacia_log"
+  },
+  "results": [
+    {
+      "id": "minecraft:acacia_planks",
+      "count": 6
+    }
+  ],
+  "metadata": {
+    "hardness": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "minecraft:gravel"
+  },
+  "results": [
+    {
+      "id": "minecraft:flint"
+    }
+  ]
+}

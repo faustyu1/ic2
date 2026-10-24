@@ -1,0 +1,11 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "tag": "c:ender_pearls"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_ender_pearl"
+    }
+  ]
+}

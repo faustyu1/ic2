@@ -1,0 +1,12 @@
+{
+  "type": "ic2:metal_former_rolling",
+  "ingredient": {
+    "tag": "c:plates/copper"
+  },
+  "results": [
+    {
+      "id": "ic2:casing_copper",
+      "count": 2
+    }
+  ]
+}

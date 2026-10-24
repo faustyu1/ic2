@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "tag": "c:plates/dense_obsidian"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_obsidian",
+      "count": 9
+    }
+  ]
+}

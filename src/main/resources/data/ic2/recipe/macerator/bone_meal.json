@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "minecraft:bone"
+  },
+  "results": [
+    {
+      "id": "minecraft:bone_meal",
+      "count": 4
+    }
+  ]
+}

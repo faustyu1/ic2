@@ -1,0 +1,15 @@
+{
+  "type": "ic2:block_cutter",
+  "ingredient": {
+    "item": "minecraft:gold_block"
+  },
+  "results": [
+    {
+      "id": "ic2:plate_gold",
+      "count": 9
+    }
+  ],
+  "metadata": {
+    "hardness": 2
+  }
+}

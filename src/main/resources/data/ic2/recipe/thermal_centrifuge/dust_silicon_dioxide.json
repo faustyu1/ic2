@@ -1,0 +1,15 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "tag": "c:dusts/clay"
+  },
+  "count": 4,
+  "results": [
+    {
+      "id": "ic2:dust_silicon_dioxide"
+    }
+  ],
+  "metadata": {
+    "minHeat": 250
+  }
+}

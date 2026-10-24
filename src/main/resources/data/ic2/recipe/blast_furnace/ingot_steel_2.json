@@ -1,0 +1,18 @@
+{
+  "type": "ic2:blast_furnace",
+  "ingredient": {
+    "tag": "ic2:crushed/iron"
+  },
+  "results": [
+    {
+      "id": "ic2:ingot_steel"
+    },
+    {
+      "id": "ic2:misc_resource_slag"
+    }
+  ],
+  "metadata": {
+    "fluid": 1,
+    "duration": 6000
+  }
+}

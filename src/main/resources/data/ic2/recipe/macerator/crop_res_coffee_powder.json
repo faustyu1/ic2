@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "ic2:crop_res_coffee_beans"
+  },
+  "results": [
+    {
+      "id": "ic2:crop_res_coffee_powder",
+      "count": 3
+    }
+  ]
+}

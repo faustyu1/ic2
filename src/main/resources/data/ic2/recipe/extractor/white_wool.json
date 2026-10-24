@@ -1,0 +1,14 @@
+{
+  "type": "ic2:extractor",
+  "ingredient": {
+    "item": "minecraft:white_wool"
+  },
+  "results": [
+    {
+      "id": "minecraft:white_wool"
+    }
+  ],
+  "metadata": {
+    "ignoreSameInputOutput": true
+  }
+}

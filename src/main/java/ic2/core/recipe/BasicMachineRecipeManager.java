@@ -10,12 +10,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 
 /**
- * Minimal Fabric port of BasicMachineRecipeManager.
- * Original handled NBT metadata and OreDict. This version keeps a simple map.
+ * Fabric port of BasicMachineRecipeManager. It holds two sets of recipes: those other mods add
+ * through the API, and the datapack recipes {@link ic2.core.recipe.data.MachineRecipeSync} puts in
+ * on every recipe reload, which took the place of the 1.12.2 machine configs.
  */
 public class BasicMachineRecipeManager implements IBasicMachineRecipeManager {
 
     private final List<MachineRecipe<IRecipeInput, Collection<ItemStack>>> recipes = new ArrayList<>();
+    /** The recipes of the loaded datapacks, replaced as a whole on every reload. */
+    private List<MachineRecipe<IRecipeInput, Collection<ItemStack>>> dataRecipes = List.of();
+
+    /** Replaces the datapack recipes; those added through the API stay and are tried first. */
+    public void setDataRecipes(List<MachineRecipe<IRecipeInput, Collection<ItemStack>>> recipes) {
+        dataRecipes = List.copyOf(recipes);
+    }
 
     @Override
     public boolean addRecipe(IRecipeInput input, NbtCompound metadata, boolean replace, ItemStack... outputs) {
@@ -40,23 +48,35 @@ public class BasicMachineRecipeManager implements IBasicMachineRecipeManager {
     @Override
     public MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack> apply(ItemStack input, boolean adjustInput) {
         if (input == null || input.isEmpty()) return null;
-        for (MachineRecipe<IRecipeInput, Collection<ItemStack>> recipe : recipes) {
+        MachineRecipe<IRecipeInput, Collection<ItemStack>> recipe = find(recipes, input);
+        if (recipe == null) recipe = find(dataRecipes, input);
+        if (recipe == null) return null;
+
+        ItemStack adjusted = input.copy();
+        if (adjustInput) {
+            adjusted.decrement(recipe.getInput().getAmount());
+        }
+        //noinspection unchecked
+        return OutputUnifier.unifyResult((MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>) recipe.getResult(adjusted));
+    }
+
+    private static MachineRecipe<IRecipeInput, Collection<ItemStack>> find(List<MachineRecipe<IRecipeInput, Collection<ItemStack>>> list, ItemStack input) {
+        for (MachineRecipe<IRecipeInput, Collection<ItemStack>> recipe : list) {
             if (recipe.getInput().matches(input)) {
-                ItemStack adjusted = input.copy();
-                if (adjustInput) {
-                    int amount = recipe.getInput().getAmount();
-                    adjusted.decrement(amount);
-                }
-                //noinspection unchecked
-                return OutputUnifier.unifyResult((MachineRecipeResult<IRecipeInput, Collection<ItemStack>, ItemStack>) recipe.getResult(adjusted));
+                return recipe;
             }
         }
         return null;
     }
 
     @Override
-    public Iterable<? extends MachineRecipe<IRecipeInput, Collection<ItemStack>>> getRecipes() {
-        return recipes;
+    public List<MachineRecipe<IRecipeInput, Collection<ItemStack>>> getRecipes() {
+        if (dataRecipes.isEmpty()) {
+            return recipes;
+        }
+        List<MachineRecipe<IRecipeInput, Collection<ItemStack>>> ret = new ArrayList<>(recipes);
+        ret.addAll(dataRecipes);
+        return ret;
     }
 
     @Override

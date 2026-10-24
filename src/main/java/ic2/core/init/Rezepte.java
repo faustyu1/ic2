@@ -29,60 +29,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Fabric port of ic2.core.init.Rezepte - loads the machine recipes from
- * {@code assets/ic2/config/*.ini}.
+ * Fabric port of ic2.core.init.Rezepte - reads the recipe settings of general.ini (the disabled
+ * outputs, the recycler lists) and the UU-matter configs.
  *
- * <p>The file format is untouched, so the recipe values stay identical to 1.12.2:
- * <pre>
- *   &lt;input&gt; = &lt;output 1&gt;[ &lt;output n&gt;...] [&#64;attribute:value...]
- * </pre>
- *
- * <p>Which attributes are accepted depends on the machine, exactly as in the original: the block
- * cutter reads {@code @hardness}, the thermal centrifuge {@code @heat} (stored as {@code minHeat}),
- * the ore washing plant {@code @fluid} (stored as {@code amount}), the blast furnace
- * {@code @fluid} and {@code @duration}, and the furnace {@code @xp} (stored as
- * {@code experience}). {@code @ignoreSameInputOutput} is accepted for every machine.
- *
- * <p>Unlike the original there is no deferred second pass for unresolvable entries: on Fabric all
- * items exist by the time recipes load, so an unresolvable line is reported once and skipped.
+ * <p>The machine recipes it loaded from {@code config/*.ini} in 1.12.2 are datapack recipes now,
+ * see {@link ic2.core.recipe.data.IC2MachineRecipe}; tools/gen_machine_recipes.py made them from
+ * those configs.
  */
 public final class Rezepte {
     private static final Logger LOG = LoggerFactory.getLogger("IC2-Recipes");
-
-    /** Machine kinds, each with the recipe attributes it understands. */
-    public enum MachineType {
-        Normal,
-        Furnace,
-        BlockCutter,
-        ThermalCentrifuge,
-        OreWashingPlant,
-        BlastFurnace
-    }
 
     /** Outputs the config disables, from {@code recipes/disable} in general.ini. */
     private static List<IRecipeInput> disabledOutputs = List.of();
 
     private Rezepte() {}
 
-    /**
-     * Loads every machine recipe config and feeds it into the matching manager in
-     * {@link Recipes}. Managers that have not been created yet are skipped with a warning.
-     */
+    /** Reads the recipe settings and the UU-matter recipes. */
     public static void loadRecipes() {
         loadDisabledOutputs();
         loadRecyclerLists();
-        load("macerator", Recipes.macerator, MachineType.Normal);
-        load("compressor", Recipes.compressor, MachineType.Normal);
-        load("extractor", Recipes.extractor, MachineType.Normal);
-        load("furnace", SmeltingRecipeManager.SmeltingBridge.INSTANCE, MachineType.Furnace);
-        load("ore_washer", Recipes.oreWashing, MachineType.OreWashingPlant);
-        load("thermal_centrifuge", Recipes.centrifuge, MachineType.ThermalCentrifuge);
-        load("blast_furnace", Recipes.blastfurnace, MachineType.BlastFurnace);
-        load("block_cutter", Recipes.blockcutter, MachineType.BlockCutter);
-        load("block_cutter_late", Recipes.blockcutter, MachineType.BlockCutter);
-        load("metal_former_cutting", Recipes.metalformerCutting, MachineType.Normal);
-        load("metal_former_extruding", Recipes.metalformerExtruding, MachineType.Normal);
-        load("metal_former_rolling", Recipes.metalformerRolling, MachineType.Normal);
         loadUuRecipes();
     }
 
@@ -247,140 +212,13 @@ public final class Rezepte {
         }
     }
 
-    /**
-     * Loads one recipe config.
-     *
-     * @param name    config base name, e.g. {@code macerator} for {@code config/macerator.ini}
-     * @param machine target recipe manager, may be null if that machine is not wired up yet
-     * @param type    machine kind, deciding which recipe attributes are accepted
-     * @return number of recipes added
-     */
-    public static int load(String name, IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ?> machine, MachineType type) {
-        if (machine == null) {
-            LOG.warn("[IC2] No recipe manager for {}, skipping its recipes", name);
-            return 0;
-        }
-
-        List<String> lines;
-        try {
-            lines = readConfig(name);
-        } catch (IOException e) {
-            LOG.error("[IC2] Failed to read config/{}.ini", name, e);
-            return 0;
-        }
-
-        int total = 0;
-        int loaded = 0;
-        for (String line : lines) {
-            total++;
-            if (loadRecipe(name, line, machine, type)) {
-                loaded++;
-            }
-        }
-
-        LOG.info("[IC2] Loaded {} of {} recipes for {}", loaded, total, name);
-        return loaded;
-    }
-
-    private static boolean loadRecipe(String config, String line,
-                                      IMachineRecipeManager<IRecipeInput, Collection<ItemStack>, ?> machine,
-                                      MachineType type) {
-        int sep = line.indexOf('=');
-        if (sep < 0) {
-            LOG.warn("[IC2] {}: no '=' in recipe line: {}", config, line);
-            return false;
-        }
-
-        String key = line.substring(0, sep).trim();
-        String value = line.substring(sep + 1).trim();
-
-        IRecipeInput input;
-        try {
-            input = ConfigUtil.asRecipeInputWithAmount(key);
-        } catch (Exception e) {
-            LOG.warn("[IC2] {}: unparsable input {}: {}", config, key, e.getMessage());
-            return false;
-        }
-        if (input == null) {
-            LOG.debug("[IC2] {}: skipping recipe with unresolvable input {}", config, key);
-            return false;
-        }
-
-        List<ItemStack> outputs = new ArrayList<>();
-        NbtCompound metadata = new NbtCompound();
-
-        for (String part : splitWhitespace(value)) {
-            if (!part.startsWith("@")) {
-                ItemStack output;
-                try {
-                    output = ConfigUtil.asStackWithAmount(part);
-                } catch (Exception e) {
-                    LOG.warn("[IC2] {}: unparsable output {}: {}", config, part, e.getMessage());
-                    return false;
-                }
-                if (output == null) {
-                    LOG.debug("[IC2] {}: skipping recipe {} with unresolvable output {}", config, key, part);
-                    return false;
-                }
-                outputs.add(output);
-            } else if (!readAttribute(config, key, part, metadata, type)) {
-                return false;
-            }
-        }
-
-        if (outputs.isEmpty()) {
-            LOG.warn("[IC2] {}: recipe {} has no outputs", config, key);
-            return false;
-        }
-
+    /** Whether the config disables recipes making this item, from {@code recipes/disable}. */
+    public static boolean isDisabledOutput(ItemStack output) {
         for (IRecipeInput disabled : disabledOutputs) {
-            for (ItemStack output : outputs) {
-                if (disabled.matches(output)) {
-                    return false;
-                }
+            if (disabled.matches(output)) {
+                return true;
             }
         }
-
-        return machine.addRecipe(input, outputs, metadata.isEmpty() ? null : metadata, false);
-    }
-
-    /** Parses one {@code @attribute:value} token into the recipe metadata. */
-    private static boolean readAttribute(String config, String key, String part, NbtCompound metadata, MachineType type) {
-        try {
-            if (part.startsWith("@ignoreSameInputOutput")) {
-                metadata.putBoolean("ignoreSameInputOutput", true);
-                return true;
-            }
-            if (part.startsWith("@xp:") && type == MachineType.Furnace) {
-                metadata.putFloat("experience", Float.parseFloat(part.substring(4)));
-                return true;
-            }
-            if (part.startsWith("@hardness:") && type == MachineType.BlockCutter) {
-                metadata.putInt("hardness", Integer.parseInt(part.substring(10)));
-                return true;
-            }
-            if (part.startsWith("@heat:") && type == MachineType.ThermalCentrifuge) {
-                metadata.putInt("minHeat", Integer.parseInt(part.substring(6)));
-                return true;
-            }
-            if (part.startsWith("@fluid:") && type == MachineType.OreWashingPlant) {
-                metadata.putInt("amount", Integer.parseInt(part.substring(7)));
-                return true;
-            }
-            if (part.startsWith("@fluid:") && type == MachineType.BlastFurnace) {
-                metadata.putInt("fluid", Integer.parseInt(part.substring(7)));
-                return true;
-            }
-            if (part.startsWith("@duration:") && type == MachineType.BlastFurnace) {
-                metadata.putInt("duration", Integer.parseInt(part.substring(10)));
-                return true;
-            }
-        } catch (NumberFormatException e) {
-            LOG.warn("[IC2] {}: malformed attribute {} on recipe {}", config, part, key);
-            return false;
-        }
-
-        LOG.warn("[IC2] {}: invalid attribute {} for {} recipe {}", config, part, type, key);
         return false;
     }
 

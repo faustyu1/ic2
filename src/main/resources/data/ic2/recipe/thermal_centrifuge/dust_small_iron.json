@@ -1,0 +1,17 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "tag": "ic2:purified/tin"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_small_iron"
+    },
+    {
+      "id": "ic2:dust_tin"
+    }
+  ],
+  "metadata": {
+    "minHeat": 1000
+  }
+}

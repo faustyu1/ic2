@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "minecraft:melon_seeds"
+  },
+  "count": 16,
+  "results": [
+    {
+      "id": "ic2:crafting_bio_chaff"
+    }
+  ]
+}

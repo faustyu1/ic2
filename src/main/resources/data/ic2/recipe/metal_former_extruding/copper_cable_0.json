@@ -1,0 +1,12 @@
+{
+  "type": "ic2:metal_former_extruding",
+  "ingredient": {
+    "tag": "c:ingots/copper"
+  },
+  "results": [
+    {
+      "id": "ic2:copper_cable_0",
+      "count": 3
+    }
+  ]
+}

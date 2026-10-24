@@ -1,0 +1,14 @@
+{
+  "type": "ic2:ore_washer",
+  "ingredient": {
+    "item": "minecraft:gravel"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_stone"
+    }
+  ],
+  "metadata": {
+    "amount": 1000
+  }
+}

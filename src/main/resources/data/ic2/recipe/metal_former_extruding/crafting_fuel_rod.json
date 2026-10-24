@@ -1,0 +1,11 @@
+{
+  "type": "ic2:metal_former_extruding",
+  "ingredient": {
+    "tag": "c:plates/iron"
+  },
+  "results": [
+    {
+      "id": "ic2:crafting_fuel_rod"
+    }
+  ]
+}

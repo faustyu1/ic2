@@ -1,0 +1,21 @@
+{
+  "type": "ic2:ore_washer",
+  "ingredient": {
+    "tag": "ic2:crushed/lead"
+  },
+  "results": [
+    {
+      "id": "ic2:purified_lead"
+    },
+    {
+      "id": "ic2:dust_small_sulfur",
+      "count": 3
+    },
+    {
+      "id": "ic2:dust_stone"
+    }
+  ],
+  "metadata": {
+    "amount": 1000
+  }
+}

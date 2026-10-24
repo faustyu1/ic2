@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "tag": "c:ores/copper"
+  },
+  "results": [
+    {
+      "id": "ic2:crushed_copper",
+      "count": 2
+    }
+  ]
+}

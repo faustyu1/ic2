@@ -1,0 +1,11 @@
+{
+  "type": "ic2:metal_former_extruding",
+  "ingredient": {
+    "tag": "c:storage_blocks/bronze"
+  },
+  "results": [
+    {
+      "id": "ic2:crafting_bronze_shaft"
+    }
+  ]
+}

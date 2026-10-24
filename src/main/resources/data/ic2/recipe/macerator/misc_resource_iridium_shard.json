@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "tag": "c:gems/iridium"
+  },
+  "results": [
+    {
+      "id": "ic2:misc_resource_iridium_shard",
+      "count": 9
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "ic2:metal_former_cutting",
+  "ingredient": {
+    "tag": "c:plates/copper"
+  },
+  "results": [
+    {
+      "id": "ic2:copper_cable_0",
+      "count": 2
+    }
+  ]
+}

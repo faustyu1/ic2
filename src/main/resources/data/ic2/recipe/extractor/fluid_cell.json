@@ -1,0 +1,11 @@
+{
+  "type": "ic2:extractor",
+  "ingredient": {
+    "item": "ic2:fluid_cell_ic2air"
+  },
+  "results": [
+    {
+      "id": "ic2:fluid_cell"
+    }
+  ]
+}

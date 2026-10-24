@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "minecraft:white_wool"
+  },
+  "results": [
+    {
+      "id": "minecraft:string",
+      "count": 2
+    }
+  ]
+}

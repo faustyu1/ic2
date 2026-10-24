@@ -1,0 +1,11 @@
+{
+  "type": "ic2:metal_former_extruding",
+  "ingredient": {
+    "item": "ic2:casing_tin"
+  },
+  "results": [
+    {
+      "id": "ic2:crafting_tin_can"
+    }
+  ]
+}

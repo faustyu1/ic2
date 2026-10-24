@@ -1,0 +1,11 @@
+{
+  "type": "ic2:metal_former_rolling",
+  "ingredient": {
+    "tag": "c:ingots/tin"
+  },
+  "results": [
+    {
+      "id": "ic2:plate_tin"
+    }
+  ]
+}

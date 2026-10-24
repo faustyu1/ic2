@@ -1,0 +1,11 @@
+{
+  "type": "ic2:metal_former_rolling",
+  "ingredient": {
+    "tag": "c:ingots/bronze"
+  },
+  "results": [
+    {
+      "id": "ic2:plate_bronze"
+    }
+  ]
+}

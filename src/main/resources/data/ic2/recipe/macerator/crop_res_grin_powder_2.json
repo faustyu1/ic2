@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "minecraft:spider_eye"
+  },
+  "results": [
+    {
+      "id": "ic2:crop_res_grin_powder",
+      "count": 2
+    }
+  ]
+}

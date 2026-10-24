@@ -1,0 +1,11 @@
+{
+  "type": "ic2:metal_former_extruding",
+  "ingredient": {
+    "tag": "c:storage_blocks/steel"
+  },
+  "results": [
+    {
+      "id": "ic2:crafting_steel_shaft"
+    }
+  ]
+}

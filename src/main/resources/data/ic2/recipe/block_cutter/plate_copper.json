@@ -1,0 +1,15 @@
+{
+  "type": "ic2:block_cutter",
+  "ingredient": {
+    "tag": "c:storage_blocks/copper"
+  },
+  "results": [
+    {
+      "id": "ic2:plate_copper",
+      "count": 9
+    }
+  ],
+  "metadata": {
+    "hardness": 2
+  }
+}

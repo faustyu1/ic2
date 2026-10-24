@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "tag": "c:ores/gold"
+  },
+  "results": [
+    {
+      "id": "ic2:crushed_gold",
+      "count": 2
+    }
+  ]
+}

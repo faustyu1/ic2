@@ -1,0 +1,12 @@
+{
+  "type": "ic2:compressor",
+  "ingredient": {
+    "item": "minecraft:gold_ingot"
+  },
+  "count": 9,
+  "results": [
+    {
+      "id": "minecraft:gold_block"
+    }
+  ]
+}

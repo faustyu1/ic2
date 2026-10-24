@@ -1,0 +1,17 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "tag": "ic2:purified/gold"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_small_silver"
+    },
+    {
+      "id": "ic2:dust_gold"
+    }
+  ],
+  "metadata": {
+    "minHeat": 2000
+  }
+}

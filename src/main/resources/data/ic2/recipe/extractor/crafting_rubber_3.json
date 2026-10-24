@@ -1,0 +1,11 @@
+{
+  "type": "ic2:extractor",
+  "ingredient": {
+    "tag": "ic2:rubber_wood"
+  },
+  "results": [
+    {
+      "id": "ic2:crafting_rubber"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "type": "ic2:extractor",
+  "ingredient": {
+    "item": "minecraft:nether_bricks"
+  },
+  "results": [
+    {
+      "id": "minecraft:nether_brick",
+      "count": 4
+    }
+  ]
+}

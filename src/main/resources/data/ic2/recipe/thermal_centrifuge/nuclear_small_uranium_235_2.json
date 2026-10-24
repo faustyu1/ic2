@@ -1,0 +1,18 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "tag": "ic2:purified/uranium"
+  },
+  "results": [
+    {
+      "id": "ic2:nuclear_small_uranium_235"
+    },
+    {
+      "id": "ic2:nuclear_uranium_238",
+      "count": 6
+    }
+  ],
+  "metadata": {
+    "minHeat": 3000
+  }
+}

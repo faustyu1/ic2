@@ -67,6 +67,9 @@ public final class IC2Mod implements ModInitializer {
         ic2.core.init.IC2CreativeTabs.register();
         ic2.core.init.IC2ScreenHandlers.registerAll();
         ic2.core.init.IC2Recipes.init();
+        // the machine recipes are datapack recipes of IC2's own types, filled in on every reload
+        ic2.core.recipe.data.MachineRecipeKind.register();
+        ic2.core.recipe.data.MachineRecipeSync.register();
         ic2.core.uu.UuGraph.init();
         ic2.core.item.armor.jetpack.JetpackAttachmentRecipe.init();
         ic2.core.item.armor.jetpack.JetpackHandler.init();

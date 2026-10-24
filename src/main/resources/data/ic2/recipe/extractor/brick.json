@@ -1,0 +1,12 @@
+{
+  "type": "ic2:extractor",
+  "ingredient": {
+    "item": "minecraft:bricks"
+  },
+  "results": [
+    {
+      "id": "minecraft:brick",
+      "count": 4
+    }
+  ]
+}

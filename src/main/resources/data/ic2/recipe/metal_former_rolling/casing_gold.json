@@ -1,0 +1,12 @@
+{
+  "type": "ic2:metal_former_rolling",
+  "ingredient": {
+    "tag": "c:plates/gold"
+  },
+  "results": [
+    {
+      "id": "ic2:casing_gold",
+      "count": 2
+    }
+  ]
+}

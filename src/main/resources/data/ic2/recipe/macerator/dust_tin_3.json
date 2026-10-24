@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "tag": "c:plates/dense_tin"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_tin",
+      "count": 9
+    }
+  ]
+}

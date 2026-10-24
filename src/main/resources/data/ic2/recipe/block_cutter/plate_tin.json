@@ -1,0 +1,15 @@
+{
+  "type": "ic2:block_cutter",
+  "ingredient": {
+    "tag": "c:storage_blocks/tin"
+  },
+  "results": [
+    {
+      "id": "ic2:plate_tin",
+      "count": 9
+    }
+  ],
+  "metadata": {
+    "hardness": 2
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "ic2:extractor",
+  "ingredient": {
+    "item": "ic2:crop_res_bobs_yer_uncle_ranks_berry"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_small_emerald"
+    }
+  ]
+}

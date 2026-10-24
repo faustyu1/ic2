@@ -1,0 +1,17 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "tag": "ic2:crushed/lead"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_lead"
+    },
+    {
+      "id": "ic2:dust_stone"
+    }
+  ],
+  "metadata": {
+    "minHeat": 2000
+  }
+}

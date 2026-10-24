@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "minecraft:quartz_stairs"
+  },
+  "results": [
+    {
+      "id": "minecraft:quartz",
+      "count": 6
+    }
+  ]
+}

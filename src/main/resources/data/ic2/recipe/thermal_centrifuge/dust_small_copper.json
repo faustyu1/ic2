@@ -1,0 +1,17 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "tag": "ic2:purified/lead"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_small_copper"
+    },
+    {
+      "id": "ic2:dust_lead"
+    }
+  ],
+  "metadata": {
+    "minHeat": 2000
+  }
+}

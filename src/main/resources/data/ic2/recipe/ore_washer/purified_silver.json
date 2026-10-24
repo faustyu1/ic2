@@ -1,0 +1,21 @@
+{
+  "type": "ic2:ore_washer",
+  "ingredient": {
+    "tag": "ic2:crushed/silver"
+  },
+  "results": [
+    {
+      "id": "ic2:purified_silver"
+    },
+    {
+      "id": "ic2:dust_small_silver",
+      "count": 2
+    },
+    {
+      "id": "ic2:dust_stone"
+    }
+  ],
+  "metadata": {
+    "amount": 1000
+  }
+}

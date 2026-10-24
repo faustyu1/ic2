@@ -1,0 +1,20 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "tag": "ic2:crushed/copper"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_small_tin"
+    },
+    {
+      "id": "ic2:dust_copper"
+    },
+    {
+      "id": "ic2:dust_stone"
+    }
+  ],
+  "metadata": {
+    "minHeat": 500
+  }
+}

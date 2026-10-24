@@ -1,0 +1,21 @@
+{
+  "type": "ic2:thermal_centrifuge",
+  "ingredient": {
+    "item": "ic2:nuclear_depleted_uranium"
+  },
+  "results": [
+    {
+      "id": "ic2:nuclear_small_plutonium"
+    },
+    {
+      "id": "ic2:nuclear_uranium_238",
+      "count": 4
+    },
+    {
+      "id": "ic2:dust_iron"
+    }
+  ],
+  "metadata": {
+    "minHeat": 4000
+  }
+}

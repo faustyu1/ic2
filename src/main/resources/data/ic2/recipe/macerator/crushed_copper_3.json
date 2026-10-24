@@ -1,0 +1,12 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "tag": "c:storage_blocks/raw_copper"
+  },
+  "results": [
+    {
+      "id": "ic2:crushed_copper",
+      "count": 18
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "type": "ic2:macerator",
+  "ingredient": {
+    "item": "minecraft:ender_eye"
+  },
+  "results": [
+    {
+      "id": "ic2:dust_ender_eye"
+    }
+  ]
+}
