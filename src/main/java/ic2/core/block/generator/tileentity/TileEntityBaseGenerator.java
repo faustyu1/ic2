@@ -60,6 +60,9 @@ public abstract class TileEntityBaseGenerator extends TileEntityInventory implem
     // IEnergySource
     @Override public boolean emitsEnergyTo(ic2.api.energy.tile.IEnergyAcceptor receiver, Direction side) { return true; }
     @Override public double getOfferedEnergy() { return Math.min(energyStored, getMaxEnergyOutput()); }
+
+    @Override public double getEnergyForDisplay() { return energyStored; }
+    @Override public double getEnergyCapacityForDisplay() { return maxStorage; }
     @Override public void drawEnergy(double amount) { energyStored = Math.max(0, energyStored - amount); markDirty(); }
     @Override public int getSourceTier() { return tier; }
 

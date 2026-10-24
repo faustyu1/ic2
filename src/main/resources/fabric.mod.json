@@ -48,6 +48,9 @@
     ],
     "modmenu": [
       "ic2.integration.modmenu.Ic2ModMenu"
+    ],
+    "jade": [
+      "ic2.integration.jade.Ic2JadePlugin"
     ]
   },
   "depends": {
@@ -63,6 +66,7 @@
   ],
   "suggests": {
     "roughlyenoughitems": "*",
+    "jade": "*",
     "modmenu": "*",
     "cloth-config": "*"
   },

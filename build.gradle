@@ -73,6 +73,10 @@ dependencies {
 
     // Mod Menu and Cloth Config are optional too: with both, Mod Menu's config button opens the
     // settings screen; without them the settings are edited in config/IC2.ini
+    // Jade is optional: its plugin only loads through the "jade" entrypoint
+    modCompileOnly "maven.modrinth:jade:${project.jade_version}"
+    modLocalRuntime "maven.modrinth:jade:${project.jade_version}"
+
     modCompileOnly "com.terraformersmc:modmenu:${project.modmenu_version}"
     modLocalRuntime "com.terraformersmc:modmenu:${project.modmenu_version}"
     modCompileOnly "me.shedaniel.cloth:cloth-config-fabric:${project.cloth_config_version}"
@@ -127,7 +131,7 @@ publishMods {
         accessToken = providers.environmentVariable("MODRINTH_TOKEN")
         minecraftVersions.add(project.minecraft_version)
         requires("fabric-api", "trinkets")
-        optional("rei")
+        optional("rei", "jade")
     }
     curseforge {
         projectId = project.curseforge_project_id
@@ -137,6 +141,6 @@ publishMods {
         client = true
         server = true
         requires("fabric-api", "trinkets")
-        optional("roughly-enough-items")
+        optional("roughly-enough-items", "jade")
     }
 }

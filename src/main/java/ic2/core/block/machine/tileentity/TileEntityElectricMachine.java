@@ -58,6 +58,9 @@ public abstract class TileEntityElectricMachine extends TileEntityInventory impl
     // IEnergySink
     @Override public boolean acceptsEnergyFrom(ic2.api.energy.tile.IEnergyEmitter emitter, Direction side) { return true; }
     @Override public double getDemandedEnergy() { return Math.max(0, maxEnergy - energyStored); }
+
+    @Override public double getEnergyForDisplay() { return energyStored; }
+    @Override public double getEnergyCapacityForDisplay() { return maxEnergy; }
     @Override public double injectEnergy(Direction directionFrom, double amount, double voltage) {
         double toAdd = Math.min(amount, getDemandedEnergy());
         energyStored += toAdd;

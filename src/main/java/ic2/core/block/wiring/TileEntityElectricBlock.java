@@ -176,6 +176,9 @@ public abstract class TileEntityElectricBlock extends TileEntityInventory implem
 
     // IEnergyStorage
     @Override public int getStored() { return (int) energyStored; }
+
+    @Override public double getEnergyForDisplay() { return energyStored; }
+    @Override public double getEnergyCapacityForDisplay() { return maxStorage; }
     @Override public void setStored(int amount) { this.energyStored = Math.max(0, Math.min(amount, maxStorage)); markDirty(); }
     @Override public int addEnergy(int amount) {
         int canAdd = Math.min(amount, maxStorage - (int) energyStored);

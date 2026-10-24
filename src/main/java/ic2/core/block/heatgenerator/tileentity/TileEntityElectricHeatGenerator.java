@@ -99,6 +99,9 @@ public class TileEntityElectricHeatGenerator extends TileEntityHeatSourceInvento
         return energy;
     }
 
+    @Override public double getEnergyForDisplay() { return energy; }
+    @Override public double getEnergyCapacityForDisplay() { return CAPACITY; }
+
     public float getChargeLevel() {
         return (float) Math.min(1.0, energy / CAPACITY);
     }

@@ -1808,5 +1808,7 @@
   "block.ic2.dynamite": "Динамит",
   "item.ic2.crystal_memory": "Кристалл памяти",
   "modmenu.ic2.source_mod": "Оригинальный мод",
-  "ic2.config.title": "Настройки IC2 Community Edition"
+  "ic2.config.title": "Настройки IC2 Community Edition",
+  "config.jade.plugin_ic2.energy": "Энергия IC2",
+  "config.jade.plugin_ic2.progress": "Прогресс машин IC2"
 }

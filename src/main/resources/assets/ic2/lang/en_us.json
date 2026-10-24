@@ -1711,5 +1711,7 @@
   "block.ic2.steel_pipe_medium": "Medium Steel Pipe",
   "block.ic2.steel_pipe_large": "Large Steel Pipe",
   "modmenu.ic2.source_mod": "Source Mod",
-  "ic2.config.title": "IC2 Community Edition Settings"
+  "ic2.config.title": "IC2 Community Edition Settings",
+  "config.jade.plugin_ic2.energy": "IC2 energy",
+  "config.jade.plugin_ic2.progress": "IC2 machine progress"
 }

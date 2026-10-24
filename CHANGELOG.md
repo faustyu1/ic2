@@ -10,6 +10,12 @@ Add new entries under a section for the next version as they land.
 
 ## [Unreleased]
 
+### Added
+
+- Optional [Jade](https://modrinth.com/mod/jade) integration: the EU in a block's buffer as Jade's
+  energy bar and the progress of a working machine
+- The metal former's mode button: extruding, rolling and cutting
+
 ### Fixed
 
 - Worlds with bare cables crashed on load: a cable not yet in the energy net asked it for its

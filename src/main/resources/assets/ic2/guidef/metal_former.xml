@@ -9,5 +9,21 @@
     </environment>
     <energygauge x="20" y="37"/>
     <gauge name="progress" x="52" y="40" style="progressmetalformer"/>
+    <!-- the mode button cycles extruding, rolling and cutting, showing what each makes -->
+    <only if="mode0">
+        <tooltip text="ic2.MetalFormer.gui.switch.Extruding">
+            <button x="65" y="53" width="20" height="20" icon="ic2:copper_cable_0" event="mode"/>
+        </tooltip>
+    </only>
+    <only if="mode1">
+        <tooltip text="ic2.MetalFormer.gui.switch.Rolling">
+            <button x="65" y="53" width="20" height="20" icon="ic2:forge_hammer" event="mode"/>
+        </tooltip>
+    </only>
+    <only if="mode2">
+        <tooltip text="ic2.MetalFormer.gui.switch.Cutting">
+            <button x="65" y="53" width="20" height="20" icon="ic2:cutter" event="mode"/>
+        </tooltip>
+    </only>
     <playerInventory x="7" y="83"/>
 </gui>

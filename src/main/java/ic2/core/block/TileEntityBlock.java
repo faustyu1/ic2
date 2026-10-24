@@ -286,6 +286,16 @@ public abstract class TileEntityBlock extends BlockEntity implements INetworkDat
         return 0.0;
     }
 
+    /** The EU in the block's buffer, as overlays such as Jade show it. */
+    public double getEnergyForDisplay() {
+        return 0.0;
+    }
+
+    /** The size of the block's EU buffer, or 0 when it has none. */
+    public double getEnergyCapacityForDisplay() {
+        return 0.0;
+    }
+
     /**
      * State of a condition a guidef {@code <only if="...">} tests, e.g. whether the block cutter's
      * blade is too weak. The original read the same hook through IGuiConditionProvider.
