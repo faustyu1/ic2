@@ -94,7 +94,8 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
         }
 
         tank.fillInternal(content.resource(), content.amount(), true);
-        consume(1);
+        // consumed whole: the emptied container goes to the output, not back into this slot
+        consume(1, false, true);
         if (!emptied.isEmpty()) {
             outputSlot.add(emptied);
         }
@@ -137,7 +138,7 @@ public class InvSlotConsumableLiquid extends InvSlotConsumable {
         }
 
         tank.drainInternal(capacity, true);
-        consume(1);
+        consume(1, false, true);
         outputSlot.add(filled);
         return true;
     }
