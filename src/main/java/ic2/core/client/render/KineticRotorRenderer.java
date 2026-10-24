@@ -57,7 +57,9 @@ public class KineticRotorRenderer implements BlockEntityRenderer<TileEntityRotor
                        VertexConsumerProvider vertexConsumers, int light, int overlay) {
         int diameter = generator.getRotorDiameter();
         Identifier texture = generator.getRotorRenderTexture();
-        if (diameter <= 0 || texture == null || generator.getWorld() == null) {
+        // a broken generator can linger in the renderer's list of blocks drawn beyond their bounds
+        // until its chunk section is rebuilt, which an emptied section never is
+        if (generator.isRemoved() || diameter <= 0 || texture == null || generator.getWorld() == null) {
             return;
         }
         Direction facing = generator.getFacing();
