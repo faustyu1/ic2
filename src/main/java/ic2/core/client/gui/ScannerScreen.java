@@ -16,6 +16,8 @@ public class ScannerScreen extends HandledScreen<ScannerScreenHandler> {
 
     private static final int HEADING_COLOR = 0x20EFFE;
     private static final int LINE_COLOR = 0x57C8DA;
+    /** Room for a line of text, from its left edge to the first icon column. */
+    private static final int TEXT_WIDTH = 123;
 
     public ScannerScreen(ScannerScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title);
@@ -35,6 +37,10 @@ public class ScannerScreen extends HandledScreen<ScannerScreenHandler> {
         int line = 0;
         for (ScannerScreenHandler.ScanEntry entry : handler.getResults()) {
             String text = entry.count() + "x " + entry.stack().getName().getString();
+            // a long name stops short of the icon column, cut off with an ellipsis
+            if (textRenderer.getWidth(text) > TEXT_WIDTH) {
+                text = textRenderer.trimToWidth(text, TEXT_WIDTH - textRenderer.getWidth("...")) + "...";
+            }
             context.drawText(textRenderer, text, 10, 34 + line * 11, LINE_COLOR, false);
             // the icons alternate between two columns, as they did in 1.12.2
             context.drawItem(entry.stack(), 135 + (line & 1) * 15, 11 * line + 28);
