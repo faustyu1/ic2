@@ -21,13 +21,14 @@ public class ItemArmorSolarHelmet extends ItemArmorUtility {
     public void onArmorTick(World world, PlayerEntity player, ItemStack stack) {
         if (world.isClient) return;
 
-        // the chestplate, or the battery pack on the back when no chestplate is worn
-        ItemStack chest = ic2.core.item.armor.jetpack.BackSlot.getChestOrBack(player);
-        if (chest.isEmpty()) return;
-
         double chargeAmount = TileEntitySolarGenerator.getSkyLight(world, player.getBlockPos());
-        if (chargeAmount > 0.0) {
-            ElectricItem.manager.charge(chest, chargeAmount, Integer.MAX_VALUE, true, false);
+        if (chargeAmount <= 0.0) return;
+
+        // the chestplate, or the pack on the back when the chestplate takes no charge (plain armour
+        // over a battery pack in the back slot)
+        ItemStack chest = player.getEquippedStack(EquipmentSlot.CHEST);
+        if (ElectricItem.manager.charge(chest, chargeAmount, Integer.MAX_VALUE, true, false) <= 0.0) {
+            ElectricItem.manager.charge(ic2.core.item.armor.jetpack.BackSlot.get(player), chargeAmount, Integer.MAX_VALUE, true, false);
         }
     }
 }
