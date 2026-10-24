@@ -50,6 +50,8 @@ public final class ToolSoundHandler {
         HELD.clear();
         stop(jetpackLoop);
         jetpackLoop = null;
+        // a world time from the last world would read as a thrust in the future in the next one
+        JetpackLogic.lastClientThrust = Long.MIN_VALUE;
     }
 
     private static void tick(MinecraftClient client) {
@@ -113,7 +115,8 @@ public final class ToolSoundHandler {
     /** The engine loop follows the local player while the jetpack fires. */
     private static void tickJetpack(MinecraftClient client) {
         ClientPlayerEntity player = client.player;
-        boolean firing = player != null && client.world.getTime() - JetpackLogic.lastClientThrust <= 2;
+        long sinceThrust = client.world.getTime() - JetpackLogic.lastClientThrust;
+        boolean firing = player != null && sinceThrust >= 0 && sinceThrust <= 2;
         if (firing && (jetpackLoop == null || jetpackLoop.isDone())) {
             jetpackLoop = play(client, player, IC2Sounds.TOOLS_JETPACK_JETPACK_LOOP);
         } else if (!firing && jetpackLoop != null) {
