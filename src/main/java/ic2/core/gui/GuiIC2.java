@@ -409,6 +409,8 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
      * tank, {@code plain} is the bare surface the guidef sizes itself, {@code borderless} draws the
      * gauge frame around a 12x47 surface.
      */
+    private static final int EMPTY_TANK_COLOR = 0xFFF2F2F2;
+
     private void drawFluidTank(DrawContext context, int left, int top, GuiElementNode element) {
         String type = element.get("type", "normal").toLowerCase(java.util.Locale.ROOT);
         boolean withBorder = type.equals("normal");
@@ -424,10 +426,14 @@ public class GuiIC2 extends HandledScreen<DynamicContainer> {
         int capacity = tank == null ? 0 : tank[2];
 
         if (amount <= 0 || capacity <= 0) {
+            // an empty tank reads as a clear glass rather than the dark sprite of the original
             if (withBorder) {
-                drawCommon(context, x, y, 70, 100, width, height);
+                drawCommon(context, x, y, 6, 100, width, height);
+                context.fill(x + 4, y + 4, x + 16, y + 51, EMPTY_TANK_COLOR);
+                drawCommon(context, x, y, 38, 100, 20, 55);
             } else if (withGauge) {
-                drawCommon(context, x, y, 74, 104, width, height);
+                context.fill(x, y, x + width, y + height, EMPTY_TANK_COLOR);
+                drawCommon(context, x - 4, y - 4, 38, 100, 20, 55);
             }
             return;
         }
